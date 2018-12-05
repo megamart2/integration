@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/eu.megamart2.papyrus.extensions_1.0.0.201812051253.jar" id="eu.megamart2.papyrus.extensions" version="1.0.0.201812051253">
+      <category name="megamart-papyrus"/>
+   </feature>
+   <feature url="features/eu.megamart2.moka.extensions.feature_1.0.0.201812051253.jar" id="eu.megamart2.moka.extensions.feature" version="1.0.0.201812051253">
+      <category name="megamart-moka"/>
+   </feature>
+   <feature url="features/fr.inria.atlanmod.neoemf.core.feature_1.0.2.jar" id="fr.inria.atlanmod.neoemf.core.feature" version="1.0.2">
+      <category name="megamart-neoemf"/>
+   </feature>
+   <feature url="features/fr.inria.atlanmod.neoemf.io.feature_1.0.2.jar" id="fr.inria.atlanmod.neoemf.io.feature" version="1.0.2">
+      <category name="megamart-neoemf-utilities"/>
+   </feature>
+   <feature url="features/fr.inria.atlanmod.neoemf.data.berkeleydb.feature_1.0.2.jar" id="fr.inria.atlanmod.neoemf.data.berkeleydb.feature" version="1.0.2">
+      <category name="megamart-neoemf-adapters"/>
+   </feature>
+   <feature url="features/fr.inria.atlanmod.neoemf.data.blueprints.core.feature_1.0.2.jar" id="fr.inria.atlanmod.neoemf.data.blueprints.core.feature" version="1.0.2">
+      <category name="megamart-neoemf-adapters"/>
+   </feature>
+   <feature url="features/fr.inria.atlanmod.neoemf.data.blueprints.neo4j.feature_1.0.2.jar" id="fr.inria.atlanmod.neoemf.data.blueprints.neo4j.feature" version="1.0.2">
+      <category name="megamart-neoemf-adapters"/>
+   </feature>
+   <feature url="features/fr.inria.atlanmod.neoemf.data.blueprints.neo4j.wrapper.feature_1.0.2.jar" id="fr.inria.atlanmod.neoemf.data.blueprints.neo4j.wrapper.feature" version="1.0.2">
+      <category name="megamart-neoemf-adapters"/>
+   </feature>
+   <feature url="features/fr.inria.atlanmod.neoemf.data.hbase.feature_1.0.2.jar" id="fr.inria.atlanmod.neoemf.data.hbase.feature" version="1.0.2">
+      <category name="megamart-neoemf-adapters"/>
+   </feature>
+   <feature url="features/fr.inria.atlanmod.neoemf.data.mapdb.feature_1.0.2.jar" id="fr.inria.atlanmod.neoemf.data.mapdb.feature" version="1.0.2">
+      <category name="megamart-neoemf-adapters"/>
+   </feature>
+   <category-def name="megamart-papyrus" label="MegaM@Rt Papyrus Extensions"/>
+   <category-def name="megamart-moka" label="MegaM@Rt Moka Extensions"/>
+   <category-def name="megamart-neoemf" label="MegaM@Rt NeoEMF"/>
+   <category-def name="megamart-neoemf-adapters" label="MegaM@Rt NeoEMF Adapters"/>
+   <category-def name="megamart-neoemf-utilities" label="MegaM@Rt NeoEMF Utilities"/>
+</site>
