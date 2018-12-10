@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><?pde version="3.8"?><target name="eu.megamart2.platform.target.2018-09">
 	<locations>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<repository location="http://download.eclipse.org/releases/2018-09"/>
+			<unit id="org.eclipse.emf.cdo.sdk.feature.group" version="5.0.0.v20180530-1201"/>
 			<unit id="org.eclipse.emf.sdk.feature.group" version="2.15.0.v20180905-1732"/>
 			<unit id="org.eclipse.ocl.all.sdk.feature.group" version="5.6.0.v20180916-1223"/>
 			<unit id="org.eclipse.ocl.examples.feature.group" version="6.5.0.v20180916-1223"/>
 			<unit id="org.eclipse.papyrus.sdk.feature.feature.group" version="4.1.0.201809120950"/>
-			<repository location="http://download.eclipse.org/releases/2018-09"/>
-			<unit id="org.eclipse.jdt.feature.group" version="3.15.0.v20180906-0745"/>
+			<unit id="org.eclipse.m2m.atl.sdk.feature.group" version="4.0.0.v201806041011"/>
 		</location>
 		<location path="/home/yosu/Projects/MegaMart/Git/org.eclipse.papyrus-moka/releng/org.eclipse.papyrus.moka.p2/target/repository" type="Directory"/>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
@@ -40,5 +41,20 @@
 			<unit id="fr.inria.atlanmod.neoemf.io.feature.feature.group" version="1.0.2"/>
 			<repository location="https://atlanmod.github.io/NeoEMF/releases/latest/plugin/"/>
 		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.epsilon.core.feature.feature.group" version="1.5.1.201809302027"/>
+			<repository location="http://download.eclipse.org/epsilon/updates/"/>
+			<unit id="org.eclipse.epsilon.core.dt.feature.feature.group" version="1.5.1.201809302027"/>
+			<unit id="org.eclipse.epsilon.emf.feature.feature.group" version="1.5.1.201809302027"/>
+			<unit id="org.eclipse.epsilon.eunit.dt.emf.feature.feature.group" version="1.5.1.201809302027"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.atlanmod.emfviews.feature.feature.group" version="0.3.0.201812101030"/>
+			<unit id="org.atlanmod.emfviews.mel.feature.feature.group" version="0.3.0.201812101030"/>
+			<unit id="org.atlanmod.emfviews.vpdl.feature.feature.group" version="0.3.0.201812101030"/>
+			<repository location="https://www.atlanmod.org/updates/emfviews/snapshot"/>
+		</location>
+		<location path="/home/yosu/Projects/MegaMart/Git/platform/fr.inria.atlanmod.collaboro" type="Directory"/>
+		<location path="/home/yosu/Projects/MegaMart/Git/platform/com.abstratt.eclipsegraphviz.repository-2.2.201606" type="Directory"/>
 	</locations>
 </target>

@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/eu.megamart2.papyrus.extensions_1.0.0.201812051253.jar" id="eu.megamart2.papyrus.extensions" version="1.0.0.201812051253">
-      <category name="megamart-papyrus"/>
-   </feature>
-   <feature url="features/eu.megamart2.moka.extensions.feature_1.0.0.201812051253.jar" id="eu.megamart2.moka.extensions.feature" version="1.0.0.201812051253">
-      <category name="megamart-moka"/>
-   </feature>
    <feature url="features/fr.inria.atlanmod.neoemf.core.feature_1.0.2.jar" id="fr.inria.atlanmod.neoemf.core.feature" version="1.0.2">
       <category name="megamart-neoemf"/>
    </feature>
@@ -30,9 +24,34 @@
    <feature url="features/fr.inria.atlanmod.neoemf.data.mapdb.feature_1.0.2.jar" id="fr.inria.atlanmod.neoemf.data.mapdb.feature" version="1.0.2">
       <category name="megamart-neoemf-adapters"/>
    </feature>
+   <feature url="features/eu.megamart2.papyrus.extensions_1.0.0.201812101501.jar" id="eu.megamart2.papyrus.extensions" version="1.0.0.201812101501">
+      <category name="megamart-papyrus"/>
+   </feature>
+   <feature url="features/eu.megamart2.moka.extensions.feature_1.0.0.201812101501.jar" id="eu.megamart2.moka.extensions.feature" version="1.0.0.201812101501">
+      <category name="megamart-moka"/>
+   </feature>
+   <feature url="features/org.atlanmod.emfviews.feature_0.3.0.201812101030.jar" id="org.atlanmod.emfviews.feature" version="0.3.0.201812101030">
+      <category name="megamart-emfviews-core"/>
+   </feature>
+   <feature url="features/org.atlanmod.emfviews.mel.feature_0.3.0.201812101030.jar" id="org.atlanmod.emfviews.mel.feature" version="0.3.0.201812101030">
+      <category name="megamart-emfviews-dsls"/>
+   </feature>
+   <feature url="features/org.atlanmod.emfviews.vpdl.feature_0.3.0.201812101030.jar" id="org.atlanmod.emfviews.vpdl.feature" version="0.3.0.201812101030">
+      <category name="megamart-emfviews-dsls"/>
+   </feature>
+   <feature url="features/fr.inria.atlanmod.collaboro.feature_0.1.0.201812101501.jar" id="fr.inria.atlanmod.collaboro.feature" version="0.1.0.201812101501">
+      <category name="megamart-collaboro-infr"/>
+   </feature>
+   <feature url="features/fr.inria.atlanmod.collaboro.ui.feature_0.1.0.201812101501.jar" id="fr.inria.atlanmod.collaboro.ui.feature" version="0.1.0.201812101501">
+      <category name="megamart-collaboro-ui"/>
+   </feature>
    <category-def name="megamart-papyrus" label="MegaM@Rt Papyrus Extensions"/>
    <category-def name="megamart-moka" label="MegaM@Rt Moka Extensions"/>
    <category-def name="megamart-neoemf" label="MegaM@Rt NeoEMF"/>
    <category-def name="megamart-neoemf-adapters" label="MegaM@Rt NeoEMF Adapters"/>
    <category-def name="megamart-neoemf-utilities" label="MegaM@Rt NeoEMF Utilities"/>
+   <category-def name="megamart-emfviews-core" label="MegaM@Rt EMFViews Core"/>
+   <category-def name="megamart-emfviews-dsls" label="MegaM@Rt EMFViews DSLs"/>
+   <category-def name="megamart-collaboro-infr" label="MegaM@Rt Collaboro Infrastructure"/>
+   <category-def name="megamart-collaboro-ui" label="MegaM@Rt Collaboro UI"/>
 </site>
