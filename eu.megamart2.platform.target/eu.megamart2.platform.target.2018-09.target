@@ -56,5 +56,6 @@
 		</location>
 		<location path="/home/yosu/Projects/MegaMart/Git/platform/fr.inria.atlanmod.collaboro" type="Directory"/>
 		<location path="/home/yosu/Projects/MegaMart/Git/platform/com.abstratt.eclipsegraphviz.repository-2.2.201606" type="Directory"/>
+		<location path="/home/yosu/Projects/MegaMart/Git/platform/fr.inria.atlanmod.emftocsp.03-09-13" type="Directory"/>
 	</locations>
 </target>
