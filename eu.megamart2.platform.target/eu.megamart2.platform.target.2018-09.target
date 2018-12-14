@@ -8,6 +8,7 @@
 			<unit id="org.eclipse.ocl.examples.feature.group" version="6.5.0.v20180916-1223"/>
 			<unit id="org.eclipse.papyrus.sdk.feature.feature.group" version="4.1.0.201809120950"/>
 			<unit id="org.eclipse.m2m.atl.sdk.feature.group" version="4.0.0.v201806041011"/>
+			<unit id="org.eclipse.gmf.feature.group" version="1.12.0.201806010809"/>
 		</location>
 		<location path="/home/yosu/Projects/MegaMart/Git/org.eclipse.papyrus-moka/releng/org.eclipse.papyrus.moka.p2/target/repository" type="Directory"/>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
@@ -45,8 +46,16 @@
 			<unit id="org.eclipse.epsilon.core.feature.feature.group" version="1.5.1.201809302027"/>
 			<repository location="http://download.eclipse.org/epsilon/updates/"/>
 			<unit id="org.eclipse.epsilon.core.dt.feature.feature.group" version="1.5.1.201809302027"/>
+			<unit id="org.eclipse.epsilon.emc.graphml.feature.feature.group" version="1.5.1.201809302027"/>
+			<unit id="org.eclipse.epsilon.emf.dt.feature.feature.group" version="1.5.1.201809302027"/>
 			<unit id="org.eclipse.epsilon.emf.feature.feature.group" version="1.5.1.201809302027"/>
 			<unit id="org.eclipse.epsilon.eunit.dt.emf.feature.feature.group" version="1.5.1.201809302027"/>
+			<unit id="org.eclipse.epsilon.evl.emf.validation.feature.feature.group" version="1.5.1.201809302027"/>
+			<unit id="org.eclipse.epsilon.ewl.emf.feature.feature.group" version="1.5.1.201809302027"/>
+			<unit id="org.eclipse.epsilon.ewl.gmf.feature.feature.group" version="1.5.1.201809302027"/>
+			<unit id="org.eclipse.epsilon.uml.dt.feature.feature.group" version="1.5.1.201809302027"/>
+			<unit id="org.eclipse.epsilon.uml.feature.feature.group" version="1.5.1.201809302027"/>
+			<unit id="org.eclipse.epsilon.eugenia.feature.feature.group" version="1.5.1.201809302027"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.atlanmod.emfviews.feature.feature.group" version="0.3.0.201812101030"/>
@@ -57,5 +66,9 @@
 		<location path="/home/yosu/Projects/MegaMart/Git/platform/fr.inria.atlanmod.collaboro" type="Directory"/>
 		<location path="/home/yosu/Projects/MegaMart/Git/platform/com.abstratt.eclipsegraphviz.repository-2.2.201606" type="Directory"/>
 		<location path="/home/yosu/Projects/MegaMart/Git/platform/fr.inria.atlanmod.emftocsp.03-09-13" type="Directory"/>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.gmf.tooling.feature.group" version="3.2.1.201409171321"/>
+			<repository location="https://download.eclipse.org/modeling/gmp/gmf-tooling/updates/releases/"/>
+		</location>
 	</locations>
 </target>
