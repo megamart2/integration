@@ -74,5 +74,9 @@
 			<repository location="https://download.eclipse.org/modeling/gmp/gmf-tooling/updates/releases/"/>
 		</location>
 		<location path="/home/yosu/Projects/MegaMart/Git/platform/veriatl-update" type="Directory"/>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="it.univaq.jtl.feature.feature.group" version="0.2.1.201812170910"/>
+			<repository location="https://github.com/MDEGroup/jtl-eclipse-update-site/raw/master/"/>
+		</location>
 	</locations>
 </target>
