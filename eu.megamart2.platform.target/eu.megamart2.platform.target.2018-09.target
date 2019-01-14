@@ -20,9 +20,7 @@
 			<repository location="http://download.eclipse.org/nebula/releases/2.0.1"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.aspectj.feature.group" version="1.9.2.201811011643"/>
-			<unit id="org.eclipse.ajdt.feature.group" version="2.2.4.201811011643"/>
-			<unit id="org.eclipse.equinox.weaving.sdk.feature.group" version="1.2.0.201811011643"/>
+			<unit id="org.eclipse.ajdt.feature.group" version="2.2.4.201901092148"/>
 			<repository location="http://download.eclipse.org/tools/ajdt/48/dev/update/"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
@@ -75,8 +73,16 @@
 		</location>
 		<location path="/home/yosu/Projects/MegaMart/Git/platform/veriatl-update" type="Directory"/>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="it.univaq.jtl.feature.feature.group" version="0.2.1.201812170910"/>
+			<unit id="it.univaq.jtl.feature.feature.group" version="0.3.0.201901141052"/>
 			<repository location="https://github.com/MDEGroup/jtl-eclipse-update-site/raw/master/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="it.univaq.disim.sealab.padre.feature.feature.group" version="1.0.1"/>
+			<repository location="https://github.com/SEALABQualityGroup/padre-update-site/raw/master/updates/releases/oxygen/1.0.1"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.papyrus.marte.core.feature.feature.group" version="1.2.2"/>
+			<repository location="https://download.eclipse.org/modeling/mdt/papyrus/components/marte/"/>
 		</location>
 	</locations>
 </target>
