@@ -20,17 +20,8 @@
 			<repository location="http://download.eclipse.org/nebula/releases/2.0.1"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.ajdt.feature.group" version="2.2.4.201901092148"/>
+			<unit id="org.eclipse.ajdt.feature.group" version="2.2.4.201902200030"/>
 			<repository location="http://download.eclipse.org/tools/ajdt/48/dev/update/"/>
-		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="com.fasterxml.jackson.core.jackson-annotations" version="2.9.2.v20180207-1730"/>
-			<unit id="com.fasterxml.jackson.core.jackson-core" version="2.9.2.v20180207-1730"/>
-			<unit id="com.github.jnr.constants" version="0.9.8.v20180207-1730"/>
-			<unit id="com.github.jnr.enxio" version="0.16.0.v20180207-1730"/>
-			<unit id="com.github.jnr.ffi" version="2.1.4.v20180207-1730"/>
-			<unit id="com.github.jnr.jffi" version="1.2.15.v20180207-1730"/>
-			<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/S20180820175350/repository"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="fr.inria.atlanmod.neoemf.core.feature.feature.group" version="1.0.2"/>
@@ -59,9 +50,9 @@
 			<unit id="org.eclipse.epsilon.eugenia.feature.feature.group" version="1.5.1.201809302027"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="org.atlanmod.emfviews.feature.feature.group" version="0.3.0.201812101714"/>
-			<unit id="org.atlanmod.emfviews.mel.feature.feature.group" version="0.3.0.201812101714"/>
-			<unit id="org.atlanmod.emfviews.vpdl.feature.feature.group" version="0.3.0.201812101714"/>
+			<unit id="org.atlanmod.emfviews.feature.feature.group" version="0.3.0.201903011621"/>
+			<unit id="org.atlanmod.emfviews.mel.feature.feature.group" version="0.3.0.201903011621"/>
+			<unit id="org.atlanmod.emfviews.vpdl.feature.feature.group" version="0.3.0.201903011621"/>
 			<repository location="https://www.atlanmod.org/updates/emfviews/snapshot"/>
 		</location>
 		<location path="/home/yosu/Projects/MegaMart/Git/platform/fr.inria.atlanmod.collaboro" type="Directory"/>
@@ -83,6 +74,18 @@
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.papyrus.marte.core.feature.feature.group" version="1.2.2"/>
 			<repository location="https://download.eclipse.org/modeling/mdt/papyrus/components/marte/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="com.fasterxml.jackson.core.jackson-annotations" version="2.9.2.v20180207-1730"/>
+			<unit id="com.fasterxml.jackson.core.jackson-core" version="2.9.2.v20180207-1730"/>
+			<unit id="com.github.jnr.constants" version="0.9.8.v20180207-1730"/>
+			<unit id="com.github.jnr.enxio" version="0.16.0.v20180207-1730"/>
+			<unit id="com.github.jnr.ffi" version="2.1.4.v20180207-1730"/>
+			<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20180905201904/repository"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="hepsycode.feature.feature.group" version="1.0.0.201902252204"/>
+			<repository location="http://hepsycoderepo.altervista.org/HepsycodeProject/"/>
 		</location>
 	</locations>
 </target>

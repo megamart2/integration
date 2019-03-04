@@ -30,35 +30,38 @@
    <feature url="features/it.univaq.disim.sealab.padre.feature_1.0.1.jar" id="it.univaq.disim.sealab.padre.feature" version="1.0.1">
       <category name="megamart-padre"/>
    </feature>
-   <feature url="features/eu.megamart2.papyrus.extensions_1.0.0.201901151520.jar" id="eu.megamart2.papyrus.extensions" version="1.0.0.201901151520">
+   <feature url="features/eu.megamart2.papyrus.extensions_1.0.0.201903041641.jar" id="eu.megamart2.papyrus.extensions" version="1.0.0.201903041641">
       <category name="megamart-papyrus"/>
    </feature>
-   <feature url="features/eu.megamart2.moka.extensions.feature_1.0.0.201901151520.jar" id="eu.megamart2.moka.extensions.feature" version="1.0.0.201901151520">
+   <feature url="features/eu.megamart2.moka.extensions.feature_1.0.0.201903041641.jar" id="eu.megamart2.moka.extensions.feature" version="1.0.0.201903041641">
       <category name="megamart-moka"/>
    </feature>
-   <feature url="features/org.atlanmod.emfviews.feature_0.3.0.201901151520.jar" id="org.atlanmod.emfviews.feature" version="0.3.0.201901151520">
+   <feature url="features/org.atlanmod.emfviews.feature_0.3.0.201903041641.jar" id="org.atlanmod.emfviews.feature" version="0.3.0.201903041641">
       <category name="megamart-emfviews-core"/>
    </feature>
-   <feature url="features/org.atlanmod.emfviews.mel.feature_0.3.0.201901151520.jar" id="org.atlanmod.emfviews.mel.feature" version="0.3.0.201901151520">
+   <feature url="features/org.atlanmod.emfviews.mel.feature_0.3.0.201903041641.jar" id="org.atlanmod.emfviews.mel.feature" version="0.3.0.201903041641">
       <category name="megamart-emfviews-dsls"/>
    </feature>
-   <feature url="features/org.atlanmod.emfviews.vpdl.feature_0.3.0.201901151520.jar" id="org.atlanmod.emfviews.vpdl.feature" version="0.3.0.201901151520">
+   <feature url="features/org.atlanmod.emfviews.vpdl.feature_0.3.0.201903041641.jar" id="org.atlanmod.emfviews.vpdl.feature" version="0.3.0.201903041641">
       <category name="megamart-emfviews-dsls"/>
    </feature>
-   <feature url="features/fr.inria.atlanmod.collaboro.feature_0.1.0.201901151520.jar" id="fr.inria.atlanmod.collaboro.feature" version="0.1.0.201901151520">
+   <feature url="features/fr.inria.atlanmod.collaboro.feature_0.1.0.201903041641.jar" id="fr.inria.atlanmod.collaboro.feature" version="0.1.0.201903041641">
       <category name="megamart-collaboro-infr"/>
    </feature>
-   <feature url="features/fr.inria.atlanmod.collaboro.ui.feature_0.1.0.201901151520.jar" id="fr.inria.atlanmod.collaboro.ui.feature" version="0.1.0.201901151520">
+   <feature url="features/fr.inria.atlanmod.collaboro.ui.feature_0.1.0.201903041641.jar" id="fr.inria.atlanmod.collaboro.ui.feature" version="0.1.0.201903041641">
       <category name="megamart-collaboro-ui"/>
    </feature>
-   <feature url="features/fr.inria.atlanmod.emftocsp.tool.feature_1.1.1.201901151520.jar" id="fr.inria.atlanmod.emftocsp.tool.feature" version="1.1.1.201901151520">
+   <feature url="features/fr.inria.atlanmod.emftocsp.tool.feature_1.1.1.201903041641.jar" id="fr.inria.atlanmod.emftocsp.tool.feature" version="1.1.1.201903041641">
       <category name="megamart-emftoscp"/>
    </feature>
-   <feature url="features/fr.inria.atlanmod.emftocsp.examples.feature_1.1.1.201901151520.jar" id="fr.inria.atlanmod.emftocsp.examples.feature" version="1.1.1.201901151520">
+   <feature url="features/fr.inria.atlanmod.emftocsp.examples.feature_1.1.1.201903041641.jar" id="fr.inria.atlanmod.emftocsp.examples.feature" version="1.1.1.201903041641">
       <category name="megamart-emftoscp-examples"/>
    </feature>
-   <feature url="features/fr.emn.atlanmod.veriatl.feature_1.0.0.201901151520.jar" id="fr.emn.atlanmod.veriatl.feature" version="1.0.0.201901151520">
+   <feature url="features/fr.emn.atlanmod.veriatl.feature_1.0.0.201903041641.jar" id="fr.emn.atlanmod.veriatl.feature" version="1.0.0.201903041641">
       <category name="megamart-veriatl"/>
+   </feature>
+   <feature url="features/hepsycode.feature_1.0.0.201902252204.jar" id="hepsycode.feature" version="1.0.0.201902252204">
+      <category name="megamart-hepsy"/>
    </feature>
    <category-def name="megamart-papyrus" label="MegaM@Rt Papyrus Extensions"/>
    <category-def name="megamart-moka" label="MegaM@Rt Moka Extensions"/>
@@ -74,4 +77,5 @@
    <category-def name="megamart-veriatl" label="MegaM@Rt VeriATL"/>
    <category-def name="megamart-jtl" label="MegaM@Rt JTL"/>
    <category-def name="megamart-padre" label="MegaM@Rt PADRE"/>
+   <category-def name="megamart-hepsy" label="MegaM@Rt HepsyCode"/>
 </site>
