@@ -15,7 +15,6 @@
 			<unit id="org.eclipse.acceleo.feature.group" version="3.7.5.201809121017"/>
 			<unit id="org.eclipse.xtext.sdk.feature.group" version="2.15.0.v20180916-1232"/>
 		</location>
-		<location path="/home/yosu/Projects/MegaMart/Git/org.eclipse.papyrus-moka/releng/org.eclipse.papyrus.moka.p2/target/repository" type="Directory"/>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.nebula.visualization.feature.feature.group" version="2.1.0.201804281520"/>
 			<unit id="org.eclipse.nebula.widgets.xviewer.feature.feature.group" version="1.1.0.201804281520"/>
@@ -88,5 +87,13 @@
 			<repository location="https://www.atlanmod.org/NeoEMF/releases/latest/plugin/"/>
 		</location>
 		<location path="/home/yosu/Projects/MegaMart/Git/platform/veriatl-update-1.0.1" type="Directory"/>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.papyrus.moka.feature.feature.group" version="4.0.0.201905230749"/>
+			<repository location="https://github.com/megamart2/org.eclipse.papyrus-moka/raw/megamart2/releng/org.eclipse.papyrus.moka.p2/target/repository"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="it.univaq.disim.sealab.padre.feature.feature.group" version="1.0.1"/>
+			<repository location="https://github.com/SEALABQualityGroup/padre-update-site/raw/master/updates/releases/oxygen/1.0.1"/>
+		</location>
 	</locations>
 </target>
