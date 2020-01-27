@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/fr.emn.atlanmod.veriatl.feature_1.0.0.201912171809.jar" id="fr.emn.atlanmod.veriatl.feature" version="1.0.0.201912171809">
+      <category name="veriatl"/>
+   </feature>
+   <category-def name="veriatl" label="veriatl"/>
+</site>

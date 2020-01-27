@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="Collaboro Eclipse Plugin" url="http://code.google.com/a/eclipselabs.org/p/collaboro/">
+      This set of plugins allows you to develop collaboratively DSLs.
+   </description>
+   <feature url="features/fr.inria.atlanmod.collaboro.feature_0.1.0.201207041445.jar" id="fr.inria.atlanmod.collaboro.feature" version="0.1.0.201207041445">
+      <category name="fr.inria.atlanmod.collaboro.feature.category"/>
+   </feature>
+   <feature url="features/fr.inria.atlanmod.collaboro.ui.feature_0.1.0.201207041445.jar" id="fr.inria.atlanmod.collaboro.ui.feature" version="0.1.0.201207041445">
+      <category name="fr.inria.atlanmod.collaboro.feature.category"/>
+   </feature>
+   <category-def name="fr.inria.atlanmod.collaboro.feature.category" label="Collaboro">
+      <description>
+         Collaboro is an approach to make language development processes more participative, meaning that both developers and users of the language can collaborate together to create and evolve it.
+      </description>
+   </category-def>
+</site>
