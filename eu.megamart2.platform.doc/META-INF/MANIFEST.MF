@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MegaM@Rt2 IDE Documentation
+Bundle-SymbolicName: eu.megamart2.platform.doc;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: MegaM@Rt2
+Automatic-Module-Name: eu.megamart2.platform.doc
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

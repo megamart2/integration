@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="MegaM@Rt2">
+	<topic label="MegaM@Rt2 IDE Documentation"  href="html/maintopic.html"> 
+		<topic label="Installing MegaM@Rt2 Features" href="html/subtopic.html"/>
+  <topic label="EMFToCSP">
+  </topic>
+  <topic label="EMFViews">
+  </topic>
+  <topic label="HepsyCode">
+  </topic>
+  <topic label="JTL">
+  </topic>
+  <topic label="Moka Logging">
+  </topic>
+  <topic label="NeoEMF">
+  </topic>
+  <topic label="PADRE">
+  </topic>
+  <topic label="Papyrus for AOM">
+  </topic>
+  <topic label="VeriATL">
+  </topic>
+  <topic label="Collaboro">
+  </topic> 
+	</topic>
+</toc>
