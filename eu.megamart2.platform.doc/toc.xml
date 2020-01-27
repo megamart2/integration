@@ -2,27 +2,28 @@
 <?NLS TYPE="org.eclipse.help.toc"?>
 
 <toc label="MegaM@Rt2">
-	<topic label="MegaM@Rt2 IDE Documentation"  href="html/maintopic.html"> 
-		<topic label="Installing MegaM@Rt2 Features" href="html/subtopic.html"/>
-  <topic label="EMFToCSP">
+	<topic label="MegaM@Rt2 IDE Documentation"  href="html/megamart.html"> 
+		<topic label="Installing MegaM@Rt2 Features" href="html/installation.html"/>
+  <topic href="html/emftocsp.html" label="EMFToCSP">
   </topic>
-  <topic label="EMFViews">
+  <topic href="html/www.atlanmod.org/emfviews/manual/emfviews.html" label="EMFViews">
   </topic>
-  <topic label="HepsyCode">
+  <topic href="html/hepsycode.html" label="HepsyCode">
   </topic>
-  <topic label="JTL">
+  <topic href="html/jtl.html" label="JTL">
   </topic>
-  <topic label="Moka Logging">
+  <topic href="html/moka.html" label="Moka Logging">
   </topic>
-  <topic label="NeoEMF">
+  <topic href="html/neoemf.html" label="NeoEMF">
   </topic>
-  <topic label="PADRE">
+  <topic href="html/padre.html" label="PADRE">
   </topic>
-  <topic label="Papyrus for AOM">
+  <topic href="html/papyrus.html" label="Papyrus for AOM">
   </topic>
-  <topic label="VeriATL">
+  <topic href="html/veriatl.html" label="VeriATL">
   </topic>
-  <topic label="Collaboro">
-  </topic> 
+  <topic href="html/collaboro.html" label="Collaboro">
+  </topic>
+  <link toc="https://github.com/megamart2/tool-moka-extensions/blob/master/README.md"/> 
 	</topic>
 </toc>
