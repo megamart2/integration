@@ -46,9 +46,7 @@
 			<repository location="https://www.atlanmod.org/updates/emfviews/snapshot"/>
 			<unit id="org.atlanmod.emfviews.builders.ecl.feature.feature.group" version="0.4.0"/>
 		</location>
-		<location path="/home/yosu/Projects/MegaMart/Git/platform/fr.inria.atlanmod.collaboro" type="Directory"/>
 		<location path="/home/yosu/Projects/MegaMart/Git/platform/com.abstratt.eclipsegraphviz.repository-2.2.201606" type="Directory"/>
-		<location path="/home/yosu/Projects/MegaMart/Git/platform/fr.inria.atlanmod.emftocsp.03-09-13" type="Directory"/>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.gmf.tooling.feature.group" version="3.2.1.201409171321"/>
 			<repository location="https://download.eclipse.org/modeling/gmp/gmf-tooling/updates/releases/"/>
@@ -86,14 +84,31 @@
 			<unit id="fr.inria.atlanmod.neoemf.data.mapdb.feature.feature.group" version="2.0.0"/>
 			<repository location="https://www.atlanmod.org/NeoEMF/releases/latest/plugin/"/>
 		</location>
-		<location path="/home/yosu/Projects/MegaMart/Git/platform/veriatl-update-1.0.1" type="Directory"/>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.papyrus.moka.feature.feature.group" version="4.0.0.201905230749"/>
 			<repository location="https://github.com/megamart2/org.eclipse.papyrus-moka/raw/megamart2/releng/org.eclipse.papyrus.moka.p2/target/repository"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="it.univaq.disim.sealab.padre.feature.feature.group" version="1.0.1"/>
-			<repository location="https://github.com/SEALABQualityGroup/padre-update-site/raw/master/updates/releases/oxygen/1.0.1"/>
+			<unit id="fr.emn.atlanmod.veriatl.feature.feature.group" version="1.0.0.201912181715"/>
+			<repository location="https://github.com/megamart2/integration/raw/master/update/veriatl-update-1.0.1"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="fr.inria.atlanmod.emftocsp.examples.feature.feature.group" version="1.0.0.201309031607"/>
+			<unit id="fr.inria.atlanmod.emftocsp.tool.feature.feature.group" version="1.0.0.201309031607"/>
+			<repository location="https://github.com/megamart2/integration/raw/master/update/fr.inria.atlanmod.emftocsp.03-09-13"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="fr.inria.atlanmod.collaboro.feature.feature.group" version="0.1.0.201207041445"/>
+			<unit id="fr.inria.atlanmod.collaboro.ui.feature.feature.group" version="0.1.0.201207041445"/>
+			<repository location="https://github.com/megamart2/integration/raw/master/update/fr.inria.atlanmod.collaboro"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="eu.megamart2.papyrus.extensions.feature.group" version="1.0.0.202001271404"/>
+			<repository location="https://github.com/megamart2/tool-papyrus-extensions/raw/master/Site/eu.megamart2.papyrus.extensions.site"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="eu.megamart2.moka.extensions.feature.feature.group" version="1.0.0.202001271359"/>
+			<repository location="https://github.com/megamart2/tool-moka-extensions/raw/master/Site/eu.megamart2.moka.extensions.site"/>
 		</location>
 	</locations>
 </target>
