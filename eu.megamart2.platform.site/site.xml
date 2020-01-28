@@ -60,6 +60,9 @@
    <feature url="features/eu.megamart2.papyrus.extensions_1.0.0.202001271404.jar" id="eu.megamart2.papyrus.extensions" version="1.0.0.202001271404">
       <category name="megamart-papyrus"/>
    </feature>
+   <feature url="features/eu.megamart2.platform.doc.feature_1.0.0.202001281540.jar" id="eu.megamart2.platform.doc.feature" version="1.0.0.202001281540">
+      <category name="megamart-doc"/>
+   </feature>
    <category-def name="megamart-papyrus" label="MegaM@Rt Papyrus Extensions"/>
    <category-def name="megamart-moka" label="MegaM@Rt Moka Extensions"/>
    <category-def name="megamart-neoemf" label="MegaM@Rt NeoEMF"/>
@@ -75,4 +78,5 @@
    <category-def name="megamart-padre" label="MegaM@Rt PADRE"/>
    <category-def name="megamart-hepsy" label="MegaM@Rt HepsyCode"/>
    <category-def name="megamart-emfviews-builders" label="MegaM@Rt EMFViews Builders"/>
+   <category-def name="megamart-doc" label="MegaM@Rt Documentation"/>
 </site>
