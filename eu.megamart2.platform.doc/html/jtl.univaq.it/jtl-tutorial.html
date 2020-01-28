@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<!--
+	Escape Velocity by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112778344-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-112778344-1');
+		</script>
+		<title>JTL</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.dropotron.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-layers.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+	</head>
+	<body class="homepage">
+
+		<!-- Header -->
+			<div id="header-wrapper" class="wrapper">
+				<div id="header">
+					
+					<!-- Logo -->
+						<div id="logo" style="margin-top: -50pt">
+							<a href="index.html">
+								<img src="images/jtl5.png" width="190" alt=""/>
+							</a>
+							<p><b>JTL</b> is an EMF-based tool that allows you 
+							to create and manipulate system models, 
+							</p>
+							<p style="margin-top: 0"> maintain consistency and synchronize software artifacts,
+							keep traceability during design.
+							</p>
+						</div>
+					
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li class="current"><a href="index.html">Home</a></li>
+								<li><a href="index.html#intro-scroll">Getted started</a></li>	
+								<li><a href="index.html#main-scroll">Features</a></li>	
+								<li><a href="index.html#highlights-scroll">Application</a></li>
+								<li><a href="index.html#footer-scroll">Contacts</a></li>	
+							</ul>
+						</nav>
+
+				</div>
+			</div>
+		
+		<!-- Main -->
+			<div class="wrapper style2">
+				<div class="title">Tutorial</div>
+				<div id="main" class="container">
+							
+					<!-- Content -->
+						<div id="content">
+							<article class="box post">
+								<header class="style1">
+									<!--h2>Lorem ipsum dolor sit amet magna egestas<br class="mobile-hide" />
+									morbi bibendum sed malesuada</h2-->
+								<!--p>Overview</p-->
+								</header>
+								<header class="style1">
+									<p>Overview</p>
+								</header>
+								<!--h2><span style="color: #2e6c80;">overview:</span></h2-->
+								<p>This tutorial explains how to specify and execute bidirectional model transformations within the JTL tool.&nbsp;</p>
+<p>These instructions are based on the <em>Collapse/Expand State Diagrams benchmark. </em>Starting from a hierarchical state diagram (involving some one-level nesting), a flat view has to be provided. Then adding a transition between two flatten states cannot be back-propagated in a unique way, since the corresponding transition in the hierarchical state diagram can be added to any nested states as well as to the container state itself.</p>
+								
+								<header class="style1">
+									<p>Modelling State Machines</p>
+								</header>
+								<p>The hierarchical and non-hierarchical state machine metamodels (respectively <strong>SimpleHierarchicalStateMachine</strong>&nbsp;and <strong>SimpleStateMachine</strong>) are given by means of their Ecore representation within the EMF-based framework.</p>
+								<div style="text-align:center">
+									<img src="images/1.png" width="80%" alt=""/>
+								</div>
+								<p>Then a hierarchical state machine model conforming to the <strong>SimpleHierarchicalStateMachine</strong> metamodel can be specified</p>
+								<div style="text-align:center">
+									<img src="images/2.png" width="80%" alt=""/>
+								</div>
+
+								<header class="style1">
+									<p>Specifying the HSM2SM bidirectional transformation</p>
+								</header>
+								<p>Starting from the definition of the involved metamodels, the JTL transformation is specified.</p>
+								<div style="text-align:center">
+									<img src="images/3.png" width="80%" alt=""/>
+								</div>
+
+								<header class="style1">
+									<p>Executing the HSM2SM bidirectional transformation</p>
+								</header>
+								<p>The transformation can be easily executed from:&nbsp;<em>Right-Click menu&nbsp;&gt; Run as &gt; Run Configurations</em></p>
+								<div style="text-align:center">
+									<img src="images/4.png" width="80%" alt=""/>
+								</div>
+								<div style="text-align:center">
+									<img src="images/5.png" width="60%" alt=""/>
+								</div>
+								<p>The application of the transformation on <strong>HSM</strong> generates the corresponding <strong>SM</strong> model.</p>
+								<div style="text-align:center">
+									<img src="images/6.png" width="80%" alt=""/>
+								</div>
+								<p>Note that, by re-applying the transformation in the backward direction it is possible to obtain again the <strong>HSM</strong> source model. The missing sub-states and the transitions involving them are restored by means of trace information.</p>
+								<div style="text-align:center">
+									<img src="images/7.png" width="60%" alt=""/>
+								</div>
+
+								<header class="style1">
+									<p>Propagating changes</p>
+								</header>
+								<p>Suppose that in a refinement step the designer needs to manually modify the generated target by adding the transition <strong>[alternative = try again]</strong> to the state<strong> Disk Error&nbsp;</strong>to come back to<strong> Install Software</strong>.</p>
+								<p>If the transformation <strong>HSM2SM</strong> is applied on it, changes are propagated on the source model.</p>
+								<div style="text-align:center">
+									<img src="images/8.png" width="80%" alt=""/>
+								</div>
+								<p>The tutorial is available in the JTL workspace attached to the JTL tool, that can be downloaded <a href="https://github.com/MDEGroup/jtl-eclipse/releases/tag/v0.2.0.2018">here</a>. The source code of the tutorial can also be downloaded <a href="https://github.com/MDEGroup/JTL/raw/master/downloads/HSM2SMTutorial.zip">here</a></p>
+							</article>
+							
+						</div>
+
+				</div>
+			</div>
+
+		
+		
+
+				<div id="copyright">
+					<ul>
+						<li>&copy; Untitled.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+		
+
+	</body>
+</html>

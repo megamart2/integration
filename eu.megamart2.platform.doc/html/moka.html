@@ -1,0 +1,50 @@
+<h1 id="megamrt-megamrt-project-moka-extensions"><a href="https://megamart2-ecsel.eu/"><img src="images/megamart2-logo.gif" alt="MegaM@Rt" /></a> MegaM@Rt project: Moka Extensions</h1>
+<p>This repository contains the code of number of plugins that extend the functionality of Papyrus Moka engine for fUML simulation. It also contains an update site to install them.</p>
+<h2 id="megamrt-extensions-for-moka">MegaM@Rt Extensions for Moka</h2>
+<ul>
+<li>eu.megamart2.moka.validation: this extensions adds additional EMF Validation to fUML models within Papyrus, checking potential model validation issues</li>
+<li>eu.megamart2.moka.logging: this extension adds execution logging to Moka UML model execution</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>The installation of the MegaM@Rt Extensions for Moka follows the standard Eclipse plugin installation precedure.</p>
+<h3 id="requirements">Requirements</h3>
+<p>MegaM@Rt Extensions for Moka require the following software requirements: - Git - Eclipse 2018-09 Modeling (or above) - Papyrus - Moka</p>
+<p>Install Git, Eclipse 2018-09 Modeling, Papyrus and Moka before proceedding to install these Moka extensions.</p>
+<h3 id="installation-precedure">Installation precedure</h3>
+<ol type="1">
+<li><p>In a command line interface (CMI), pull the <strong>MegaM@Rt Extensions for Moka Repository</strong> to get the update site locally: <code>git clone https://gitlab.atosresearch.eu/ari/megamart2-moka.git</code> This will create a <em>megamart2-moka</em> folder into your local file system</p></li>
+<li><p>In Eclipse, select the top-menu Help/Install New Software. In the Install Wizard, select the Add… button to create a new local repository. Give a name and select the Local… button. Browse your local file system to the Git repository created in previous step. Select the <em>megamart2-moka/Site/eu.megamart2.moka.extensions.site</em> folder</p></li>
+</ol>
+<figure>
+<img src="images/megamart-moka-install_1.png" alt="MegaM@Rt Extensions for Moka installation step 2" /><figcaption>MegaM@Rt Extensions for Moka installation step 2</figcaption>
+</figure>
+<ol start="3" type="1">
+<li>In Install wizard, select the <em>MegaM@Rt Extension for Moka</em> feature, and click on next. Follow next steps, acepting the license and finish. Accept new popup windows that may appear to accept the installation. Restart Eclipse when prompted.</li>
+</ol>
+<figure>
+<img src="images/megamart-moka-install_2.png" alt="MegaM@Rt Extensions for Moka installation step 3" /><figcaption>MegaM@Rt Extensions for Moka installation step 3</figcaption>
+</figure>
+<h2 id="user-manual">User Manual</h2>
+<h2 id="validation-of-executable-uml-models-fuml-comliance.">Validation of executable UML models (fUML comliance).</h2>
+<ol type="1">
+<li>Create a new Papyrus model, selecting <em>Executable UML</em> context in first wizard page. Give a project name in next page and finish the wizard.</li>
+<li>Select the created project in the Project Explorer. Remove the created model (the three files with extensions di, notation, uml). Copy the <em>Authentication</em> model files located in <em>megamart2-moka/Plugins/eu.megamart2.moka.validation/model_examples</em> into this project folder</li>
+<li>Open the model into the Papyrus editor by double-clicking in the <em>Authentication.di</em> file shown in the project explorer. In Papyrus view, welcome tab, click on <em>AuthenticationEngineClassifierBehavior</em> to open the model behavior view.</li>
+<li>Right click on the Papyrus model graphical view. Select <em>Validation/Validate Model</em>.</li>
+<li>The results of the Moka validation are shown in the <em>Model Validation View</em>. New validation constraints added by MegaM@Rt are prefixed with “Moka_”</li>
+</ol>
+<figure>
+<img src="images/moka-validation-view.png" alt="Moka validation view" /><figcaption>Moka validation view</figcaption>
+</figure>
+<p>Validation results are marked for affected model elements on the <em>Model Explorer</em> view of the <em>Papyrus Perspective</em>, and also in the graphical model view. If you double click on an validation issue in the <em>Model Validation</em> view, the corresponding element is highlighted in the model explorer. After fixing each validation issue you can validate again the model and check the results.</p>
+<h2 id="execution-and-logging-of-uml-models.">Execution and logging of UML models.</h2>
+<p>Above <em>Authentication</em> model can be executed using Moka. Create a Moka execution configuration as described in the <a href="https://wiki.eclipse.org/Papyrus/UserGuide/ModelExecution#Getting_started_with_Moka">Moka Documentation</a></p>
+<p>Launch the Moka configuration for the <em>Authentication</em> model. The execution will be shown graphically in the Papyrus UML editor. Simultaneously, execution logs will be displayed in two views: * The fUML console view. * The new Moka execution view.</p>
+<figure>
+<img src="images/moka-execution-view.png" alt="Moka execution view" /><figcaption>Moka execution view</figcaption>
+</figure>
+<p>In the execution view log entries are describing the inflows and outflows in/from any behavioral actions of the model, including information about the action, its inputs and outputs at the moment of the logging. Selecting any log entry with a double click opens a detail windows that renders the log information Log entries are populated in the temporal order they are provided, which corresponds to the order the actions are executed within the model.</p>
+<p>Main contact: Jesús Gorroñogoitia <a href="mailto:jesus.gorronogoitia@atos.net">jesus.gorronogoitia@atos.net</a></p>
+<figure>
+<img src="images/european.union.logo.png" alt="Project funded by the European Union" /><figcaption>Project funded by the European Union</figcaption>
+</figure>

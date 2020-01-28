@@ -1,0 +1,94 @@
+<h1 id="overview">Overview</h1>
+<p>VeriATL is an Eclipse-plugin for the ATL language. It allows user to develop ATL program following deductive design-by-contract paradigm: once the users specify correctness of program via contracts, they can statically check whether the developed program meets the correctness criteria anytime during development, without running the code / preparing test cases.</p>
+<h1 id="installation">Installation</h1>
+<ol start="0" type="1">
+<li>Download EMF (2018-09), ATL EMFTVM (4.1) and Xtend (2.20.0) as prequisites.</li>
+<li>Download latest update site of VeriATL from <a href="https://github.com/veriatl/VeriATL/releases">Github Release</a>.</li>
+<li>In Eclipse, goto Help -&gt; Install New Software -&gt; Add -&gt; Archive -&gt; Choosing the download archive -&gt; Select VeriATL from Category -&gt; Finish.</li>
+<li>Once installed, making sure VeriATL appears in the plugin-list of Eclipse.</li>
+</ol>
+<p><kbd><img src="https://github.com/veriatl/VeriATL/wiki/images/veriatl.install.check.PNG"></kbd></p>
+<h1 id="manual">Manual</h1>
+<p>This manual will walk you thorugh some of the main features of VeriATL.</p>
+<p>The example we used is a transformation from hierarchical state machines to flatterned ones, where compositional states are removed and transitions are re-organized.</p>
+<p>Example: * <a href="https://github.com/veriatl/VeriATL/wiki/images/manual.example.hsm.pdf">HSMmodel</a> * <a href="https://github.com/veriatl/VeriATL/wiki/images/manual.example.fsm.pdf">FSMmodel</a></p>
+<p><code>[*] Complete Code for this tutorial can be found at:</code> <a href="https://github.com/veriatl/VeriATL/wiki/examples/HSM2FSM.zip">here</a></p>
+<h2 id="design-model-transformation-by-contract">Design Model Transformation by Contract</h2>
+<h6 id="create-an-atl-project">Create an ATL project</h6>
+<p>To start with, we create a container ATL project that hosts our development.</p>
+<p><kbd><img src="https://github.com/veriatl/VeriATL/wiki/images/manual.atl.proj.create.PNG"></kbd></p>
+<p><code>[*] If you don't see this perspective. Check Installation Section on this page</code></p>
+<p><code>[*] Make sure the created project has ATL nature</code></p>
+<h6 id="create-metamodels">Create Metamodels</h6>
+<p>Model Transformation is specified over source and target metamodels. Let us create them first.</p>
+<p>In this example, our source metamodel is hierarchical state machine, and target model is flattened state machine.</p>
+<p>Lets create two files <code>HSM.ecore</code> and <code>FSM.ecore</code> for source and target metamodels.</p>
+<p><kbd><img src="https://github.com/veriatl/VeriATL/wiki/images/manual.metamodel.create.PNG"></kbd></p>
+<h6 id="create-ocl-specification">Create OCL specification</h6>
+<p>Following design-by-contract paradigm, we first specify, using OCL expressions, about what are the behaviors our model transformation needs to have.</p>
+<p>Lets create a file <code>HSM2FSMContracts.atl</code> to host all contracts for our model transformation.</p>
+<p><code>[*] make sure -- @atlcompiler emftvm at the top of HSM2FSMContracts.atl</code></p>
+<p>Then, we specify contracts about input/output behaviors of our model transformation.</p>
+<p>Input behaviors, that specify what kind of input models that model transformation can be applied on, are expressed in preconditions, e.g.</p>
+<pre><code>--@pre
+helper context HSM!StateMachine def: unique_hsm_sm_names(): Boolean = 
+  HSM!StateMachine.allInstances()-&gt;forAll(s1,s2 | s1&lt;&gt;s2 implies s1.name&lt;&gt;s2.name);</code></pre>
+<p>Here, we specifies that all hierarchical state machines have unique names.</p>
+<p><code>[*] Precondition need to annotated with @pre before helper classifier in contract</code></p>
+<p>Output behaviors, that specify what kind of output models that model transformation are promised to produce, are expressed in postconditions, e.g.</p>
+<pre><code>--@post
+helper context FSM!StateMachine def: unique_hsm_sm_names(): Boolean = 
+  HSM!StateMachine.allInstances()-&gt;forAll(s1,s2 | s1&lt;&gt;s2 implies s1.name&lt;&gt;s2.name);</code></pre>
+<p>Here, we specifies that all flattened state machines should have unique names.</p>
+<p><code>[*] Postconditions need to annotated with @post before helper classifier in contract</code></p>
+<h6 id="create-atl-program">Create ATL program</h6>
+<p>Next, we start to develop model transformation that aims to fulfill our contracts.</p>
+<p>Lets create a file <code>HSM2FSM.atl</code> to host transformation logic</p>
+<p><code>[*] make sure -- @atlcompiler emftvm at the top of HSM2FSM.atl</code></p>
+<pre><code>-- @atlcompiler emftvm
+module HSM2FSM;
+create OUT : FSM from IN : HSM;
+
+rule SM2SM { 
+    from sm1 : HSM!StateMachine
+    to sm2 : FSM!StateMachine ( name &lt;- sm1.name)
+}
+...</code></pre>
+<p>For example, here we using <code>SM2SM</code> rule simply copies source state machine to the target model (initialized with the same name).</p>
+<h2 id="static-verification-of-model-transformation">Static Verification of Model Transformation</h2>
+<p>We might want to immediately comprehence whether <code>SM2SM</code> in <code>HSM2FSM</code> model transformation satifies the contracts developed earlier. One of the main goal of VeriATL is to quickly and statically achieve this.</p>
+<p>VeriATL can be found when user create a new <code>run configurations ...</code>.</p>
+<p><kbd><img src="https://github.com/veriatl/VeriATL/wiki/images/manual.veriatl.config.PNG"></kbd></p>
+<h6 id="code-generation">Code Generation</h6>
+<p>In the new configuration, first fill in setup arguments accordingly.</p>
+<p>In verification mode group, select <code>genBoogie</code> option, and click <code>Apply</code>, and hit <code>Run</code>.</p>
+<p>If successful, the following text would show in <code>Console</code>.</p>
+<p><kbd><img src="https://github.com/veriatl/VeriATL/wiki/images/manual.veriatl.gen.PNG"></kbd></p>
+<p>In addition, you would find new folder/files under your project <code>root/</code>, e.g.</p>
+<p><kbd><img src="https://github.com/veriatl/VeriATL/wiki/images/manual.veriatl.gen.tree.PNG"></kbd></p>
+<p><code>[*] redo code generation on every verification attempt</code></p>
+<h6 id="static-verification">Static Verification</h6>
+<p>After code generation, performing static verification can be done simply by selecting <code>verify</code> option in verification mode group, and choose the name of particular postcondition that user want to verify in <code>Contract</code> group, and then click <code>Apply</code>, and hit <code>Run</code>.</p>
+<p><kbd><img src="https://github.com/veriatl/VeriATL/wiki/images/manual.veriatl.verify.config.PNG"></kbd></p>
+<p><code>[*] fill in *all* in</code>Contract<code>group if want to verify all postconditions</code></p>
+<p>If successful, the verification result would show in <code>Console</code>.</p>
+<p><kbd><img src="https://github.com/veriatl/VeriATL/wiki/images/manual.veriatl.verify.result.PNG"></kbd></p>
+<h6 id="incremental-static-verification">Incremental Static Verification</h6>
+<p>To speed up verification process, VeriATL supports incremental verification mode. That means if your modify your model transformation rule, VeriATL can compute which postconditions are not affected by this change, and only incrementally verify affected ones.</p>
+<p>You can enable this experimental feature by choosing <code>enable</code> from <code>incremental verification option</code> group, and specifying which model transformation <code>rule name</code> has been changed since last modification, and click <code>Apply</code>, and hit <code>Run</code>.</p>
+<p><kbd><img src="https://github.com/veriatl/VeriATL/wiki/images/manual.veriatl.inc.config.PNG"></kbd></p>
+<p>If successful, the re-verification result would show in <code>Console</code>.</p>
+<p><kbd><img src="https://github.com/veriatl/VeriATL/wiki/images/manual.veriatl.inc.result.PNG"></kbd></p>
+<p>Notice that in this re-verification, some of postcondition directly reuse the cache result, because VeriATL determines that their result are not affeced by modified rule.</p>
+<p><code>[*] do not forget to redo code generation on every verification attempt</code></p>
+<h2 id="debugging-transformation">Debugging Transformation</h2>
+<p>Sometimes verifcation fails on a postcondition, we might want to debug in the source code which rule caused the problem.</p>
+<p>VeriATL supports debugging mode, which using natural deduction (as in logic sense) to try to pinpoint the guilty rules that cause the bug.</p>
+<p>You can enable this experimental feature by choosing <code>debug</code> from <code>verification mode</code> group, and specify the postcondition name user want to debug in <code>Contract</code> group. In this example, fill in postcondition name <code>fsm_transition_src_multi_lower</code>, and click <code>Apply</code>, and hit <code>Run</code>.</p>
+<p><code>[*] currently, VeriATL does not support debug all postconditions</code></p>
+<p><kbd><img src="https://github.com/veriatl/VeriATL/wiki/images/manual.veriatl.debug.config.PNG"></kbd></p>
+<p>If successful, the debug result would show in <code>Console</code>.</p>
+<p><kbd><img src="https://github.com/veriatl/VeriATL/wiki/images/manual.veriatl.debug.result.PNG"></kbd></p>
+<p>How to read this result? It means that VeriATL detects that the reason postcondition cannot be verified is because of <code>case0001</code>. User can find this case in <code>ROOT_PROJ/Sub-goals/TARGET_POST/caseXXXX</code></p>
+<p><kbd><img src="https://github.com/veriatl/VeriATL/wiki/images/manual.veriatl.debug.case.PNG"></kbd></p>
+<p>Open the case in a text editor, it will show which rules are related to the bug.</p>

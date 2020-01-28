@@ -1,0 +1,86 @@
+<h1 id="performance-driven-software-model-refactoring-framework-padre">Performance-driven softwAre moDel Refactoring framEwork (PADRE)</h1>
+<h2 id="installation-instructions">Installation instructions</h2>
+<h3 id="overview">OVERVIEW</h3>
+<p>Our framework deals with UML models made of the following diagrams: a Component Diagram that describes the software components and their Interfaces/Operations; a Deployment Diagram that describes the allocation of artifacts, corresponding to components, on platform nodes; a Use Case Diagram that describes the actors and the use cases that they can execute; a number of Sequence Diagrams, one for each use case, that describe the system behavior in terms of interactions among components.</p>
+<h3 id="website">WEBSITE</h3>
+<p>TBD</p>
+<h3 id="download">DOWNLOAD</h3>
+<p>Official Github repository: https://github.com/SEALABQualityGroup/padre</p>
+<h3 id="installation">INSTALLATION</h3>
+<ol type="1">
+<li>Download Eclipse Modelling Tool: https://www.eclipse.org/downloads/eclipse-packages/</li>
+<li>Installing the following EPSILON plugins from its Update Site (http://download.eclipse.org/epsilon/1.3/updates/):
+<ul>
+<li>core</li>
+<li>development tools</li>
+<li>EMF integration</li>
+<li>GMF integration</li>
+<li>UML integration</li>
+</ul></li>
+<li>Cloning PADRE from https://github.com/SEALABQualityGroup/padre.git</li>
+<li>Import in eclipse PADRE projects</li>
+<li>Create a running configuration for UML in:</li>
+</ol>
+<ul>
+<li>EVL
+<ul>
+<li>Select an EVL file (e.g. padre/it.spe.disim.epsilon.antipattern_d-s/evl/AP-UML-MARTE.evl)</li>
+<li>Give a name (e.g. BGCS)</li>
+<li>Select a model from workspace (e.g. padre/it.spe.disim.epsilon.antipattern_d-s/model/uml/BGCS/BGCS.uml)</li>
+<li>Select <strong>only</strong> this metamodels:
+<ul>
+<li>UML standar profile</li>
+<li>UML</li>
+<li>Ecore</li>
+</ul></li>
+</ul></li>
+<li>EPL
+<ul>
+<li>Select an EPL file (e.g. padre/it.spe.disim.epsilon.antipattern_d-s/epl/AP-UML-MARTE.epl)</li>
+<li>Give a name (e.g. BGCS)</li>
+<li>Select a model from workspace (e.g. padre/it.spe.disim.epsilon.antipattern_d-s/model/uml/BGCS/BGCS.uml)</li>
+<li>Select <strong>only</strong> this metamodels:
+<ul>
+<li>UML standar profile</li>
+<li>UML</li>
+<li>Ecore</li>
+</ul></li>
+</ul></li>
+<li>EWL
+<ol type="1">
+<li>Add new EMF/GMF wizard (from Eclipse preferences -&gt; epsilon -&gt; EMF/GMF wizards)</li>
+<li>Select an EWL files from workspace (e.g. padre/it.spe.disim.epsilon.antipattern_d-s/ewl/AP-UML-MARTE.ewl)</li>
+<li>Select the UML namespace uri (http://www.eclipse.org/uml2/5.0.0/UML)</li>
+</ol></li>
+</ul>
+<ol start="6" type="1">
+<li>enjoy :-)</li>
+</ol>
+<h3 id="system-requirements">SYSTEM REQUIREMENTS</h3>
+<ul>
+<li>MacOS Sierra (10.12.06);</li>
+<li>Eclipse Oxygen Modelling Tools with the following plugins in place:
+<ul>
+<li>Epsilon 1.3,</li>
+<li>Papyrus (any)
+<ul>
+<li>Papyrus MARTE profile (dowloaded from http://download.eclipse.org/modeling/mdt/papyrus/updates/releases/neon)</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="release-notes">RELEASE NOTES</h3>
+<p>Latest Release: 1.0.0</p>
+<h3 id="review-description">Review Description:</h3>
+<p>This release provides several major features: - supports several performance antipattern detection and removal - Blob, Pipe and Filter, Extensive Processing, Concurrent Processing Systems, Empty Semi Truck, Tower of Babel</p>
+<h3 id="license">LICENSE</h3>
+<p>Eclipse Public License - v 1.0 (see http://www.eclipse.org/org/documents/epl-v10.php)</p>
+<h3 id="developer-resources">DEVELOPER RESOURCES</h3>
+<p>Source Repositories: https://github.com/SEALABQualityGroup/padre.git Clone: - ssh: git@github.com:SEALABQualityGroup/padre.git - https: https://github.com/SEALABQualityGroup/padre.git</p>
+<p>You can use the code from these repositories to experiment, test, build, and create patches, issue pull requests.</p>
+<h3 id="support">SUPPORT</h3>
+<p>We currently support: - email: daniele.dipompeo@graduate.univaq.it (please take care to use [PADRE SUPPORT] as object - issues on github.com</p>
+<h2 id="getting-started-guidelines">Getting started guidelines</h2>
+<h3 id="examples">EXAMPLES</h3>
+<p>We provide an example UML project that is a UML model representation of a Botanical Garden Control System (BGCS). It is stored in padre/it.spe.disim.epsilon.antipattern_d-s/model/uml/BGCS/BGCS.uml. It is already filled with performance indices, and it is ready to use for a dummy execution.</p>
+<h2 id="additional-information">Additional information</h2>
+<p>Research publications: - Arcelli, Davide, Vittorio Cortellessa, and Daniele Di Pompeo. “Performance-driven software model refactoring.” Information and Software Technology (2017). - Arcelli, Davide, Vittorio Cortellessa, and Daniele Di Pompeo. “Automated translation among EPSILON languages for performance-driven UML software model refactoring.” Proceedings of the 1st International Workshop on Software Refactoring. ACM, 2016. - Arcelli, Davide, Vittorio Cortellessa, and Daniele Di Pompeo. “Towards a Unifying Approach for Performance-Driven Software Model Refactoring.” GEMOC+ MPM@ MoDELS. 2015.</p>

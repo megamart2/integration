@@ -10,7 +10,7 @@
   </topic>
   <topic href="html/hepsycode.html" label="HepsyCode">
   </topic>
-  <topic href="html/jtl.html" label="JTL">
+  <topic href="html/jtl.univaq.it/jtl-tutorial.html" label="JTL">
   </topic>
   <topic href="html/moka.html" label="Moka Logging">
   </topic>
@@ -22,7 +22,7 @@
   </topic>
   <topic href="html/veriatl.html" label="VeriATL">
   </topic>
-  <topic href="html/collaboro.html" label="Collaboro">
+  <topic href="html/collaboro/collaboro.html" label="Collaboro">
   </topic>
   <link toc="https://github.com/megamart2/tool-moka-extensions/blob/master/README.md"/> 
 	</topic>

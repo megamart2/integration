@@ -1,0 +1,65 @@
+<h1 id="megamrt-megamrt-project-papyrus-extensions"><a href="https://megamart2-ecsel.eu/"><img src="images/megamart2-logo.gif" alt="MegaM@Rt" /></a> MegaM@Rt project: Papyrus Extensions</h1>
+<p>This repository contains the code of number of plugins that extend the functionality of Papyrus for Aspect Oriented Modeling (AOM). It also contains an update site to install them.</p>
+<h2 id="megamrt-extensions-for-papyrus">MegaM@Rt Extensions for Papyrus</h2>
+<ul>
+<li>eu.megamart2.papyrus.profiles.aom: this extension adds a AspectJ profile that enables the modeling of AspectJ applications and aspects.</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>The installation of the MegaM@Rt Extensions for Papyrus follows the standard Eclipse plugin installation precedure.</p>
+<h3 id="requirements">Requirements</h3>
+<p>MegaM@Rt Extensions for Papyrus require the following software requirements: - Git - Eclipse 2018-09 Modeling (or above) - Papyrus</p>
+<p>Install Git, Eclipse 2018-09 Modeling, Papyrus before proceedding to install these Papyrus extensions.</p>
+<h3 id="installation-precedure">Installation precedure</h3>
+<ol type="1">
+<li><p>In a command line interface (CMI), pull the <strong>MegaM@Rt Extensions for Papyrus Repository</strong> to get the update site locally: <code>git clone https://gitlab.atosresearch.eu/ari/megamart2-papyrus.git</code> This will create a <em>megamart2-papyrus</em> folder into your local file system</p></li>
+<li><p>In Eclipse, select the top-menu Help/Install New Software. In the Install Wizard, select the Add… button to create a new local repository. Give a name and select the Local… button. Browse your local file system to the Git repository created in previous step. Select the <em>megamart2-papyrus/Site/eu.megamart2.papyrus.extensions.site</em> folder</p></li>
+</ol>
+<figure>
+<img src="images/megamart-papyrus-install_1.png" alt="MegaM@Rt Extensions for Papyrus installation step 2" /><figcaption>MegaM@Rt Extensions for Papyrus installation step 2</figcaption>
+</figure>
+<ol start="3" type="1">
+<li>In Install wizard, select the <em>MegaM@Rt Extension for Moka</em> feature, and click on next. Follow next steps, acepting the license and finish. Accept new popup windows that may appear to accept the installation. Restart Eclipse when prompted.</li>
+</ol>
+<figure>
+<img src="images/megamart-papyrus-install_2.png" alt="MegaM@Rt Extensions for Papyrus installation step 3" /><figcaption>MegaM@Rt Extensions for Papyrus installation step 3</figcaption>
+</figure>
+<h2 id="user-manual">User Manual</h2>
+<h2 id="modeling-aspectj-in-uml-with-aspectj-profile">Modeling AspectJ in UML with AspectJ profile</h2>
+<p>The <em>MegaM@Rt AspectJ</em> profile can be apply to model aspects and pointcut/jointpoints for software systems modelled with UML. Following procedure describes how to use the profile in Papyrus UML Editor. As an example, we use the <em>figure.uml</em> model shipped within the clonned local repository <em>megamart2-papyrus</em> in the location <em>megamart2-papyrus/Plugins/eu.megamark2.papyrus.profiles.aom/examples</em>. This figure model is borrowed from <a href="https://www.eclipse.org/aspectj/doc/next/progguide/printable.html#starting-aspectj">AspectJ documentation</a></p>
+<ol type="1">
+<li>Open <em>figure.di</em> by double-clicking</li>
+<li>In the <em>welcome</em> tab open both the <em>figures</em> and <em>aspect</em> model views by double-clicking on them</li>
+</ol>
+<figure>
+<img src="images/figure-model-views.png" alt="Figure UML model views" /><figcaption>Figure UML model views</figcaption>
+</figure>
+<ol start="3" type="1">
+<li>On <em>aspect</em> view, click on any blank part of the model. Open the <em>properties</em> view. Select the <em>profile</em> tab. The <em>aspectj</em> profile is already applied. To apply this (or another profile) to the model, click on the <em>apply registered profile</em> icon and select <strong>AspectJ</strong> profile from the list. Once accepted, the profile is added to the list of applied profiles</li>
+</ol>
+<figure>
+<img src="images/apply_aspectj_profile.png" alt="Applying the AspectJ profile" /><figcaption>Applying the AspectJ profile</figcaption>
+</figure>
+<ol start="4" type="1">
+<li>To apply an AspectJ stereotype to a property or operation of the <em>PointObserving</em> aspect, select the element in the Papyrus model view. Then, in the properties view, select the <em>profile</em> tab. Click on the <em>green plus</em> icon to add an stereotype. Select the stereotype from the list and click on add <em>right pointing arrow</em> button to move the profile for the list of <em>applicable stereotypes</em> to the list of <em>applied stereotypes</em>. Accept the dialog. The new stereotype appears in the list of <em>applied stereotypes</em> in the <em>profile</em> tab.</li>
+</ol>
+<figure>
+<img src="images/apply_aspectj_stereotype.png" alt="Applying an AspectJ stereotype" /><figcaption>Applying an AspectJ stereotype</figcaption>
+</figure>
+<ol start="5" type="1">
+<li>Edit the stereotypes properties (slots) and reference them to other compatible stereotyped elements within the model (e.g. the &lt;<aspect>&gt; <em>PointObserving</em> class).</li>
+</ol>
+<figure>
+<img src="images/edit_stereotype.png" alt="Editing stereotype properties" /><figcaption>Editing stereotype properties</figcaption>
+</figure>
+<p><strong>AspectJ</strong> profile is based on the published research work: <em>Evermann, J. (2007, March). A meta-level specification and profile for AspectJ in UML. In Proceedings of the 10th international workshop on Aspect-oriented modeling (pp. 21-27). ACM.</em>. Consult this work as a reference for the semantics of the AspectJ profile.</p>
+<h2 id="generating-aspectj-code-from-a-model">Generating AspectJ code from a model</h2>
+<p>The <em>MegaM@RT Acceleo generator plugin</em> supports the authomatic generation of AspectJ code from an uml model (made using the megaM@RT AspectJ profile), the generator is installed with the <em>MegaM@RT extensions</em>.</p>
+<p>Generating code is very simple, right click on your .uml file in the Eclipse project explorer, and click on the menu item Acceleo Model to Text &gt;&gt; Generate AspectJ Code.</p>
+<p>After code generation a dialog will inform you about the location of the generated files (usually a src-gen folder into the project folder).</p>
+<figure>
+<img src="images/AspectGeneration.png" alt="Code generation" /><figcaption>Code generation</figcaption>
+</figure>
+<p>Main contact: Jesús Gorroñogoitia <a href="mailto:jesus.gorronogoitia@atos.net">jesus.gorronogoitia@atos.net</a></p>
+<figure>
+<img src="images/european.union.logo.png" alt="Project funded by the European Union" /><figcaption>Project funded by the European Union</figcaption>
+</figure>

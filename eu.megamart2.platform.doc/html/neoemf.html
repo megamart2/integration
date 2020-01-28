@@ -1,0 +1,104 @@
+<h1 id="get-started">NeoEMF Get Started</h1>
+<p>The goal of this tutorial is to present NeoEMF through a simple example. You can download a zipped version of the project <a href="http://neoemf.com/static/neoemf_tutorial.zip">here</a>, or import it in your Eclipse workspace using the <code>File → New → Example → NeoEMF → NeoEMF Tutorial Project</code> menu.</p>
+<h2 id="introduction">Introduction</h2>
+<p>In this tutorial you will create a persistent EMF resource using the Neo4j database as a backend. To do so, you will define a simple Ecore model, create instances of this model and then store these instances in the persistent EMF resource.</p>
+<h3 id="audience">Audience</h3>
+<p>This tutorial is designed for the Eclipse Modeling Framework (<a href="https://eclipse.org/modeling/emf/">EMF</a>) users with a need to handle large-scale models in Java programs.</p>
+<p>This tutorial will bring at intermediate level of expertise, where you will be able to use the <a href="https://neo4j.com">Neo4j</a> graph database to store EMF models. From this level, you can take yourself at higher level of expertise, understanding how to use NeoEMF with different databases.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>Before proceeding with this tutorial you should have a good understanding of EMF. If you need more information about EMF, please follow the tutorial available <a href="http://eclipsesource.com/blogs/tutorials/emf-tutorial/">here</a>.</p>
+<p>A basic understanding of Eclipse IDE is also required because the examples have been compiled using Eclipse IDE.</p>
+<p>There is no need to understand Neo4j not graph databases to follow this tutorial. However, a basic understanding of Neo4j may help you to manipulate your models directly from the database.</p>
+<h3 id="installing-neoemf">Installing NeoEMF</h3>
+<p>NeoEMF is available as an Eclipse plugin. Install it by choosing <em>Help → Install New Software…</em>. You will need to add the following software site:</p>
+<p><a href="https://atlanmod.github.io/NeoEMF/releases/latest/plugin/" class="uri">https://atlanmod.github.io/NeoEMF/releases/latest/plugin/</a></p>
+<p>Select and install all items.</p>
+<h3 id="installing-emfatic">Installing Emfatic</h3>
+<p>Emfatic will be used as a text editor to create a simple Ecore model. It is also available as an Eclipse plugin. Install it by choosing <em>Help → Install New Software…</em>. You will also need to add the following software site:</p>
+<p><a href="http://download.eclipse.org/emfatic/update" class="uri">http://download.eclipse.org/emfatic/update</a></p>
+<p>Select and install all items.</p>
+<h2 id="creating-a-new-emf-project">Creating a New EMF Project</h2>
+<p>Now create a new EMF project by choosing <em>File → New → Project…</em> from the main menu. The dialog offers a couple of different project types. Select <em>Empty EMF Project</em> from the category <em>Eclipse Modeling Framework</em> and continue via <em>Next</em>.</p>
+<p><img src="http://neoemf.atlanmod.org/static/img/tutorial/NewEMFProject.png" /></p>
+<p>Feel free to use any name for your project (“NeoEMF Tutorial” would be great), and finish the wizard.</p>
+<h3 id="creating-a-simple-ecore-model">Creating a Simple Ecore Model</h3>
+<p>To create and save an EMF resource, you first need an ECore Model. There are several ways to create an Ecore Model, here we use <a href="https://www.eclipse.org/emfatic/">EMFatic</a>, a textual syntax for ECore models.</p>
+<p>From the main menu, choose <em>File→ New → Other…</em> and select <em>Emfatic file</em> from the category <em>Example EMF Creation Wizard</em>. Name your file “graph.emf”.</p>
+<p>Edit your file to create a simple model specifying a simple graph structure, containing Edges and Vertices, and described below:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode java"><code class="sourceCode java"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="at">@namespace</span>(uri=<span class="st">&quot;http://atlanmod.neoemf.tutorial&quot;</span>, prefix=<span class="st">&quot;graph&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">package</span><span class="im"> graph;</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">class</span> Graph {</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">  val Vertice[*] vertices;</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">  val Edge[*] edges;</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">}</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">class</span> Vertice {</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">  attr <span class="bu">String</span> label;</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">}</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="kw">class</span> Edge {</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">  ref Vertice from;</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">  ref Vertice to;</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">}</a></code></pre></div>
+<p>An alternative textual syntax to create an Ecore Model is <a href="https://wiki.eclipse.org/OCL/OCLinEcore">OclInEcore</a>, which is quite similar to EMFatic.</p>
+<h3 id="creating-an-ecore-file">Creating an Ecore File</h3>
+<p>Once the Emfatic file is ready, you need to generate a <em>.ecore</em> file. From the contextual menu (right-click on the <em>graph.emf</em> file), choose <em>Generate Ecore Model</em>.</p>
+<p><img src="http://neoemf.atlanmod.org/static/img/tutorial/GenerateEcoreModel.png" /></p>
+<h3 id="creating-an-emf-generator-model">Creating an EMF Generator Model</h3>
+<p>Now create a new EMF Generator Model by choosing <em>File → New → Other…</em> from the main menu. The dialog offers a couple of different wizards. Select <em>EMF Generator Model</em> from the category <em>Eclipse Modeling Framework</em> and continue via <em>Next</em>.</p>
+<p><img src="http://neoemf.atlanmod.org/static/img/tutorial/NewEMFGeneratorModel.png" /></p>
+<h2 id="migrating-the-generator-model">Migrating the Generator Model</h2>
+<p>After generating the <code>graph.genmodel</code> file, you need to migrate it to NeoEMF. From the contextual menu, choose <em>NeoEMF → Migrate EMF Generator Model</em>.</p>
+<p><img src="http://neoemf.atlanmod.org/static/img/tutorial/MigrateEMFGeneratorModel.png" /></p>
+<p>The migration will modify several properties in the <code>graph.genmodel</code> file. Basically, it will set the root Class and the root Interface of EMF Classes and Interfaces to use the NeoEMF persistent implementations.</p>
+<p><img src="http://neoemf.atlanmod.org/static/img/tutorial/NeoEMFMigrator.png" /></p>
+<h3 id="generating-emf-model-code">Generating EMF Model Code</h3>
+<p>After generating the <code>graph.genmodel</code> file, you will be able to generate the Java underlying code for this model. Select <em>Generate Model Code</em> from the Project Explorer contextual menu (right-click the <code>graph.genmodel</code> file)</p>
+<p><img src="http://neoemf.atlanmod.org/static/img/tutorial/GenerateModelCode.png" /></p>
+<p>The generation will add three new packages to your project. If you are familiar with the EMF generated code, you can browse the generated code to observe the differences between the default generated code and the NeoEMF one.</p>
+<p><img src="http://neoemf.atlanmod.org/static/img/tutorial/AfterCodeGeneration.png" /></p>
+<h2 id="creating-a-new-neoemf-resource">Creating a New NeoEMF resource</h2>
+<p>Once the Ecore model is ready, we can create instances of this model and store them in a NeoEMF persistent resource.</p>
+<p><strong>Creating a resource</strong></p>
+<p>Creating a resource in NeoEMF is similar to standard EMF. Write down the following line to create a resource named “models/myGraph.graphdb” in your current Eclipse project.</p>
+<p><strong>NOTE:</strong> The following example concerns a Blueprints backend. Because all backends work in the same way, you can replace <code>BlueprintsTinkerConfig</code> and <code>BlueprintsUri</code> by the module-specific implementations of <code>Config</code> and <code>UriBuilder</code> related to the backend you want to use. For now, it can be <code>MapDb***</code> or <code>BerkeleyDB***</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode java"><code class="sourceCode java"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="bu">URI</span> uri = <span class="kw">new</span> <span class="fu">BlueprintsUriFactory</span>().<span class="fu">createLocalUri</span>(<span class="st">&quot;models/myGraph.graphdb&quot;</span>);</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">ResourceSet resourceSet = <span class="kw">new</span> <span class="fu">ResourceSetImpl</span>();</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="bu">Resource</span> resource = resourceSet .<span class="fu">createResource</span>(uri);</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">ImmutableConfig config = <span class="kw">new</span> <span class="fu">BlueprintsTinkerConfig</span>();</a></code></pre></div>
+<p><strong>Populating the resource</strong></p>
+<p>Now, write a simple code to create instances of the Graph model and to save the resource:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode java"><code class="sourceCode java"><a class="sourceLine" id="cb3-1" data-line-number="1">GraphFactory factory = GraphFactory.<span class="fu">eINSTANCE</span>;</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">Graph graph = factory.<span class="fu">createGraph</span>();</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; <span class="dv">100</span>; i++) {</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">  Vertice v1 = factory.<span class="fu">createVertice</span>();</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">  v1.<span class="fu">setLabel</span>(<span class="st">&quot;Vertice &quot;</span> + i + <span class="st">&quot;a&quot;</span>);</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">  Vertice v2 = factory.<span class="fu">createVertice</span>();</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">  v2.<span class="fu">setLabel</span>(<span class="st">&quot;Vertice &quot;</span> + i + <span class="st">&quot;b&quot;</span>);</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">  Edge e = factory.<span class="fu">createEdge</span>();</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">  e.<span class="fu">setFrom</span>(v1);</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">  e.<span class="fu">setTo</span>(v2);</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">  graph.<span class="fu">getEdges</span>().<span class="fu">add</span>(e);</a>
+<a class="sourceLine" id="cb3-13" data-line-number="13">  graph.<span class="fu">getVertices</span>().<span class="fu">add</span>(v1);</a>
+<a class="sourceLine" id="cb3-14" data-line-number="14">  graph.<span class="fu">getVertices</span>().<span class="fu">add</span>(v2);</a>
+<a class="sourceLine" id="cb3-15" data-line-number="15">}</a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17">resource.<span class="fu">getContents</span>().<span class="fu">add</span>(graph);</a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19">resource.<span class="fu">save</span>(config.<span class="fu">asMap</span>());</a>
+<a class="sourceLine" id="cb3-20" data-line-number="20">resource.<span class="fu">unload</span>();</a></code></pre></div>
+<p><strong>Reading the resource</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode java"><code class="sourceCode java"><a class="sourceLine" id="cb4-1" data-line-number="1">resource.<span class="fu">load</span>(config.<span class="fu">asMap</span>());</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">Graph graph = (Graph) resource.<span class="fu">getContents</span>().<span class="fu">get</span>(<span class="dv">0</span>);</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">for</span> (Edge each : graph.<span class="fu">getEdges</span>()) {</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">  <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(each.<span class="fu">getFrom</span>().<span class="fu">getLabel</span>() + <span class="st">&quot;---&gt;&quot;</span> + each.<span class="fu">getTo</span>().<span class="fu">getLabel</span>());</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8">resource.<span class="fu">unload</span>();</a></code></pre></div>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this tutorial, you have learned how to create a persistent EMF resource with NeoEMF and how to store this resource in a Neo4j database. All backends are identical in usage, the only thing that changes is the configuration and the URI definition, used to identify the module.</p>
