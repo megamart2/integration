@@ -107,7 +107,7 @@
 			<repository location="https://github.com/megamart2/tool-papyrus-extensions/raw/master/Site/eu.megamart2.papyrus.extensions.site"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="eu.megamart2.moka.extensions.feature.feature.group" version="1.0.0.202001271359"/>
+			<unit id="eu.megamart2.moka.extensions.feature.feature.group" version="1.0.0.202001311313"/>
 			<repository location="https://github.com/megamart2/tool-moka-extensions/raw/master/Site/eu.megamart2.moka.extensions.site"/>
 		</location>
 	</locations>
