@@ -1,0 +1,2 @@
+xhost +
+docker start aihps
