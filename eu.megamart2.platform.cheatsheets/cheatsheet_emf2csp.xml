@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet
+      title="EMF2CSP cheat sheet">
+   <intro>
+      <description>
+         <b>EMF2CSP cheat sheet</b>
+<br/>
+This cheat sheet provides an example on how to use EMF2CSP tool
+      </description>
+   </intro>
+  
+   <item
+         title="EMFToCSP Configuration">
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   
+   <item
+         title="Now that EMFToCSP has been configured, it is time to start using it">
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   
+   <item
+         title="Setting OCL constraints">
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   
+   <item
+         title="Setting domains and cardinalities">
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   
+   <item
+         title="Selection of the properties you want to check">
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+   
+   <item
+         title="Setting where to store the validation’s results">
+      <description>
+         <b>Body</b>
+      </description>
+   </item>
+          
+</cheatsheet>
