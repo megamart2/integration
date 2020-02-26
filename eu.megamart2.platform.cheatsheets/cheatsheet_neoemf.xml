@@ -87,4 +87,54 @@ The migration will modify several properties in the graph.genmodel file. Basical
 <br/>
 The generation will add three new packages to your project. If you are familiar with the EMF generated code, you can browse the generated code to observe the differences between the default generated code and the NeoEMF one.  </description>
    </item>
+   <item
+         title="Creating a New NeoEMF resource">
+      <description>
+         Once the Ecore model is ready, we can create instances of this model and store them in a NeoEMF persistent resource.
+<br/>
+<b>Creating a resource</b><br/>
+Creating a resource in NeoEMF is similar to standard EMF. Write down the following line to create a resource named &quot;models/myGraph.graphdb&quot; in your current Eclipse project:
+<br/>
+URI uri = new BlueprintsUriFactory().createLocalUri(&quot;models/myGraph.graphdb&quot;);<br/>
+<br/>
+ResourceSet resourceSet = new ResourceSetImpl();<br/>
+Resource resource = resourceSet .createResource(uri);<br/>
+<br/>
+ImmutableConfig config = new BlueprintsTinkerConfig();<br/>
+<br/>
+<b>Populating the resource</b><br/>
+Now, write a simple code to create instances of the Graph model and to save the resource:<br/>
+GraphFactory factory = GraphFactory.eINSTANCE;<br/>
+Graph graph = factory.createGraph();<br/>
+<br/>
+for (int i = 0; i &lt; 100; i++) {<br/>
+  Vertice v1 = factory.createVertice();<br/>
+  v1.setLabel(&quot;Vertice &quot; + i + &quot;a&quot;);<br/>
+  Vertice v2 = factory.createVertice();<br/>
+  v2.setLabel(&quot;Vertice &quot; + i + &quot;b&quot;);<br/>
+  Edge e = factory.createEdge();<br/>
+  e.setFrom(v1);<br/>
+  e.setTo(v2);<br/>
+  graph.getEdges().add(e);<br/>
+  graph.getVertices().add(v1);<br/>
+  graph.getVertices().add(v2);<br/>
+}<br/>
+<br/>
+resource.getContents().add(graph);<br/>
+<br/>
+resource.save(config.asMap());<br/>
+resource.unload();<br/>
+<br/>
+<b>Reading the resource</b><br/>
+resource.load(config.asMap());<br/>
+<br/>
+Graph graph = (Graph) resource.getContents().get(0);<br/>
+for (Edge each : graph.getEdges()) {<br/>
+  System.out.println(each.getFrom().getLabel() + &quot;---&gt;&quot; + each.getTo().getLabel());<br/>
+}<br/>
+<br/>
+resource.unload();<br/>
+      </description>
+      
+   </item>
 </cheatsheet>
