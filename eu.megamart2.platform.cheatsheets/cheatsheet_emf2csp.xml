@@ -29,7 +29,7 @@ This cheat sheet provides an example on how to use EMF2CSP tool
 		The example project can be imported into Eclipse from the following location:
 		<br/>
 		https://github.com/SOM-Research/EMFtoCSP/tree/master/tests/fr.inria.atlanmod.emftocsp.tests
-      </description>
+      </description>description>
    </item>
    
    <item
