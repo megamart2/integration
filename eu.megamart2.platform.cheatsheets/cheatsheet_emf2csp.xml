@@ -12,42 +12,59 @@ This cheat sheet provides an example on how to use EMF2CSP tool
    <item
          title="EMFToCSP Configuration">
       <description>
-         <b>Body</b>
+         Before start using EMFToCSP you have to configure the tool by filling the fields in the EMFToCSP preference page.<br/>
+		<br/>
+		Click on Windows–&gt;Preferences, select “EMFToCSP” on the left pane, and provide provide the ECLiPSe constraint solver and GraphViz paths, needed to run EMToCSP. Once you have done that, click on “OK” to close the window.
       </description>
+      <command
+            required="false"
+            serialization="org.eclipse.ui.window.preferences(preferencePageId=fr.inria.atlanmod.emftocsp.ui.preferences.PreferencePage)"/>
    </item>
    
    <item
          title="Now that EMFToCSP has been configured, it is time to start using it">
       <description>
-         <b>Body</b>
+         Launching EMFToCSP is pretty straightforward. Open the “Package Explorer” window and right click on the model you want to validate. By choosing the option “Validate model…” from the popup menu, you will launch EMFToCSP.
+		<br/>
+		The example project can be imported into Eclipse from the following location:
+		<br/>
+		https://github.com/SOM-Research/EMFtoCSP/tree/master/tests/fr.inria.atlanmod.emftocsp.tests
       </description>
    </item>
    
    <item
          title="Setting OCL constraints">
       <description>
-         <b>Body</b>
+         In this window you can select an .ocl file with the model OCL constraints. If you don’t want to provide an external OCL file or the OCL constraints are embedded in the model, you can skip this step by clicking on the “Skip selection” verification mark. Once you’ve finished, click “Next”
       </description>
    </item>
    
    <item
          title="Setting domains and cardinalities">
       <description>
-         <b>Body</b>
+         Once you have finished with the OCL settings, you must provide the domains and cardinalities for the model’s elements. This way, you will set the boundaries of the search space where the solver will try to find a valid instance of the selected model. Once you’ve finished, click “Next”
       </description>
    </item>
    
    <item
          title="Selection of the properties you want to check">
       <description>
-         <b>Body</b>
+         Once the search space has been defined, you must select the properties you wish to validate among the ones offered by the tool. Once you’ve finished, click “Next”
       </description>
    </item>
    
    <item
          title="Setting where to store the validation’s results">
       <description>
-         <b>Body</b>
+         The last step before launching the validation process is to select where the results will be stored. You have to choose a folder and then click “Finish”
+         <br/>
+         The verification process will take place after clicking on the “Finish” button. If the verification process finds an instance of the model that satisfies all the restrictions (a valid instance), the tool will show a success message
+         <br/>
+         You will find an image with the description of the instance along with the generated ECL code file used by the solver in the result location
+         <br/>
+         If the verification process yields no results, then the tool will show a warning message
+         <br/>
+         and it will store the generated ECL code file used by the solver in the result location.
       </description>
    </item>
           
