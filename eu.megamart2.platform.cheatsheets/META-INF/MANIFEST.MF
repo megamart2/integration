@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MegaM@Rt2 Cheatsheets
+Bundle-SymbolicName: eu.megamart2.platform.cheatsheets;singleton:=true
+Bundle-Version: 0.1.0
+Bundle-Vendor: Atos Spain S.A.
+Automatic-Module-Name: eu.megamart2.platform.cheatsheets
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.ui.cheatsheets

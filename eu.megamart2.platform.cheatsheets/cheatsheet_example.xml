@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="Demo Cheat Sheet">
+   <intro >
+      <description>
+         This cheat sheet is a demo.
+      </description>
+   </intro>
+   <item title="Hello, world!" >
+      <description>
+         This is the <b>first</b> step in this cheat sheet.
+         <br />
+      </description>
+   </item>
+   <item title="Hello, world again!" >
+      <description>
+      This is the <b>second</b> step in this cheat sheet.
+      <br />
+      </description>
+   </item>
+</cheatsheet>

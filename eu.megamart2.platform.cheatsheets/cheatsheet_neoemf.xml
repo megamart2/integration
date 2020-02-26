@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="NeoEMF Cheat Sheet">
+   <intro href="https://github.com/atlanmod/NeoEMF/wiki/Get-Started">
+      <description>
+         The goal of this tutorial is to present NeoEMF through a simple example. 
+      </description>
+   </intro>
+   <item
+         skip="true"
+         title="Import NeoEMF example">
+      <description>
+         You can download a zipped version of the project in this link: <br/> &quot;http://eclipsesource.com/blogs/tutorials/emf-tutorial&quot;, 
+         or import it in your Eclipse workspace using the 
+         File → New → Example → NeoEMF → NeoEMF Tutorial Project menu.
+      </description>
+   </item>
+   <item title="Creating a New EMF Project" >
+      <description>
+      Now create a new EMF project by choosing File → New → Project… from the main menu. The dialog offers a couple of different project types. Select Empty EMF Project from the category Eclipse Modeling Framework and continue via Next.
+<br/>
+Feel free to use any name for your project (&quot;NeoEMF Tutorial&quot; would be great), and finish the wizard.
+      </description>
+      <command
+            required="false"
+            serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.emf.importer.ui.EMFProjectWizard)"/>
+   </item> 
+   <item
+         title="Creating a Simple Ecore Model">
+      <description>
+         To create and save an EMF resource, you first need an ECore Model. There are several ways to create an Ecore Model, here we use <b>EMFatic</b>, a textual syntax for ECore models.
+<br/>
+From the main menu, choose File→ New → Other… and select Emfatic file from the category Example EMF Creation Wizard. Name your file &quot;graph.emf&quot;.
+<br/>
+Edit your file to create a simple model specifying a simple graph structure, containing Edges and Vertices, and described below:
+<br/>
+@namespace(uri=&quot;http://atlanmod.neoemf.tutorial&quot;, prefix=&quot;graph&quot;)<br/>
+package graph;<br/>
+<br/>
+class Graph {<br/>
+  val Vertice[*] vertices;<br/>
+  val Edge[*] edges;<br/>
+}<br/>
+<br/>
+class Vertice {<br/>
+  attr String label;<br/>
+}<br/>
+<br/>
+class Edge {<br/>
+  ref Vertice from;<br/>
+  ref Vertice to;<br/>
+}<br/>
+<br/>
+An alternative textual syntax to create an Ecore Model is <b>OclInEcore</b>, which is quite similar to EMFatic.
+      </description>
+      <command
+            required="false"
+            serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.emf.importer.ui.EMFModelWizard)"/>
+   </item>
+  
+   <item
+         title="Creating an Ecore File">
+      <description>
+         Once the Emfatic file is ready, you need to generate a .ecore file. From the contextual menu (right-click on the graph.emf file), choose Generate Ecore Model.
+      </description>
+   </item>
+   <item
+         title="Creating an EMF Generator Model">
+              <description>
+                 Now create a new EMF Generator Model by choosing File → New → Other… from the main menu. The dialog offers a couple of different wizards. Select EMF Generator Model from the category Eclipse Modeling Framework and continue via Next.
+              </description>
+              <command
+                    required="false"
+                    serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.emf.importer.ui.EMFModelWizard)"/>
+   </item>
+</cheatsheet>
