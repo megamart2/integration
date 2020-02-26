@@ -21,13 +21,6 @@
             id="eu.megamart2.platform.cheatsheets.neoemf"
             name="NeoEMF cheat sheet">
       </cheatsheet>
-      <cheatsheet
-            category="eu.megamart2.platform.cheatsheets.category.main"
-            composite="false"
-            contentFile="$nl$/cheatsheet_neoemf.xml"
-            id="eu.megamart2.platform.cheatsheets.cheatsheet505931262"
-            name="NeoEMF Cheat Sheet">
-      </cheatsheet>
    </extension>
 
 </plugin>

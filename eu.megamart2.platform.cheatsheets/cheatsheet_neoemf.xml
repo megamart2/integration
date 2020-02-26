@@ -9,14 +9,14 @@
          skip="true"
          title="Import NeoEMF example">
       <description>
-         You can download a zipped version of the project in this link: <br/> &quot;http://eclipsesource.com/blogs/tutorials/emf-tutorial&quot;, 
+         You can download a zipped version of the project in this link: <br/> <b>http://eclipsesource.com/blogs/tutorials/emf-tutorial</b>, 
          or import it in your Eclipse workspace using the 
          File → New → Example → NeoEMF → NeoEMF Tutorial Project menu.
       </description>
    </item>
    <item title="Creating a New EMF Project" >
       <description>
-      Now create a new EMF project by choosing File → New → Project… from the main menu. The dialog offers a couple of different project types. Select Empty EMF Project from the category Eclipse Modeling Framework and continue via Next.
+      Now create a new EMF project by choosing File → New → Project… from the main menu. The dialog offers a couple of different project types. Select <b>Empty EMF Project</b> from the category <b>Eclipse Modeling Framework</b> and continue via Next.
 <br/>
 Feel free to use any name for your project (&quot;NeoEMF Tutorial&quot; would be great), and finish the wizard.
       </description>
@@ -29,7 +29,7 @@ Feel free to use any name for your project (&quot;NeoEMF Tutorial&quot; would be
       <description>
          To create and save an EMF resource, you first need an ECore Model. There are several ways to create an Ecore Model, here we use <b>EMFatic</b>, a textual syntax for ECore models.
 <br/>
-From the main menu, choose File→ New → Other… and select Emfatic file from the category Example EMF Creation Wizard. Name your file &quot;graph.emf&quot;.
+From the main menu, choose File→ New → Other… and select <b>Emfatic file</b> from the category <b>Example EMF Creation Wizard</b>. Name your file &quot;graph.emf&quot;.
 <br/>
 Edit your file to create a simple model specifying a simple graph structure, containing Edges and Vertices, and described below:
 <br/>
@@ -54,22 +54,37 @@ An alternative textual syntax to create an Ecore Model is <b>OclInEcore</b>, whi
       </description>
       <command
             required="false"
-            serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.emf.importer.ui.EMFModelWizard)"/>
+            serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.emf.emfatic.ui.wizards.EmfaticNewWizard)"/>
    </item>
   
    <item
          title="Creating an Ecore File">
       <description>
-         Once the Emfatic file is ready, you need to generate a .ecore file. From the contextual menu (right-click on the graph.emf file), choose Generate Ecore Model.
+         Once the Emfatic file is ready, you need to generate a .ecore file. From the contextual menu (right-click on the graph.emf file), choose <b>Generate Ecore Model</b>.
       </description>
    </item>
    <item
          title="Creating an EMF Generator Model">
               <description>
-                 Now create a new EMF Generator Model by choosing File → New → Other… from the main menu. The dialog offers a couple of different wizards. Select EMF Generator Model from the category Eclipse Modeling Framework and continue via Next.
+                 Now create a new EMF Generator Model by choosing File → New → Other… from the main menu. The dialog offers a couple of different wizards. Select <b>EMF Generator Model</b> from the category Eclipse Modeling Framework and continue via Next.
               </description>
               <command
                     required="false"
                     serialization="org.eclipse.ui.newWizard(newWizardId=org.eclipse.emf.importer.ui.EMFModelWizard)"/>
+   </item>
+   <item
+         title="Migrating the Generator Model">
+      <description>
+         After generating the graph.genmodel file, you need to migrate it to NeoEMF. From the contextual menu, choose <b>NeoEMF → Migrate EMF Generator Model</b>.
+<br/>
+The migration will modify several properties in the graph.genmodel file. Basically, it will set the root Class and the root Interface of EMF Classes and Interfaces to use the NeoEMF persistent implementations.ating the graph.genmodel file, you need to migrate it to NeoEMF. From the contextual menu, choose <b>NeoEMF → Migrate EMF Generator Model</b>.
+      </description>
+   </item>
+   <item
+         title="Generating EMF Model Code">
+      <description>
+         AfterAfter generating the graph.genmodel file, you will be able to generate the Java underlying code for this model. Select <b>Generate Model Code</b> from the Project Explorer contextual menu (right-click the graph.genmodel file)
+<br/>
+The generation will add three new packages to your project. If you are familiar with the EMF generated code, you can browse the generated code to observe the differences between the default generated code and the NeoEMF one.  </description>
    </item>
 </cheatsheet>
