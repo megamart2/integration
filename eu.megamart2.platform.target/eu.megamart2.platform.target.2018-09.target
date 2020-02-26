@@ -56,10 +56,6 @@
 			<repository location="https://github.com/MDEGroup/jtl-eclipse-update-site/raw/master/"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-			<unit id="it.univaq.disim.sealab.padre.feature.feature.group" version="1.0.1"/>
-			<repository location="https://github.com/SEALABQualityGroup/padre-update-site/raw/master/updates/releases/oxygen/1.0.1"/>
-		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="org.eclipse.papyrus.marte.core.feature.feature.group" version="1.2.2"/>
 			<repository location="https://download.eclipse.org/modeling/mdt/papyrus/components/marte/"/>
 		</location>
@@ -109,6 +105,10 @@
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 			<unit id="eu.megamart2.moka.extensions.feature.feature.group" version="1.0.0.202001311313"/>
 			<repository location="https://github.com/megamart2/tool-moka-extensions/raw/master/Site/eu.megamart2.moka.extensions.site"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="it.univaq.disim.sealab.padre.feature.group" version="1.0.2"/>
+			<repository location="https://github.com/SEALABQualityGroup/padre-update-site/raw/master/updates/releases/2018-09_4.9.0"/>
 		</location>
 	</locations>
 </target>
