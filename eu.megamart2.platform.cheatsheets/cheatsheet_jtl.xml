@@ -35,12 +35,21 @@
       </description>
       <subitem
             label="open the metamodels/SimpleHierarchicalStateMachine.ecore file. Inspect the file.">
+         <command
+               required="false"
+               serialization="org.eclipse.ui.navigate.openResource(filePath=/HSM2SM/metamodels/SimpleHierarchicalStateMachine.ecore)"/>
       </subitem>
       <subitem
             label="open the metamodels/SimpleStateMachine.ecore file. Inspect the file.">
+            <command
+               required="false"
+               serialization="org.eclipse.ui.navigate.openResource(filePath=/HSM2SM/metamodels/SimpleStateMachine.ecore)"/>
       </subitem>
       <subitem
-            label="open the models/1/fw/target/HSM.xmi file. Inspect the file.">
+            label="open the models/1/1_fw/sampleHSM.xmi file. Inspect the file.">
+            <command
+               required="false"
+               serialization="org.eclipse.ui.navigate.openResource(filePath=/HSM2SM/models/1/1_fw/sampleHSM.xmi)"/>
       </subitem>
       
    </item>
@@ -50,23 +59,35 @@
       <description>
          Starting from the definition of the involved metamodels, the JTL transformation is specified.
          <br/>
-         Open <b>transformations/ed/hsm2sm.jtl</b> file. Inspect the file.
+         Open <b>transformations/hsm2sm.jtl</b> file. Inspect the file.
       </description>
+      <command
+         required="false"
+         serialization="org.eclipse.ui.navigate.openResource(filePath=/HSM2SM/transformations/hsm2sm.jtl)"/>
    </item>  
   
   <item
          title="Executing the HSM2SM bidirectional transformation">
       <description>
-         The transformation can be easily executed by selecting the <b>transformations/ed/hsm2sm.jtl</b> file. 
-         Then, Right-Click menu > Run as > Run Configurations. Click on Run.
+         The transformation can be easily executed by creating a <b>JTL Transformation</b> run configuration
          <br/>
          The application of the transformation on HSM generates the corresponding SM model.
-         <br/>
-         Open <b>models/fw/target/SM.xmi</b> file. Inspect the file.
          <br/>
          Note that, by re-applying the transformation in the backward direction it is possible to obtain again the <b>HSM</b> source model. 
          The missing sub-states and the transitions involving them are restored by means of trace information.
       </description>
+      <subitem
+            label="Select the transformations/ed/hsm2sm.jtl file. Then, Right-Click menu. Create a JTL transformation. Select SimpleHierarchicalStateMachine.ecore as source metamodel. Select SimpleStateMachine.ecore as target metamodel. Select sampleHSM.xmi as source model. Select target/sampleSM.xmi as target model. Select hsm2sm.jtl as JTL transformation" >
+         <command
+               required="false"
+               serialization="org.eclipse.debug.ui.commands.OpenRunConfigurations"/>
+      </subitem>
+      <subitem
+            label="Open the models/1/1_fw/target/sampleSM.xmi file. Inspect the file.">
+            <command
+               required="false"
+               serialization="org.eclipse.ui.navigate.openResource(filePath=/HSM2SM/models/1/1_fw/target/sampleSM.xmi)"/>
+      </subitem>
    </item>
    
    <item
