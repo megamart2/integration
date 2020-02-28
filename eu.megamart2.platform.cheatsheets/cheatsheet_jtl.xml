@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet
+      title="JTL cheat sheet">
+   <intro>
+      <description>
+         <b>JTL cheat sheet</b>
+		<br/>
+		This tutorial explains how to specify andModelling State Machinescute bidirectional model transformations within the JTL tool.
+		<br/>
+		These instructions are based on the Collapse/Expand State Diagrams benchmark. Starting from a hierarchical state diagram (involving some one-level nesting), a flat view has to be provided. Then adding a transition between two flatten states cannot be back-propagated in a unique way, since the corresponding transition in the hierarchical state diagram can be added to any nested states as well as to the container state itself.
+		<br/>
+		The source code of the tutorial can also be downloaded here:
+		<br/>
+		<b>https://github.com/MDEGroup/JTL/raw/master/downloads/HSM2SMTutorial.zip</b>
+	 </description>
+   </intro>
+   
+   <item
+         title="Import HSM2SMTutorial into Eclipse">
+      <description>
+         Download HSM2SMTutorial from link <b>https://github.com/MDEGroup/JTL/raw/master/downloads/HSM2SMTutorial.zip</b>
+         <br/>
+         Unzip it and import the project <b>HSM2SM</b> into your Eclipse workspace. 
+      </description>
+   </item>  
+   
+   <item
+         title="Modelling State Machines">
+      <description>
+         The hierarchical and non-hierarchical state machine metamodels 
+         (respectively <b>SimpleHierarchicalStateMachine</b> and <b>SimpleStateMachine</b>) 
+         are given by means of their Ecore representation within the EMF-based framework.
+         <br/>
+         
+         Step1: open <b>metamodels/SimpleHierarchicalStateMachine.ecore</b> file. Inspect the file.
+         <br/>
+         Step2: open <b>metamodels/SimpleStateMachine.ecore</b> file. Inspect the file.
+         <br/>
+         Then a hierarchical state machine model conforming to the <b>SimpleHierarchicalStateMachine</b> metamodel can be specified
+         <br/>
+         Step3: open <b>models/1/fw/target/HSM.xmi</b> file. Inspect the file.
+      </description>
+   </item>
+   
+   <item
+         title="Specifying the HSM2SM bidirectional transformation">
+      <description>
+         Starting from the definition of the involved metamodels, the JTL transformation is specified.
+         <br/>
+         Open <b>transformations/ed/hsm2sm.jtl</b> file. Inspect the file.
+      </description>
+   </item>  
+  
+  <item
+         title="Executing the HSM2SM bidirectional transformation">
+      <description>
+         The transformation can be easily executed by selecting the <b>transformations/ed/hsm2sm.jtl</b> file. 
+         Then, Right-Click menu > Run as > Run Configurations. Click on Run.
+         <br/>
+         The application of the transformation on HSM generates the corresponding SM model.
+         <br/>
+         Open <b>models/fw/target/SM.xmi</b> file. Inspect the file.
+         <br/>
+         Note that, by re-applying the transformation in the backward direction it is possible to obtain again the <b>HSM</b> source model. 
+         The missing sub-states and the transitions involving them are restored by means of trace information.
+      </description>
+   </item>
+   
+   <item
+         title="Propagating changes">
+      <description>
+         Suppose that in a refinement step the designer needs to manually modify the generated target 
+         by adding the transition <b>[alternative = try again]</b> to the state <b>Disk Error</b> to come back to <b>Install Software</b>.
+      	 <br/>
+      	 If the transformation <b>HSM2SM</b> is applied on it, changes are propagated on the source model.
+      </description>
+   </item>
+   
+</cheatsheet>
