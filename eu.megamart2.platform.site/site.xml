@@ -63,6 +63,12 @@
    <feature url="features/eu.megamart2.moka.extensions.feature_1.0.0.202001311313.jar" id="eu.megamart2.moka.extensions.feature" version="1.0.0.202001311313">
       <category name="megamart-moka"/>
    </feature>
+   <feature url="features/essyn.profile.feature_1.0.0.202002270958.jar" id="essyn.profile.feature" version="1.0.0.202002270958">
+      <category name="megamart-s3d"/>
+   </feature>
+   <feature url="features/ucCommonGUI.ui.feature_1.0.0.202002270958.jar" id="ucCommonGUI.ui.feature" version="1.0.0.202002270958">
+      <category name="megamart-s3d"/>
+   </feature>
    <category-def name="megamart-papyrus" label="MegaM@Rt Papyrus Extensions"/>
    <category-def name="megamart-moka" label="MegaM@Rt Moka Extensions"/>
    <category-def name="megamart-neoemf" label="MegaM@Rt NeoEMF"/>
@@ -79,4 +85,5 @@
    <category-def name="megamart-hepsy" label="MegaM@Rt HepsyCode"/>
    <category-def name="megamart-emfviews-builders" label="MegaM@Rt EMFViews Builders"/>
    <category-def name="megamart-doc" label="MegaM@Rt Documentation"/>
+   <category-def name="megamart-s3d" label="MegaM@Rt S3D"/>
 </site>
