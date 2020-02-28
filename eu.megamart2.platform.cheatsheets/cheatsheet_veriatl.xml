@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet
+      title="VeriATL cheat sheet">
+   <intro>
+      <description>
+         <b>VeriATL cheat sheet</b>
+         <br/>
+         This cheat sheet will walk you thorough some of the main features of VeriATL.
+		 <br/>
+		 The example we used is a transformation from hierarchical state machines to flattened ones, where compositional states are removed and transitions are re-organised.
+		 <br/>
+		 Complete Code for this tutorial can be found at: <b>https://github.com/veriatl/VeriATL/wiki/examples/HSM2FSM.zip/</b>
+      </description>
+   </intro>
+   
+   <item
+         title="Import HSM2FSM project into Eclipse">
+      <description>
+         Download HSM2FSM from link <b>https://github.com/veriatl/VeriATL/wiki/examples/HSM2FSM.zip</b>
+         <br/>
+         Unzip it into your Eclipse workspace. Then, import the project <b>HSM2FSM</b> in the Eclipse workbench. 
+      </description>
+   </item>
+   
+   <item
+         title="Create an ATL project">
+      <description>
+         If you have not imported the example project, you can create a container ATL project that hosts our development.
+         <br/>
+         [*] Make sure the created project has ATL nature
+      </description>
+   </item>
+   
+   <item
+         title="Create Metamodels">
+      <description>
+         Model Transformation is specified over source and target metamodels. Let us create them first.
+		 <br/>
+		 In this example, our source metamodel is hierarchical state machine, and target model is flattened state machine.
+		 <br/>
+		 Lets create two files <b>HSM.ecore</b> and <b>FSM.ecore</b> for source and target metamodels.
+      </description>
+   </item>
+   
+   <item
+         title="Create OCL specification">
+      <description>
+        Following design-by-contract paradigm, we first specify, using OCL expressions, about what are the behaviors our model transformation needs to have.
+		<br/>
+		Lets create a file <b>HSM2FSMContracts.atl</b> to host all contracts for our model transformation.
+		[*] make sure -- @atlcompiler emftvm at the top of HSM2FSMContracts.atl
+		<br/>
+		Then, we specify contracts about input/output behaviors of our model transformation.
+		<br/>
+		Input behaviors, that specify what kind of input models that model transformation can be applied on, are expressed in preconditions, e.g.
+		<br/>
+		--@pre<br/>
+		helper context HSM!StateMachine def: unique_hsm_sm_names(): Boolean = <br/>
+		  HSM!StateMachine.allInstances()->forAll(s1,s2 | s1<>s2 implies s1.name<>s2.name);<br/>
+		Here, we specifies that all hierarchical state machines have unique names.<br/>
+		<br/>
+		[*] Precondition need to annotated with @pre before helper classifier in contract
+		<br/>
+		Output behaviors, that specify what kind of output models that model transformation are promised to produce, are expressed in postconditions, e.g.
+		<br/>
+		--@post<br/>
+		helper context FSM!StateMachine def: unique_hsm_sm_names(): Boolean = <br/>
+		  HSM!StateMachine.allInstances()->forAll(s1,s2 | s1<>s2 implies s1.name<>s2.name);<br/>
+		Here, we specifies that all flattened state machines should have unique names.<br/>
+		<br/>
+		[*] Postconditions need to annotated with @post before helper classifier in contract
+      </description>
+   </item>
+   
+   <item
+         title="Create ATL program">
+      <description>
+        Next, we start to develop model transformation that aims to fulfill our contracts.
+		<br/>
+		Lets create a file HSM2FSM.atl to host transformation logic
+		<br/>
+		[*] make sure -- @atlcompiler emftvm at the top of HSM2FSM.atl
+		<br/>
+		-- @atlcompiler emftvm<br/>
+		module HSM2FSM;<br/>
+		create OUT : FSM from IN : HSM;<br/>
+		<br/>
+		rule SM2SM { <br/>
+		    from sm1 : HSM!StateMachine<br/>
+		    to sm2 : FSM!StateMachine ( name <- sm1.name)<br/>
+		}<br/>
+		...<br/>
+		For example, here we using SM2SM rule simply copies source state machine to the target model (initialized with the same name).
+      </description>
+   </item>
+   
+   <item
+         title="Static Verification of Model Transformation">
+      <description>
+        We might want to immediately comprehence whether SM2SM in HSM2FSM model transformation satifies the contracts developed earlier. One of the main goal of VeriATL is to quickly and statically achieve this.
+		<br/>
+		VeriATL can be found when user create a new VeriATL run configurations
+		<br/>
+		1. Select HSM2FSM as project base path<br/>
+		2. select HSM2FSM/Source/HSM.ecore as source metamodel<br/>
+		3. select HSM2FSM/Source/FSM.ecore as target metamodel<br/>
+		2. select HSM2FSM/Source/HSM2FSMContract.atl as contract path<br/>
+		2. select unique_fsm_sm_names as name fo target postconditions<br/>
+      </description>
+   </item>
+   
+   <item
+         title="Code Generation">
+      <description>
+        In the new configuration, first fill in setup arguments accordingly.
+		<br/>
+		In verification mode group, select <b>genBoogie</b> option, and click <b>Apply</b>, and hit <b>Run</b>.
+		<br/>
+		If successful, the a confirmation text would show in <b>Console</b>.
+		<br/>
+		In addition, you would find new folder/files under your project root folder
+      </description>
+   </item>
+   
+   <item
+         title="Static Verification">
+      <description>
+      	After code generation, performing static verification can be done simply by selecting <b>verify</b> option in verification mode group, 
+      	and choose the name of particular postcondition that user want to verify in <b>Contract</b> group, and then click <b>Apply</b>, and hit <b>Run</b>.
+      	<br/>
+      	[*] fill in *all* in <b>Contract</b> group if want to verify all postconditions
+      	<br/>
+      	If successful, the verification result would show in <b>Console</b>.
+      </description>
+   </item>
+   
+   <item
+         title="Incremental Static Verification">
+      <description>
+      	To speed up verification process, VeriATL supports incremental verification mode. 
+      	That means if your modify your model transformation rule, VeriATL can compute which postconditions are not affected by this change, 
+      	and only incrementally verify affected ones.
+		<br/>
+		You can enable this experimental feature by choosing <b>enable</b> from <b>incremental verification option group, 
+		and specifying which model transformation <b>rule name</b> has been changed since last modification, and click <b>Apply</b>, and hit <b>Run</b>.
+		<br/>
+		If successful, the re-verification result would show in <b>Console</b>.
+      </description>
+   </item>
+</cheatsheet>
