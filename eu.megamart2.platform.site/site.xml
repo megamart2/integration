@@ -60,7 +60,7 @@
    <feature url="features/eu.megamart2.moka.extensions.feature_1.0.0.202001311313.jar" id="eu.megamart2.moka.extensions.feature" version="1.0.0.202001311313">
       <category name="megamart-moka"/>
    </feature>
-   <feature url="features/eu.megamart2.platform.doc.feature_1.0.0.qualifier.jar" id="eu.megamart2.platform.doc.feature" version="1.0.0.qualifier">
+   <feature url="features/eu.megamart2.platform.doc.feature_1.0.0.202002281340.jar" id="eu.megamart2.platform.doc.feature" version="1.0.0.202002281340">
       <category name="megamart-doc"/>
    </feature>
    <feature url="features/essyn.profile.feature_1.0.0.202002270958.jar" id="essyn.profile.feature" version="1.0.0.202002270958">

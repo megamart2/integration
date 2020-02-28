@@ -110,6 +110,7 @@
 			<unit id="it.univaq.disim.sealab.padre.feature.group" version="1.0.2"/>
 			<repository location="https://github.com/SEALABQualityGroup/padre-update-site/raw/master/updates/releases/2018-09_4.9.0"/>
 		</location>
-		<location path="/home/yosu/Projects/MegaMart/Git/platform/s3d" type="Directory"/>
+		<location id="essyn.profile.feature" path="${eclipse_home}" type="Feature"/>
+		<location id="ucCommonGUI.ui.feature" path="${eclipse_home}" type="Feature"/>
 	</locations>
 </target>
