@@ -18,7 +18,7 @@
       <description>
          Download HSM2FSM from link <b>https://github.com/veriatl/VeriATL/wiki/examples/HSM2FSM.zip</b>
          <br/>
-         Unzip it into your Eclipse workspace. Then, import the project <b>HSM2FSM</b> in the Eclipse workbench. 
+         Unzip it into your Eclipse workspace. Then, import the project <b>fr.emn.atlanmod.veriatl.casestudy.base</b> in the Eclipse workbench. 
       </description>
    </item>
    
@@ -29,6 +29,9 @@
          <br/>
          [*] Make sure the created project has ATL nature
       </description>
+      <command
+            required="false"
+            serialization="org.eclipse.ui.newWizard(newWizardId=atlProjectWizard)"/>
    </item>
    
    <item
@@ -40,6 +43,18 @@
 		 <br/>
 		 Lets create two files <b>HSM.ecore</b> and <b>FSM.ecore</b> for source and target metamodels.
       </description>
+      <subitem
+            label="If you imported the example project, you can open the fr.emn.atlanmod.veriatl.casestudy.base/HSM2FSM_GUI/Source/HSM.ecore model">
+            <command
+               required="false"
+               serialization="org.eclipse.ui.navigate.openResource(filePath=/fr.emn.atlanmod.veriatl.casestudy.base/HSM2FSM_GUI/Source/HSM.ecore)"/>
+      </subitem>
+      <subitem
+            label="If you imported the example project, you can open the fr.emn.atlanmod.veriatl.casestudy.base/HSM2FSM_GUI/Source/FSM.ecore model">
+            <command
+               required="false"
+               serialization="org.eclipse.ui.navigate.openResource(filePath=/fr.emn.atlanmod.veriatl.casestudy.base/HSM2FSM_GUI/Source/FSM.ecore)"/>
+      </subitem>
    </item>
    
    <item
@@ -73,6 +88,12 @@
 		<br/>
 		For example, here the SM2SM rule simply copies source state machine to the target model (initialized with the same name).
       </description>
+      <subitem
+            label="If you imported the example project, you can open the fr.emn.atlanmod.veriatl.casestudy.base/HSM2FSM_GUI/Source/HSM2FSM.atl model">
+            <command
+               required="false"
+               serialization="org.eclipse.ui.navigate.openResource(filePath=/fr.emn.atlanmod.veriatl.casestudy.base/HSM2FSM_GUI/Source/HSM2FSM.atl)"/>
+      </subitem>
    </item>
    
    <item
@@ -88,6 +109,9 @@
 		2. select HSM2FSM/Source/HSM2FSMContract.atl as contract path<br/>
 		2. select unique_fsm_sm_names as name fo target postconditions<br/>
       </description>
+      <subitem
+            label="If you imported the example project, right_click on the fr.emn.atlanmod.veriatl.casestudy.base/HSM2FSM_GUI/HSM2FSM_Gen.launch. Select Run As/HSM2FSM_Gen">
+      </subitem>
    </item>
    
    <item
@@ -113,6 +137,9 @@
       	<br/>
       	If successful, the verification result would show in <b>Console</b>.
       </description>
+      <subitem
+            label="If you imported the example project, right_click on the fr.emn.atlanmod.veriatl.casestudy.base/HSM2FSM_GUI/HSM2FSM_Verify.launch. Select Run As/HSM2FSM_Verify">
+      </subitem>
    </item>
    
    <item
