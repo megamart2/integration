@@ -30,16 +30,19 @@
          The hierarchical and non-hierarchical state machine metamodels 
          (respectively <b>SimpleHierarchicalStateMachine</b> and <b>SimpleStateMachine</b>) 
          are given by means of their Ecore representation within the EMF-based framework.
-         <br/>
-         
-         Step1: open <b>metamodels/SimpleHierarchicalStateMachine.ecore</b> file. Inspect the file.
-         <br/>
-         Step2: open <b>metamodels/SimpleStateMachine.ecore</b> file. Inspect the file.
-         <br/>
+<br/>  
          Then a hierarchical state machine model conforming to the <b>SimpleHierarchicalStateMachine</b> metamodel can be specified
-         <br/>
-         Step3: open <b>models/1/fw/target/HSM.xmi</b> file. Inspect the file.
       </description>
+      <subitem
+            label="open the metamodels/SimpleHierarchicalStateMachine.ecore file. Inspect the file.">
+      </subitem>
+      <subitem
+            label="open the metamodels/SimpleStateMachine.ecore file. Inspect the file.">
+      </subitem>
+      <subitem
+            label="open the models/1/fw/target/HSM.xmi file. Inspect the file.">
+      </subitem>
+      
    </item>
    
    <item
