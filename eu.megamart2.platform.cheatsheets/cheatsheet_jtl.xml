@@ -20,7 +20,7 @@
       <description>
          Download HSM2SMTutorial from link <b>https://github.com/MDEGroup/JTL/raw/master/downloads/HSM2SMTutorial.zip</b>
          <br/>
-         Unzip it and import the project <b>HSM2SM</b> into your Eclipse workspace. 
+         Unzip it into your Eclipse workspace. Then, create the project <b>HSM2SM</b> in the Eclipse workbench. 
       </description>
    </item>  
    

@@ -21,6 +21,13 @@
             id="eu.megamart2.platform.cheatsheets.cheatsheet_emf2csp"
             name="EMF2CSP cheat sheet">
       </cheatsheet>
+      <cheatsheet
+            category="eu.megamart2.platform.cheatsheets.category.main"
+            composite="false"
+            contentFile="cheatsheet_jtl.xml"
+            id="eu.megamart2.platform.cheatsheets.cheatsheet_jtl"
+            name="JTL cheat sheet">
+      </cheatsheet>
    </extension>
 
 </plugin>
