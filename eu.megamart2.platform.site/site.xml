@@ -57,9 +57,6 @@
    <feature url="features/eu.megamart2.papyrus.extensions_1.0.0.202001271404.jar" id="eu.megamart2.papyrus.extensions" version="1.0.0.202001271404">
       <category name="megamart-papyrus"/>
    </feature>
-   <feature url="features/eu.megamart2.platform.doc.feature_1.0.0.202001281540.jar" id="eu.megamart2.platform.doc.feature" version="1.0.0.202001281540">
-      <category name="megamart-doc"/>
-   </feature>
    <feature url="features/eu.megamart2.moka.extensions.feature_1.0.0.202001311313.jar" id="eu.megamart2.moka.extensions.feature" version="1.0.0.202001311313">
       <category name="megamart-moka"/>
    </feature>
@@ -68,6 +65,9 @@
    </feature>
    <feature url="features/ucCommonGUI.ui.feature_1.0.0.202002270958.jar" id="ucCommonGUI.ui.feature" version="1.0.0.202002270958">
       <category name="megamart-s3d"/>
+   </feature>
+   <feature url="features/eu.megamart2.platform.doc.feature_1.0.0.202002281327.jar" id="eu.megamart2.platform.doc.feature" version="1.0.0.202002281327">
+      <category name="megamart-doc"/>
    </feature>
    <category-def name="megamart-papyrus" label="MegaM@Rt Papyrus Extensions"/>
    <category-def name="megamart-moka" label="MegaM@Rt Moka Extensions"/>
