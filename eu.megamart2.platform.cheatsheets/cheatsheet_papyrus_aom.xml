@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet
+      title="Papyrus extension for AOM cheat sheet">
+   <intro>
+      <description>
+         This cheat sheet explains how to use the Papyrus extension for AOM developed by MegaM@Rt2
+      </description>
+   </intro>
+   
+   <item
+      title="Modeling AspectJ in UML with AspectJ profile">
+      <description>
+         The MegaM@Rt AspectJ profile can be apply to model aspects and pointcut/jointpoints for software systems modelled with UML. 
+         <br/>Following procedure describes how to use the profile in Papyrus UML Editor. 
+         <br/>As an example, we use the figure.uml model shipped within the project <b>megamart2-papyrus/Plugins/eu.megamark2.papyrus.profiles.aom/examples</b>. 
+         <br/>This figure model is borrowed from AspectJ documentation: <b>https://www.eclipse.org/aspectj/doc/next/progguide/printable.html#starting-aspectj</b>
+      </description>
+      <subitem
+            label="Import the project megamart2-papyrus/Plugins/eu.megamark2.papyrus.profiles.aom from the GitHub repository: https://gitlab.atosresearch.eu/ari/megamart2-papyrus.git">
+      </subitem> 
+      <subitem
+            label="Open figure.di by double-clicking">
+      </subitem>
+      <subitem
+            label="In the welcome tab open both the figures and aspect model views by double-clicking on them">
+      </subitem>
+      <subitem
+            label="On the aspect view, click on any blank part of the model. Open the properties view. Select the profile tab. The aspectj profile is already applied. To apply this (or another profile) to the model, click on the apply registered profile icon and select AspectJ profile from the list. Once accepted, the profile is added to the list of applied profiles">
+      </subitem>
+      <subitem
+            label="To apply an AspectJ stereotype to a property or operation of the PointObserving aspect, select the element in the Papyrus model view. Then, in the properties view, select the profile tab. Click on the green plus icon to add an stereotype. Select the stereotype from the list and click on add right pointing arrow button to move the profile for the list of applicable stereotypes to the list of applied stereotypes. Accept the dialog. The new stereotype appears in the list of applied stereotypes in the profile tab.">
+      </subitem>
+      <subitem
+            label="Edit the stereotypes properties (slots) and reference them to other compatible stereotyped elements within the model (e.g. the PointObserving class).">
+      </subitem>
+   </item>
+   
+   <item
+      title="Generating AspectJ code from a model">
+      <description>
+        The MegaM@RT Acceleo generator plugin supports the automatic generation of AspectJ code from an UML model (made using the megaM@RT AspectJ profile), the generator is installed with the MegaM@RT extensions.
+		<br/>
+		Generating code is very simple, right click on your .uml file in the Eclipse project explorer, and click on the menu item Acceleo Model to Text >> Generate AspectJ Code.
+		<br/>
+		After code generation a dialog will inform you about the location of the generated files (usually a src-gen folder into the project folder).
+      </description>
+   </item>
+</cheatsheet>

@@ -42,6 +42,13 @@
             id="eu.megamart2.platform.cheatsheets.cheatsheet_moka"
             name="Moka Extensions cheat sheet">
       </cheatsheet>
+      <cheatsheet
+            category="eu.megamart2.platform.cheatsheets.category.main"
+            composite="false"
+            contentFile="$nl$/cheatsheet_papyrus_aom.xml"
+            id="eu.megamart2.platform.cheatsheets.cheatsheet_papyrus_aom"
+            name="Papyrus for AOM cheatsheet">
+      </cheatsheet>
    </extension>
 
 </plugin>
