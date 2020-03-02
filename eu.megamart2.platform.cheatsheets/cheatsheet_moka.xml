@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet
+      title="Moka Extensions cheat sheet">
+   <intro>
+      <description>
+         This cheat sheet explains how to use the Moka extensions developed by MegaM@Rt2
+      </description>
+   </intro>
+   
+   <item
+         title="Validation of executable UML models (fUML compliance)">
+      <description>
+         This tutorial guides the user through the process to verify the fUML compliance of a UML model for Moka simulation
+      </description>
+      <subitem
+            label="Open an executable UML model with Papyrus editor, by double-clicking in the model in the project explorer">
+      </subitem>
+      <subitem
+            label="Right click on the Papyrus model graphical view. Select Validation/Validate Model">
+      </subitem>
+      <subitem
+            label="The results of the Moka validation are shown in the Model Validation View. New validation constraints added by MegaM@Rt are prefixed with “Moka_”">
+      </subitem>
+      <subitem
+            label="Validation results are marked for affected model elements on the Model Explorer view of the Papyrus Perspective, and also in the graphical model view. If you double click on an validation issue in the ModeExecution and logging of UML modelslidation view, the corresponding element is highlighted in the model explorer. After fixing each validation issue you can validate again the model and check the results.">
+      </subitem>
+   </item>
+   
+   <item
+         title="Execution and logging of UML models">
+      <description>
+         A UML model can be executed using Moka. Create a Moka execution configuration as described in the Moka Documentation: 
+         <br/><b>https://wiki.eclipse.org/Papyrus/UserGuide/ModelExecution#Getting_started_with_Moka</b>
+         <br/>Launch the Moka configuration for the UML model. The execution will be shown graphically in the Papyrus UML editor. 
+         <br/>Simultaneously, execution logs will be displayed in two views: * The fUML console view. * The new Moka execution view.
+         <br/>In the execution view log entries are describing the inflows and outflows in/from any behavioral actions of the model, 
+         including information about the action, its inputs and outputs at the moment of the logging. 
+         <br/>Selecting any log entry with a double click opens a detail windows that renders the log information Log entries are populated in the temporal order they are provided, 
+         which corresponds to the order the actions are executed within the model.
+      </description>
+   </item>
+   
+   
+</cheatsheet>

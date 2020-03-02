@@ -35,6 +35,13 @@
             id="eu.megamart2.platform.cheatsheets.cheat_veriatl"
             name="VeriATL cheat sheet">
       </cheatsheet>
+      <cheatsheet
+            category="eu.megamart2.platform.cheatsheets.category.main"
+            composite="false"
+            contentFile="$nl$/cheatsheet_moka.xml"
+            id="eu.megamart2.platform.cheatsheets.cheatsheet_moka"
+            name="Moka Extensions cheat sheet">
+      </cheatsheet>
    </extension>
 
 </plugin>
