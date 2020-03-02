@@ -110,7 +110,10 @@
 			<unit id="it.univaq.disim.sealab.padre.feature.group" version="1.0.2"/>
 			<repository location="https://github.com/SEALABQualityGroup/padre-update-site/raw/master/updates/releases/2018-09_4.9.0"/>
 		</location>
-		<location id="essyn.profile.feature" path="${eclipse_home}" type="Feature"/>
 		<location id="ucCommonGUI.ui.feature" path="${eclipse_home}" type="Feature"/>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+			<unit id="ucCommonGUI.ui.feature.feature.group" version="1.0.0.202002281335"/>
+			<repository location="https://fenix.teisa.unican.es/s3d/"/>
+		</location>
 	</locations>
 </target>
