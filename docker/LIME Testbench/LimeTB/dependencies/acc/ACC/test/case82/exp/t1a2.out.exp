@@ -1,0 +1,10 @@
+call foo(3,4,5) in main
+in foo, a = 3, b = 4, c = 5 
+in foo2, a = 12, b = 20 , c = 5 
+aspect3: first 2 parameters of foo = 3, 4 
+aspect3: parameter of foo3 = 25
+
+---------------------
+call foo2(3,4,5) in main
+in foo2, a = 3, b = 4 , c = 5 
+in foo3, a = 9

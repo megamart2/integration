@@ -1,0 +1,10 @@
+call foo1 in main, argu = 3,4,5
+in foo1 exec around advice, begin, last 2 parm = 4 , 5 
+2nd argument is doubled by advice 
+inside foo1, a1 = 3 , a2 = 8 , a3 = 5 
+sum = 16
+in foo1 exec around advice, end
+call foo2 in main, argu = 1,99,20
+in foo2 call around advice, begin, last 2 parm = 99 , 20 
+2nd argument decrease by 2
+inside foo2, a1 = 1, a2 = 97, a3 = 20 

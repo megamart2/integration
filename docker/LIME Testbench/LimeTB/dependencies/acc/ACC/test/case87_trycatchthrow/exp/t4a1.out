@@ -1,0 +1,10 @@
+in main, call foo
+	 in foo
+		 in foo1
+aspect 1, throw 3
+catch an exception, exception = 3
+in main, call foo3
+	 in foo3
+aspect 2 , throw 9
+catch an exception, exception = 9
+end of main

@@ -1,0 +1,7 @@
+#include <stdio.h>
+
+void around(): call(void foo1()) {	
+	printf("aspect 3 \n");
+	proceed();
+}
+

@@ -1,0 +1,471 @@
+#!/usr/bin/perl
+
+# 
+# A script that behaves like gcc but weaves aspects silently.
+#
+# copyright: Middleware Systems Research Group
+# 	 	University of Toronto
+# author:    Charles Zhang czhang@eecg.utoronto.ca
+#	
+
+#check if everything is in a bootstrap location
+gcc -v;
+$ACCBOOTSTRAP = "-bootstrappath";
+$ACCBOOTSTRAPPATH="";
+{
+	my $line = join " ", @ARGV;
+	if($line =~ /$ACCBOOTSTRAP/){
+		foreach $arg(@ARGV){
+			if($arg =~ /^$ACCBOOTSTRAP.*/){
+				$bootstrappath =$arg;
+				$bootstrappath =~ s/^$ACCBOOTSTRAP.*=//;
+				$ACCBOOTSTRAPPATH = join "/", split "/", $bootstrappath;
+				last;
+			}
+		}
+	}
+}
+use Cwd;
+$curdir = getcwd();
+$acchome = getacchome(@ARGV);
+require $acchome."/bin/acclib.pl";
+
+#push @INC, $ENV{'ACCHOME'};
+#push @INC, $out;
+#require "adapter/acc_lib.pl";
+
+my $link_line, $cc_flags, $original, $accflags, $bootstrappath, $linkflags, $linklibs;
+
+$count=0;
+$compilecpp = 0;
+$weave = 0;
+$prev;
+$mf_file;
+@cfiles, @accfiles, @features, @featureaspects, @ofiles;
+foreach $arg (@ARGV){
+	if($arg =~ /^$ACCOPTION.*/){
+		$arg =~ s/^$ACCOPTION.*=//;
+		$accflags .=$arg." ";
+		next;
+	}
+	if($arg =~ /^$ACCBOOTSTRAP.*/){
+		next;
+	}
+	#gather all the c files in case it is the "-o program t1.c t2.c" fashion
+	if($arg =~ /^.*\.$CSUFFIX$/){
+		push @cfiles, $arg;
+	}
+	if($arg =~ /$CPPSUFFIX/){
+		$compilecpp = 1;
+		my $line = join " ", @ARGV;
+		try_cmd("$CXX $line");
+		exit 0;
+	}
+
+	if($arg =~ /$NOASPECTSFLAG/){
+		my $line = join " ", @ARGV;
+		$line =~ s/$NOASPECTSFLAG//g;
+		try_cmd("$CC $line");
+		exit 0;
+	}
+
+	if($arg =~ /^.*\.o$/){
+		push @ofiles, $arg;
+	}
+	if($arg =~ /^.*\.$SUFFIX$/){
+		push @accfiles, $arg;
+	}
+	if($arg =~ /-X.*/){
+		$arg =~ s/-X//;
+		push @features, $arg;
+		next;
+	}
+	#if the compiler is changed during the compilation process like in the case of gcc,
+	#the make file needs to tell ac_gcc about the new compiler by supplying it as the first
+	#argument to the compiler , as in ac_gcc gxxx [options]	
+	#We also need to make sure it is not ac_gcc test.c
+	if($count==0&&!($arg =~ /^-.*$/)&&$arg !~ /$ACCBOOTSTRAP/&&$arg !~ /^.*\.$CSUFFIX$/&&$arg !~ /^.*\.$SUFFIX$/){
+		$CC=$arg;
+	}
+	else{
+		if($arg =~ /^-.*$/){
+			$arg =~ s/\"/\\"/g;
+			if($arg =~ /^-D.*$/){
+				$arg =~ s/^-D/-D"/;
+				$arg .="\"";
+			}
+			if(!($arg eq "-c" || $arg eq "-o" || $arg =~ /^-M.*$/ || $arg =~ /^-l.*$/)){
+ 				$cc_flags .= $arg." "; 
+			}
+			if(!($arg =~ /^-I.*/ || $arg eq "-include")){
+				$link_line .= $arg." ";
+			}
+		}else{
+			if( $prev eq "-include" || $prev eq "-isystem"){
+				$arg =~ s/\"/\\"/g;
+ 				$cc_flags .= $arg." "; 
+			}elsif($prev eq "-MF"){ # we need to treat MF flag of gcc as it writes the preprocessed c file to the dependency file
+				$mf_file = $arg;
+ 				$link_line .= $arg." "; 
+			}else{
+ 				$link_line .= $arg." "; 
+			}
+		}
+		$original .=$arg." ";
+		$prev = $arg;
+	}
+	$count = $count+1;
+}
+
+#extract link options, this is based on heuristics
+my @options = split / /, $link_line;
+foreach $option(@options){
+	if($option =~ /^-.*/ && $option !~ /^-M.*/ && $option !~ /^-D.*/ && $option !~ /^-W.*/ && $option !~ /-[co]/){
+		$linkflags .= $option." ";
+	}
+	if($option =~ /^-l.*/) {
+		$linklibs .= $option." ";
+	}
+}	
+		
+$original =" ".$original." ";
+#Get the prefixed headers. This is for the new types used in the introduction
+my $prefixheaders = get_prefix_headers(@features);
+my @featureaspects = getfeatures();
+$cc_flags = $prefixheaders." ".$cc_flags;
+
+#gcc can compile ada programs, delegate directly to CC
+if($original =~ /\.ad[sb]\s/ ||
+	$original =~ /\w\.[Ss]\s/){
+   try_cmd("$CC $original");
+   exit 0;
+}
+
+#If tacc is used in autoconf, directly go to CC
+if($original =~ /^.*conftest.*$/){
+   	try_cmd("$CC $original");
+	exit 0;
+}
+
+@localaspects;	
+
+#process aspects passed from the argument line
+if(scalar(@accfiles)>=1){
+	foreach $accfile(@accfiles){
+		if($accfile =~ /\*\.$SUFFIX$/){
+			@localaspects =<$accfile>;
+		}else{
+			push @localaspects, $accfile;
+		}
+		$link_line =~ s/$accfile//;
+	}
+	@localaspects = acc_preprocess(join(":",@localaspects), $cc_flags, $linkflags);
+}
+
+#no aspects given on the commandline. With "-c" flag, we invoke the implicit rule
+if($original =~ /\s-c\s/ && scalar(@accfiles)==0){
+	if($SRCROOT eq ""){
+		die "Please point the environment variable SRCROOT to the root of the target source.";
+	}else{
+		$SRCROOT = join "/", split "\/",$SRCROOT;
+	}
+	my @globalaspects; 	
+	if($GLOBAL_ASPECTS ne ""){
+		my $output = `ls -R $GLOBAL_ASPECTS | grep ".*:"`;		
+		my @directories = split /:\n/,$output;
+		foreach $directory (@directories){
+	    	$directory .= "/".$ACCDIR;
+	    	push @globalaspects, <$directory/*.$SUFFIX>;
+		}
+	}
+	
+	#Let us get the aspects that cover the current file	
+	@localaspects = (@localaspects, fetch_ancestors_and_siblings($SUFFIX));
+	@localaspects = (@localaspects, @globalaspects);
+
+	@localaspects = (@localaspects, acc_preprocess(join(":",<./*.$SUFFIX>), $cc_flags, $linkflags));
+	@localaspects = (@localaspects, @globalaspects);
+	@localaspects = removeDuplicates(@localaspects);
+	#TODO We need to check if there are duplicate aspect file names.
+	if(@localaspects==0 && $original =~ /\sWall\s/){
+	    print "acc warning: no aspects found for compilation.\n";
+	}
+}
+
+#If no weaving necessary, just let CC to compile the files
+if(scalar(@localaspects)==0 && scalar(@cfiles)>0 && scalar(@featureaspects)==0){
+	try_cmd("$CC $original");
+	exit 0;
+}
+
+if(!(-d $ACCDIR)){
+    try_cmd("mkdir $ACCDIR");
+}
+
+#At this stage, we compile C files and weave all the visible aspects to them
+if(scalar(@cfiles)>=1) {
+	my @othercfiles;
+	foreach $cfile(@cfiles){
+		if($cfile =~ /\*\.$CSUFFIX$/){
+			@othercfiles =(@othercfiles, <$cfile>);
+		}
+	}
+	@cfiles = (@cfiles, @othercfiles);
+	@cfiles = removeDuplicates(@cfiles);
+	my $mapline;
+	foreach $cfile(@cfiles){
+		my $filename = $cfile;
+		$filename =~ s/.*\///g;
+		$filename =~ s/\.c//;
+		$fileroot = $filename;
+		$fixedcfile = fixpath($cfile);
+		try_cmd("$CC $cc_flags -E $fixedcfile > $ACCDIR/$fileroot.mc");
+		$line = $curdir."/".$ACCDIR."/".$fileroot.".mc"." ".$line;
+		$newfilename = $curdir."/".$ACCDIR."/".$fileroot.".c";
+		#Let us get rid of strange characters before matching
+		my $toreplace = $cfile;
+		$toreplace =~ s/\$/\\\$/;
+		$toreplace =~ s/\+/\\\+/;
+		#Here we need to replace the original file with the new woven file
+		$link_line =~ s/$toreplace/$newfilename/;
+		#$mapline .="-map=\"$newfilename|$cfile\" ";
+	}
+	$line = $line." ".join " ", @localaspects;  
+	foreach $aspect(@localaspects){
+		my $originalaspect = $aspect;
+		$originalaspect =~ s/$ACCDIR\///;
+		$originalaspect =~ s/_ac\.$SUFFIX/.$SUFFIX/;
+		$aspect =~ s/$SUFFIX$/c/;
+		$mapline .="-map=\"$aspect|$originalaspect\" ";
+	}
+	foreach $featureaspect (@featureaspects){
+		my @temp = split /@/,$featureaspect;
+		my $location = @temp[1];
+		$location =~ s/\n//;
+		my @aspects = split /[,\s]/,@temp[0];
+		foreach $aspect(@aspects){
+			$line .=" ".$EXPORTDIR."/".$aspect;
+			my $original = $aspect;
+			$original =~ s/_ac.acc$/.acc/;
+			$aspect =~ s/$SUFFIX$/c/;
+			$mapline .=" -map=\"".$EXPORTDIR."/".$aspect."|".$location."/".$original."\"";
+		}
+	}
+	$line .=" ".$accflags;
+	if($original =~ /Wall/){
+		$matchinfotemp =$ACCDIR."/matchinfotemp"; 
+		if(-f $matchinfotemp){
+			try_cmd("rm $matchinfotemp");
+		}
+		$line .=" --matchinfo=".$matchinfotemp;
+	}
+	$line .=" ".$mapline;
+	try_cmd("$ACC $line");
+	if($original =~ /Wall/){
+		my $content = `cat $matchinfotemp`;
+		open(DAT,">>$ACCDIR/$MATCHINFOFILE");
+		print DAT $content."\n\n";
+		try_cmd("rm $matchinfotemp");
+	}	
+}
+
+#if we have c files but no -c flags. This means we generate a binary for the batch.
+if($original !~ /\s-c\s/ && scalar(@cfiles)>=1){
+	my @files = glob($curdir."/".$ACCDIR."/*.c");
+	foreach $file(@files){
+		my $target = $file;
+		$target =~ s/c$/o/;
+		try_cmd("$CC $cc_flags -c $file -o $target");
+	}
+	$link_line =~ s/\.c\s/.o /g;
+	$link_line .= " ";
+	my $aoline = join " ", <$ACCDIR/*_ac.o>;
+	$link_line .= $aoline;
+	try_cmd("$CC $link_line $ACCLIB");
+}
+
+if($original =~ /\s-c\s/){
+	try_cmd("$CC $link_line");
+}
+
+#correct the dependency files
+if(-f $mf_file){
+	try_cmd("sed s/\\.acc_dir\\\\/// $mf_file > _temp_lo_");
+	try_cmd("mv _temp_lo_ $mf_file");
+}
+
+#This is where we generate the target .o file or .a file
+if($original =~ /\s-o\s/ && scalar(@cfiles)==0) {
+	#We want to detect the explicit linking: aspect object files supplied in the link line.
+	my $explicit = 0;
+	foreach $o(@ofiles){
+		my $ofile = $o;
+		$ofile =~ s/\.o/.acc/;
+		if(-e $ofile){
+			$explicit = 1;	
+			last;
+		}
+	}
+	
+	if($explicit == 0){			
+		#The following lines perform these tasks:
+		# 1. get all the aspect objects visible to the current location.
+		# 2. copy all the ".a" libraries to a temporary location. The reason for this strange way of doing things is convenience.
+		# In a hierarchical building scheme, many intermediate libraries can be generated and bundled with aspect modules by this very routine. We need to guarantee that, for each
+		# library building task, the aspect modules are unique to be void of the multiple symbol error. 
+		# For this, we keep a temporary copy of the archives, we list all the aspects visible to the current file, and we remove 
+		# the duplicates in the libraries, i.e., the copies that we made without affecting the original version.
+		my $objectdir = ".ac_objs";
+		my @aspectfiles1 = get_inter_files_of_suffix($GLOBAL_ASPECTS, "acc");
+		my @aspectfiles2 = get_inter_files_of_suffix($curdir, "acc");
+		my @aspectfiles =removeDuplicateNames(<@aspectfiles1 @aspectfiles2>);
+		if(-d $objectdir){
+			try_cmd("rm -rf $objectdir");
+		}
+		try_cmd("mkdir $objectdir");
+		foreach $item (@ARGV){
+			if($item =~ /\.a$/){
+				try_cmd("cp $item $objectdir");
+			}	
+		}
+		my @targetlibs = <$objectdir/*.a>;
+		foreach $aspect (@aspectfiles){
+			chomp($aspect);
+			$aspect =~ s/\.acc$/\.o/;
+		}
+		#Delete duplicated aspect object files from the libraries on the link line
+		foreach $item (@targetlibs) {
+			foreach $aspect (@aspectfiles){
+				my @parts = split("\/",$aspect);
+				my $aobj = $parts[-1];
+				try_cmd("ar d $item $aobj");
+			}
+		}
+		@targetlibs = (@targetlibs, @aspectfiles);
+		$line = join " ", @targetlibs;
+		$line .= " ".$ACCLIB;
+		#Here we need to append the original ".a" libraries with the aspect modules. 
+		if($original =~ /\s\S+\.a\s/){
+			$original =~ s/\s\S+\.a\s/ _ACC_HOLDER_ /;
+			$original =~ s/(\S+)\.a\s//g;
+			$original =~ s/ _ACC_HOLDER_ / $line /;
+		}else{
+			$original =~ s/\.o\s/.o $line /;
+		}
+
+   		try_cmd("$LINKER $original $linklibs");
+		try_cmd("rm -rf $objectdir");
+	}else{
+   		try_cmd("$LINKER $original $linklibs");
+	}
+		
+}
+else{
+		#doexport();
+	#clean the temp directory, we need to keep "acc" "_ac.c" files, files related to aspects
+	if(-d $ACCDIR){
+		@temp = glob($ACCDIR."/*.mc");
+		if(scalar(@temp)>0){
+			try_cmd("rm $ACCDIR/*.mc");
+		}
+		my @tempcfiles = <$ACCDIR/*.*>;
+		if(scalar(@tempcfiles)>0){
+			my $removeline = join " ", @tempcfiles;
+			$removeline = " ".$removeline." ";
+			$removeline =~ s/\s.*_ac.o\s//g;
+			$removeline =~ s/\s.*.$SUFFIX\s//g;
+			if($removeline =~ /\w+/){
+				try_cmd("rm $removeline");
+			}
+		}
+	}
+}
+
+sub acc_preprocess {
+	my @files;
+	my @acfiles = split ":",$_[0];
+	my $ACFLAGS = $_[1];
+	my $LINKFLAGS = $_[2];
+#	my @acfiles = <./*.$SUFFIX>;
+	my $directory = ".";
+	if(@acfiles==0){
+		return @files;
+	}
+	if(!(-d "./".$ACCDIR)){ 
+			try_cmd("mkdir $directory/$ACCDIR");
+	}
+	my $count = 0;
+#	foreach $file(@acfiles){
+#		my $test = $file;
+#		$test =~ s/\.$SUFFIX$/_ac.c/;
+#		$test = $ACCDIR."/".$test;
+#		if(-f $test){
+#			$count++;
+#		}
+#	}
+
+#	if($count==scalar(@acfiles)){
+#		return <$ACCDIR/*.$SUFFIX>;
+#	}
+
+	foreach $file (@acfiles){
+		my @temp = split /.$SUFFIX$/,$file;
+		@temp = split /\//, $temp[0];
+		my $newfile1 = $curdir."/".$ACCDIR."/".$temp[@temp-1]."_ac.c";
+		my $newfile2 = $curdir."/".$ACCDIR."/".$temp[@temp-1]."_ac.$SUFFIX";
+		my $newfile1o = $curdir."/".$ACCDIR."/".$temp[@temp-1]."_ac.o";
+		try_cmd("cp $file $newfile1");
+		try_cmd("$CC -I. $ACFLAGS -E $newfile1 > $newfile2");
+		try_cmd("rm $newfile1");
+		try_cmd("$ACC $accflags $newfile2 -map=\"$newfile1|$file\"");
+		try_cmd("$CC -g $LINKFLAGS -c -o $newfile1o $newfile1");
+#		if($explicit == 1){
+#			my $targeto = $file;
+#			$targeto =~ s/\.acc$/.o/;
+#			try_cmd("cp $newfile1o $targeto"); 
+#		}
+		try_cmd("rm $newfile1");
+		push @files,$newfile2;
+	}
+	return @files;
+}
+
+sub getfeatures{
+	my @files;
+	#Let us get the exported aspects for API weaving
+	foreach $feature (@features){
+		$string = $feature."_weave"; 
+		my $out = `cat $EXPORTMAP | grep $string`;
+		my @temp = split /=/, $out;
+		$out = $temp[1];
+		$out =~ s/\.acc/_ac.acc/;
+		push @files, $out;
+	}
+	return @files;
+}
+sub getacchome {
+	if($ACCBOOTSTRAPPATH ne ""){
+		return $ACCBOOTSTRAPPATH;
+	}
+	my $out = `which tacc`;
+	chomp($out);
+	if($out =~ /no tacc/ || $out eq ""){
+		die "Cannot find tacc on the path. Please make sure tacc is on your path";
+	}
+	$out =~ s/\/bin\/tacc//;
+	return $out;
+}
+
+sub fixpath {
+	my $string = $_[0];
+	my $parent = $curdir;
+	$parent =~ s/\/\w+$//;
+	$parent .="/";
+	my $current =$curdir."/";
+	$string =~ s/^\.\.\//$parent/;
+	$string =~ s/^\.\//$current/;
+	if($string =~ /^\w/){
+		$string = $curdir."/".$string;
+	}
+	return $string;
+}

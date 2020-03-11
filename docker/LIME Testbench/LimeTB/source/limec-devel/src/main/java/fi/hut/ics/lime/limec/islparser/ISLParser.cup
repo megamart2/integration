@@ -1,0 +1,67 @@
+package fi.hut.ics.lime.limec.islparser;
+import fi.hut.ics.lime.limec.ast.AnnotationType; //CheckerAnnotationType
+import fi.hut.ics.lime.limec.ast.Annotation; //CheckerAnnotation
+import fi.hut.ics.lime.limec.ast.AnnotationField; //CheckerField
+import java.util.LinkedList;
+
+terminal 		CALLSPEC, RETURNSPEC, OBSERVE, INSTANCE;
+terminal String	STRING, IDENTIFIER;
+terminal 		LBRACE, RBRACE, LPAREN, RPAREN, COMMA, EQ;
+
+non terminal AnnotationType annotationTag;
+non terminal LinkedList<Annotation> islList;
+non terminal Annotation annotation;
+non terminal LinkedList<AnnotationField> annotationFieldList;
+non terminal AnnotationField annotationField;
+non terminal LinkedList<String> stringList;
+
+islList ::= annotation:a
+					{: LinkedList<Annotation> tmp =
+						  new LinkedList<Annotation>();
+					   tmp.add(a);
+					   RESULT = tmp; :}
+		  | islList:li annotation:a
+		  			{: li.add(a);
+		  			   RESULT = li; :}
+		  ;
+
+annotationTag ::= CALLSPEC
+					{: RESULT = AnnotationType.CALLSPEC; :} 
+			 | RETURNSPEC
+			 		{: RESULT = AnnotationType.RETURNSPEC; :}
+			 | OBSERVE
+			 		{: RESULT = AnnotationType.OBSERVE; :}
+			 | INSTANCE
+			 		{: RESULT = AnnotationType.INSTANCE; :}
+			 ;
+
+annotation ::= annotationTag:tag LPAREN annotationFieldList:li RPAREN
+					{: RESULT = new Annotation(tag, li); :}
+					;
+
+annotationFieldList ::= annotationField:f
+					{: LinkedList<AnnotationField> tmp =
+						new LinkedList<AnnotationField>();
+					  tmp.add(f);
+					  RESULT = tmp; :}
+                   | annotationFieldList:li COMMA annotationField:f
+                   	{: li.add(f);
+                   	  RESULT = li; :}
+				   ;
+
+annotationField ::= IDENTIFIER:id EQ STRING:s
+					{: LinkedList<String> tmp = new LinkedList<String>();
+					  tmp.add(s);
+					  RESULT = new AnnotationField(id,tmp); :}
+			   | IDENTIFIER:id EQ LBRACE stringList:li RBRACE
+			   		{: RESULT = new AnnotationField(id,li); :}
+			   ;
+
+stringList ::= STRING:s
+					{: LinkedList<String> tmp = new LinkedList<String>();
+					  tmp.add(s);
+					  RESULT = tmp; :}
+			 | stringList:li COMMA STRING:s
+			 		{: li.add(s);
+			 		   RESULT = li; :}
+			 ;

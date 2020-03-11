@@ -1,0 +1,10 @@
+apply plugin: 'java'
+
+
+dependencies {
+    implementation project(':LCT')
+    implementation project(':limec')
+    implementation project(':common')
+    implementation files("../../lib/external/jopt-simple-3.1.jar")
+}
+

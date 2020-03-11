@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Script to instrument files
+
+set -e
+
+PREFIX=`dirname "$0"`
+
+. $PREFIX/classpath-common
+. $PREFIX/classpath-lct
+
+CLASSPATH=$CLASSPATH:$PREFIX/../
+CLASSPATH=$CLASSPATH:`pwd`
+
+#clear
+
+if [ $# -le 0 ]
+then
+  echo "Usage: LCTcompile [filename]"
+  echo " "
+  echo "LCTcompile simply calls javac [filename] with the libraries needed by LCT"
+  echo "set in to the classpath."
+else
+  javac -classpath $CLASSPATH "$1"
+fi
+
+exit 0;

@@ -1,0 +1,6 @@
+
+
+after ():cflow(call($ $(...))) {
+
+	printf("after aspect c2: func = %s, type = %s \n", this->funcName, this->kind);
+}

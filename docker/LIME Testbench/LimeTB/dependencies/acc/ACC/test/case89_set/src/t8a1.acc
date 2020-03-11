@@ -1,0 +1,10 @@
+before(): set(int t) {
+	printf("before aspect: in file %s, in func %s , type = %s, target = %s\n",
+		this->fileName, this->funcName, this->kind, this->targetName);
+}
+
+
+after(): get(int t) {
+        printf("after aspect: in file %s, in func %s , type = %s, target = %s\n",
+                this->fileName, this->funcName, this->kind, this->targetName);
+}

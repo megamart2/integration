@@ -1,0 +1,269 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "pointcut.h"
+#include "gen.h"
+
+/* an aspect for enabling advice matching for functions inside aspects */
+
+/* the way to do:
+ 1. disable removing tags: ADFUNCBEGIN , ADFUNCEND , UTAC_CFLOW_FUNCS_BEGIN, UTAC_CFLOW_FUNCS_END.
+ 2. for aspect-generated file, copy all advice functions to a temp file with different function names, and remove the above tags.
+ 3. go through the list of pointcuts, change the advice functions name to be the new name
+ 4. treat the aspect-generated file as a normal C file, weave aspects as usual.
+ 5. attach all advice functions from the temp file to the end of the woven file. */
+ 
+/* external declarations */
+extern void outputLine(char *, char );
+
+extern char * mc_suffix;
+extern char * target_file_name;
+extern struct TypedefInfo * typedefTable;
+extern int compileFlag ;
+extern struct Record * PointCutTable;
+
+
+void createTmpAdFile(char *, char *);
+void createTmpSrcFile(char *, char *);
+void combineFiles(char * tf1, char * tf2, char * tf2mc, char * target);
+void modifyADFuncPrefix(char * s);
+void changeAdFuncNameForAd(struct advice * ad);
+void changeAdFuncName(struct Record *pc);
+void weaveCoreFile(char * corename, struct Record *pc);
+void match_against_aspect(char * acc_target, struct Record * pc);
+
+
+/* advices */
+/*----------------------------------------------------------------------------*/
+/* add a new option */
+int matchAspect = 0;
+int around(char ** argv, int argc, int i):
+        execution(int process_onearg(char **,int , int)) && args(argv, argc, i) {
+        if(strcmp(argv[i], "-a") == 0 || strcmp(argv[i], "--aspectmatch") == 0) {
+                matchAspect = 1;
+                return i+1;
+        }else {
+                return proceed();
+        }
+}
+
+after(): call(void printOptions()) {
+        printf("%s", "-a , --aspectmatch\n\tThe advices will also match the join points inside aspect files.\n\n");
+}
+/*----------------------------------------------------------------------------*/
+
+/* around advice: replace the function insertTypeMember, because if we treat the generated files
+ from aspects are normal C files, inserting new member to types can be done in a normal way */
+
+void around(char * acc_target, struct Record * pc): 
+	call(void insertTypeMember(char *,struct Record *)) && args(acc_target, pc) {
+
+	if(matchAspect == 0) {
+		proceed();
+	}else {
+		match_against_aspect(acc_target, pc);
+	}
+}
+
+/* these 4 tags are used when matching aspect against aspect, so they should be emitted as usuallly. Eventually, they will be stripped by functions inside this aspect */
+
+void around(char * line): execution(void outputLine(char *, ...)) && args(line, ...) {
+        if(matchAspect == 1 && (HASTAG(line, ADVICE_FUNC_BEGIN_TAG) || HASTAG(line, ADVICE_FUNC_END_TAG) || HASTAG(line, UTAC_CFLOW_FUNCS_BEGIN) || HASTAG(line, UTAC_CFLOW_FUNCS_END))) {
+		s(line);
+	}else {
+		proceed();
+	}
+}
+
+/* when weaving the aspect-generated files, no need to emit the struct JoinPoint declaration */
+int output_join_point_decl = 1;	
+
+void around(): execution(void outputJoinPointStrDecl()) {
+	if(output_join_point_decl == 1) {
+		proceed();
+	}
+}
+
+/* function definitions */
+
+void match_against_aspect(char * acc_target, struct Record * pc) {
+        char tf1_name[TEMPFILENAMELEN];
+        char tf2_name[TEMPFILENAMELEN];
+	char ori_target_file[NAMELEN];	/* the original target file name */ 
+	char * p;	
+	
+	sprintf(ori_target_file, "%s", acc_target);
+
+	//create 2 temp file names 
+        sprintf(tf1_name, "%s_aa_temp_advices", acc_target); /* only contain functions generated from adviced */
+	sprintf(tf2_name, "%s_aa_temp_src%s", acc_target, mc_suffix); /* modified generated file from aspects */
+
+	createTmpAdFile(tf1_name, acc_target);
+	createTmpSrcFile(tf2_name, acc_target);
+
+	changeAdFuncName(pc);
+	output_join_point_decl = 0;
+
+	free_file_name();
+
+	weaveCoreFile(tf2_name, pc);
+
+	/* last step */
+	/* combine the generated file and the file containing only the advice function -> target file */
+	
+	combineFiles(tf1_name, target_file_name, tf2_name, ori_target_file);
+
+	/* remove temp files */
+	remove(tf1_name);
+	remove(tf2_name);
+	remove(target_file_name);
+
+	free_file_name();
+}
+
+/* create a temp file only containing functions generated from advices */
+void createTmpAdFile(char * tmpfile, char * srcfile) {
+       	FILE *f = NULL;
+	char oneLine[ONELINE];
+        char * p1;
+        int foundAdFunc = 0;
+ 
+	Tell(tmpfile);
+        f = fopen(srcfile, "r");
+        while(fgets(oneLine, ONELINE, f)) {
+		if(HASTAG(oneLine, ADVICE_FUNC_BEGIN_TAG)) {
+			/* this is the begining of an advice function */
+			p1 = strstr(oneLine, "inline");
+		    	assert(p1);
+		  	p1 += strlen("inline");
+			modifyADFuncPrefix(p1);
+			outputLine(p1, 1);
+			foundAdFunc = 1;
+		}else if(HASTAG(oneLine, ADVICE_FUNC_END_TAG)) {
+			foundAdFunc = 0;
+		}else if(HASTAG(oneLine, UTAC_CFLOW_FUNCS_BEGIN)) {
+			foundAdFunc = 1;
+		}else if(HASTAG(oneLine, UTAC_CFLOW_FUNCS_END)) {
+			foundAdFunc = 0;
+		}else if(foundAdFunc) {
+			outputLine(oneLine,1);
+		}
+	}
+
+	fclose(f);
+	Told();
+
+}
+
+/* create a temp file containing generated source file from aspects, with some portions removed. so that it is ready to be woven by aspect */
+void createTmpSrcFile(char * tmpfile, char * srcfile) {
+        FILE *f = NULL;
+        char oneLine[ONELINE];
+        char * p1, * p2, * p3, tmp;
+	char disableoutput = 0;
+
+        Tell(tmpfile);
+        f = fopen(srcfile, "r");
+
+	while(fgets(oneLine, ONELINE, f)) {
+                if(HASTAG(oneLine, ADVICE_FUNC_BEGIN_TAG)) {
+                        /* this is the begining of an advice function */
+                        p1 = strstr(oneLine, "*/");
+                        assert(p1);
+                        p1 += 2;
+                        outputLine(p1,1);
+                }else if(HASTAG(oneLine, ADVICE_FUNC_END_TAG) ||
+			 HASTAG(oneLine, ACTYPEINSERTBEGIN) ||
+			 HASTAG(oneLine, INTRODUCEEND_TAG) ||
+			 HASTAG(oneLine, INTRODUCEBEGIN_TAG)) {
+			/* skip */
+		}else if(HASTAG(oneLine, UTAC_CFLOW_FUNCS_BEGIN)) {
+			disableoutput = 1;
+		}else if(HASTAG(oneLine, UTAC_CFLOW_FUNCS_END)) {
+			disableoutput = 0;
+		}else if(disableoutput == 0) {
+			outputLine(oneLine,1);
+		}
+	}
+	
+        fclose(f);
+        Told();
+}
+
+/* mwgong todo: need to use this function inside main.c */
+void weaveCoreFile(char * corename, struct Record *pc) {
+   	FILE * f;
+	compileFlag = 0;
+	PointCutTable = pc;
+
+        define_target_file_name(corename);
+        f = fopen(corename, "r");
+        if(f==NULL) {
+                WARNING("file %s does not exist. It is skipped.\n", corename);
+        }else {
+                init(f);
+        	
+		/* When preturn/throw/try/catch are used inside advices, a typedef type "jmp_buf" will be used in the file generated from aspects. It will cause problem for the second phase of weaving, ie. weave aspects into aspect-generated files, because "jmp_buf" is defined inside "#include <setjmp.h>" and its definition is not visible to acc compiler, so acc will treat it as a normal identifier and reports syntax error. The fix is to add "jmp_buf" to the symbol table and treat it as a typedef name */
+	        
+		enter_ident(TYPEDEFNAME, "jmp_buf");
+		
+		ROOT();
+                insertGenDecls(target_file_name, 1);
+	}
+}
+
+void combineFiles(char * tf1, char * tf2, char * tf2_mc, char * target) {
+	FILE * f = NULL;
+        char oneLine[ONELINE];
+	char newLine[ONELINE];
+	char * p;
+
+        Tell(target);
+        f = fopen(tf2, "r");
+        while(fgets(oneLine, ONELINE, f)) {
+            if( (strstr(oneLine, "# ") || strstr(oneLine, "#line "))  && strstr(oneLine, tf2_mc)) {
+		outputLine("\n", 1);
+	    }else if( (strstr(oneLine, "# ") || strstr(oneLine, "#line "))  && strstr(oneLine, tf2)) {
+		p = strstr(oneLine, tf2);
+		*p = '\0'; 
+		/* replace tf2 by the target file name */
+		sprintf(newLine, "%s%s%s", oneLine, target, p + strlen(tf2));
+		outputLine(newLine, 1);
+	    }else {
+	    	outputLine(oneLine, 1);
+	    }
+        }
+
+        fclose(f);
+        f = fopen(tf1, "r");
+        while(fgets(oneLine, ONELINE, f)) {
+            outputLine(oneLine, 1);
+        }
+        fclose(f);
+
+	Told();
+}
+
+/* change the advice function name to be a different name */
+void modifyADFuncPrefix(char * s) {
+        char * p = strstr(s, UTAC_ADVICE_NAME_PREFIX);
+        if(p) {
+                /* make a different name */
+                *p = (*p) + 1;
+                assert( (*p) < 'z' && (*p) > 'a');
+        }
+}
+
+void changeAdFuncNameForAd(struct advice * ad) {
+        if(ad == NULL) return;
+        modifyADFuncPrefix(ad->name);
+}
+
+void changeAdFuncName(struct Record *pc) {
+        if(pc == NULL) return;
+        /* not change name for "intype" pointcut, because the new members are still found in the original files */
+        if(!hasIntypePCOnly(pc)) {
+                changeAdFuncNameForAd(pc->aList);
+        }
+        changeAdFuncName(pc->next);
+}

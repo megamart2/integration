@@ -1,0 +1,10 @@
+in main, call foo
+	 in foo
+		 in foo1
+			 in foo2
+before call foo3, throw exception 3
+1st catch exception, = 3
+call foo1 in foo 
+catch exception 4 from calling foo1
+in foo 
+end of main

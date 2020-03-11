@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# A simple script for running the tracer.
+
+PREFIX=`dirname "$0"`
+. $PREFIX/currentversion
+
+CLASSPATH="$PREFIX/../lib/lime/tracer-$TRACER_VERSION.jar"
+
+exec java -cp $CLASSPATH fi.hut.ics.lime.tracer.Main $@

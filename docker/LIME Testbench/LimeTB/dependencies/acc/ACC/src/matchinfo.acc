@@ -1,0 +1,266 @@
+/*
+ * ASPECT-ORIENTED C (ACC) - an aspect-oriented extension for the C language
+ *
+ * Copyright (C) 2006 . All rights reserved.
+ *
+ * Weigang (Michael) Gong, Hans-Arno-Jacobsen
+ *
+ * ACC development team (www.aspectc.net),
+ * Middleware Systems Research Group (www.msrg.utoronto.ca),
+ * University of Toronto.
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "weaveutil.h"
+#include "symboltable.h"
+#include "lexer.h"
+#include "pointcut.h"
+
+/* an aspect for printing out matching information */
+
+/*----------------------------------------------------------------------------*/
+/* add a new option */
+int outputMatchInfo = 0;
+FILE * outputFile = NULL;
+ 
+int around(char ** argv, int argc, int i):
+        execution(int process_onearg(char **,int , int)) && args(argv, argc, i) {
+        if(strcmp(argv[i], "-m") == 0 || strcmp(argv[i], "--matchinfo") == 0) {
+                outputMatchInfo = 1;
+		outputFile = NULL;
+		return i+1;
+	}else if(strstr(argv[i], "-m=") == argv[i] || strstr(argv[i], "--matchinfo=") == argv[i]) {
+		char * tmp = strstr(argv[i], "=");
+		outputFile = fopen(tmp+1, "w");
+		if(outputFile == NULL) {
+			printf("Can not open files for outputing matching information, so the information is output to stdout. \n");
+		}
+		outputMatchInfo = 1;
+		return i+1;
+	}else {
+                return proceed();
+        }
+}
+
+after(): call(void printOptions()) {
+        printf("%s", "-m[=<file name>] , --matchinfo[=<file name>]\n\tThe join point-advice matching information will be output.\n\n");
+}
+
+
+
+/*----------------------------------------------------------------------------*/
+
+int jpcounter = 1;
+
+void printOneAdvice(char * suffix, int index, struct advice * ad) {
+        /* this is ugly, I really want the advice could match printf-like functions */ 
+	if(outputFile == NULL) {
+		printf("%s%d. ad:%s,%s,%s,%ld\n", suffix, index,
+			ad->name,		/* function name for the advice */
+			getAdviceText(ad->type),		/* advice type */
+                        number_to_name(ad->insideFile/1000000), /* aspect file */
+                        ad->insideFile%1000000			/* line number */
+                        );
+
+	}else {
+		fprintf(outputFile, "%s%d. ad:%s,%s,%s,%ld\n", suffix, index,
+                        ad->name,               /* function name for the advice */
+                        getAdviceText(ad->type),                /* advice type */
+                        number_to_name(ad->insideFile/1000000), /* aspect file */
+                        ad->insideFile%1000000                  /* line number */
+                        );
+
+
+
+	}
+}
+
+int printAdviceQueue(struct AdviceQueue * aq, int i) {
+        while(aq) {
+                switch(aq->data->type) {
+			case BEFORE:
+			case AFTER:
+			case AROUND:
+				printOneAdvice("\t", i++, aq->data);
+                }
+		aq = aq->next;
+        }
+
+        return i;
+}
+
+void printAdviceInfo(struct Context *c) {
+        struct AdviceQueue * ptr ;
+        int i = 1;
+        i = printAdviceQueue(c->before_advices,i);
+        i = printAdviceQueue(c->after_advices,i);
+        i = printAdviceQueue(c->around_advices,i);
+}
+
+void printOneJP(char * suffix, int index, char * name, char * type, long pos) { 
+        if(outputFile == NULL) {
+		printf("%s%d. jp:%s,%s,%s,%ld\n", suffix, index,
+			name,			/* function name for the join point */
+                	type,			/* join point type */
+                	number_to_name(pos/1000000),		/* file name */
+      	        	pos%1000000				/* line number */
+		);
+	}else {
+		fprintf(outputFile, "%s%d. jp:%s,%s,%s,%ld\n", suffix, index,
+                        name,                   /* function name for the join point */
+                        type,                   /* join point type */
+                        number_to_name(pos/1000000),            /* file name */
+                        pos%1000000                             /* line number */
+                );
+
+	}
+}
+
+void printJP_AD(struct Context * c) {
+	printOneJP("", jpcounter++, c->funcName, getPointCutTypeText(c->type), c->insideFile);
+	printAdviceInfo(c);
+	if(outputFile == NULL) {
+		printf("\n");
+	}else {
+		fprintf(outputFile, "\n");
+	}
+}
+
+/* add the matched join point information to the advice */
+void addJP(struct Context *c , struct advice *ad) {
+	struct jpInfo * newjp = (struct jpInfo*)malloc(sizeof(struct jpInfo));
+	newjp->name = copy_chars(c->funcName);//59: error--1: syntax error near token 'pe'
+	newjp->pos = c->insideFile;
+	newjp->type = c->type;
+	newjp->next = ad->jps;
+	ad->jps = newjp;
+	
+}
+
+void free_jps(struct jpInfo * jps){
+	if(jps == NULL) return;
+	
+	if(jps->next) free_jps(jps->next);
+
+	MYFREE(jps->name);
+	MYFREE(jps);
+	
+}
+
+
+void printAD_JP(struct Record *ptr) {
+  int i = 1;
+  struct advice * ad;
+  struct jpInfo * jp;
+  while(ptr) {
+	if(ptr->aList && ptr->aList->type != ADFORNAMEDPC) { 
+        	int j = 1;
+		ad = ptr->aList;
+		printOneAdvice("", i++, ad);
+		jp = ad->jps;
+		while(jp != NULL) {
+			printOneJP("\t", j++, jp->name, getPointCutTypeText(jp->type), jp->pos);
+			jp = jp->next;
+		}
+		if(outputFile == NULL) {
+			printf("\n");
+		}else {
+			fprintf(outputFile, "\n");
+		}
+	}
+	ptr = ptr->next;	
+  }
+
+}
+
+/************************************************************/
+/* advices */
+
+
+/* add new field for an advice */
+introduce(): intype(struct advice) {
+  	long insideFile;
+
+	struct jpInfo* jps;
+
+}
+
+
+
+/* initialize the two new fields */
+after(struct advice ** head) :  execution(void addNewAdvice(struct advice **)) &&
+			args(head) {
+       	struct advice * tmp = *head;
+	tmp->jps = NULL;
+        GETVarLine(&(tmp->insideFile));
+}
+
+pointcut enqueue_append_advice(struct advice * ad): 
+	( execution(void newEnqueueAdvice(...)) ||
+         execution(void appendAdvice(...))) && args(...,ad,...) ;
+
+
+before(struct advice * ad): enqueue_append_advice(ad) {
+	/* some special advices are not created inside addNewAdvice functions, they need to handle differently */
+	switch(ad->type) {
+		case ADARGSCFLOW: 
+		case ADBEFORECFLOW: case ADAFTERCFLOW:
+		case ADBEFORETRY: case ADAFTERTRY:
+			ad->jps = NULL;
+			GETVarLine(&(ad->insideFile));
+			break;
+	}
+}
+
+/********************************************************/
+
+
+
+after(struct Context *c, struct advice *data):
+	call(void newEnqueueAdvice(...)) &&
+	args($, c, data, $) {
+
+        addJP(c, data);
+}
+
+after(char * c, long * match): call(void match_join_point(...)) &&
+		args(c, match) {
+ 	if(*match == TRUE && outputMatchInfo == 1) {
+		printJP_AD((struct Context *)c); 
+        }
+}
+
+before(struct Record * pcPtr): call($ free_pointcut(struct Record *)) && infunc(main) && args(pcPtr) {
+	if(outputMatchInfo == 1) {
+		printAD_JP(pcPtr);
+	}
+}
+
+before(): call($ exit(...)) {
+	if(outputMatchInfo == 1 && outputFile != NULL) {
+		fclose(outputFile);
+	}
+} 
+
+
+before(struct advice * ad) : execution(void free_advices(struct advice *)) && args(ad) {
+	if(ad) {
+		free_jps(ad->jps);
+	}
+}
+

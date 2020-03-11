@@ -1,0 +1,27 @@
+in foo
+aspect 1: get && args 
+aspect 2: get && args , val = 99
+aspect 3: get && args , ori val = 99, change to 1000 
+aspect 6: get && infunc(foo) 
+a = 1000
+end of foo
+in foo1, local a shadows global a 
+a = 1
+end of foo1
+in foo2, assign a be 2
+aspect 1: get && args 
+aspect 2: get && args , val = 2
+aspect 3: get && args , ori val = 2, change to 1000 
+end of foo2
+in foo
+aspect 1: get && args 
+aspect 2: get && args , val = 2
+aspect 3: get && args , ori val = 2, change to 1000 
+aspect 6: get && infunc(foo) 
+a = 1000
+end of foo
+aspect 1: get && args 
+aspect 2: get && args , val = 2
+aspect 3: get && args , ori val = 2, change to 1000 
+aspect 7: get && infunc(main) 
+get value of a in main , a = 1000

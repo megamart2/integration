@@ -1,0 +1,31 @@
+
+extern void foo();
+extern void foo1();
+extern void foo2();
+
+void foo3() {
+	printf("foo3, in aspect file \n");
+}
+
+
+
+before(): call(void foo()) {
+	printf("aspect 1: before call foo\n");
+
+	printf("call foo2 inside aspect \n");
+	foo2();
+
+	printf("call foo3 inside aspect \n");
+
+	foo3();	
+}
+
+void around(): call(void foo3()) {
+        printf("aspect 2: around call foo3, use proceed() to invoke the original one \n");
+
+	proceed();
+
+	printf("aspect 2: end \n");
+}
+
+

@@ -1,0 +1,13 @@
+before(): execution(int foo2()) {
+	printf("before aspect 1\n");
+}
+
+before(): execution(int foo2()) {
+	printf("before aspect 2\n");
+	preturn(99);
+}
+
+before(): execution(int foo2()) {
+	printf("before aspect 3, should be skipped \n");
+}
+

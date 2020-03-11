@@ -1,0 +1,249 @@
+#!/usr/bin/perl
+
+# 
+# A script that behaves like make but understand acc files. It builds global simple 
+# aspects, and cleans intermediate acc directories. 
+#
+# copyright: Middleware Systems Research Group
+# 			 University of Toronto
+# author:    Charles Zhang czhang@eecg.utoronto.ca
+#
+$ACCBOOTSTRAP = "-bootstrappath";
+$ACCBOOTSTRAPPATH="";
+{
+	my $line = join " ", @ARGV;
+	if($line =~ /$ACCBOOTSTRAP/){
+		foreach $arg(@ARGV){
+			if($arg =~ /^$ACCBOOTSTRAP.*/){
+				$bootstrappath =$arg;
+				$bootstrappath =~ s/^$ACCBOOTSTRAP.*=//;
+				$ACCBOOTSTRAPPATH = join "/", split "/", $bootstrappath;
+				last;
+			}
+		}
+	}
+}
+$acchome = getacchome();
+require $acchome."/bin/acclib.pl";
+
+
+$ccmap = $GTEMP."/acmap";
+$featuremap = $GTEMP."/featuremap";
+$includes_suffix=".includes";
+my $modified, $original;
+
+#first process global aspects. The function "acc_preprocess" simply checks if the expansion directory is created or not
+#in the directories containing global aspects. If the expansion directory is created, the expansion is considered done already.
+foreach $arg (@ARGV){
+	$original .=$arg." ";
+}
+if($original =~ /clean/){
+	acc_clean();
+	system("make clean"); 
+}else{	
+	if($SRCROOT eq ""){
+		die "Please point the environment variable SRCROOT to the root of the target source.";
+	}else{
+		$SRCROOT = join "/", split "\/",$SRCROOT;
+	}
+	if(-f $EXPORTMAP){
+		try_cmd("rm $EXPORTMAP");
+	}
+	if(!(-d $GTEMP)){
+		try_cmd("mkdir $GTEMP");
+		try_cmd("mkdir $EXPORTDIR");
+	}
+	try_cmd("touch $EXPORTMAP");
+	buildfeaturemap();
+	acc_preprocess($ccmap);
+	acc_precompile($GLOBAL_ASPECTS);
+	doexport();
+#	buildfeaturemap();
+	system("make $original");
+	checkunmatched();
+}
+
+sub acc_preprocess {
+	my @files;
+	my $mapfile = $_[0];
+	my %hashtable;
+	if(-f $mapfile){
+		my $output = `cat $mapfile | grep "hash"`;
+		my @hashlines = split /\n/,$output;
+		foreach $line (@hashlines){
+			@entries = split /:/,$line;
+			if(@entries==0){
+				next;
+			}
+			$hashtable{$entries[1]}=$entries[2];
+		}
+	}else{
+		try_cmd("touch $mapfile");
+	}
+	$output = `ls -R . | grep ".*:"`;		
+	my @directories = split /:\n/,$output;
+	my $touch = 0;
+	foreach $directory (@directories){
+		my @acfiles = <$directory/*.$SUFFIX>;
+		if(@acfiles==0){
+			next;
+		}
+		foreach $file (@acfiles){
+			my $pwd = `pwd`;
+			chop($pwd);
+			$pwd .= "/";
+			$file =~ s/\.\//$pwd/g;
+			my $time = (stat $file)[9];
+			if($hashtable{$file} eq ""){
+				$touch = 1;	
+				$hashtable{$file} = $time;
+			}elsif(!($hashtable{$file} eq $time)){
+				$touch = 1;
+			}
+		}
+	}	
+	if($touch==1){
+		$output = `ls -R . | grep ".*:"`;		
+		@directories = split /:\n/,$output;
+		foreach $directory (@directories){
+			if(!(-d $directory)){
+				next;
+			}
+			my @cfiles = <$directory/*.c>;
+			if(@cfiles>0){
+				$now = time;
+				utime $now, $now, @cfiles;
+			}
+		}	
+		#write the new hash file
+		open(hashfile, "> $mapfile") || die "cannot open map file";
+		foreach $key (keys %hashtable){
+			print hashfile "hash:".$key.":".$hashtable{$key}."\n";  	
+    	}
+	}
+	close hashfile;
+	
+}
+
+sub acc_clean {
+	my $output = `ls -R $location | grep ".*:"`;		
+	my @directories = split /:\n/,$output;
+	my @workingdirs = split /:/,$ACCDIR;
+	foreach $dir (@directories){
+		foreach $workingdir (@workingdirs){
+			my $current_dir = $dir."/".$workingdir;
+			if(-d $current_dir){
+				try_cmd("rm -rf $current_dir");
+			}
+		}
+	}
+}
+
+
+sub acc_precompile {
+	my @files;
+	my @locations = split /:/, $_[0];
+	my $CFLAGS, $LINKFLAGS;
+	foreach $location (@locations) {
+		if(!(-d $location)){
+			next;
+		}
+		my $output = `ls -R $location | grep ".*:"`;		
+		my @directories = split /:\n/,$output;
+		foreach $directory (@directories){
+			my @includefiles = <$directory/*.includes>;
+			foreach $file (@includefiles){
+				my $line = `cat $file`;
+				$CFLAGS .= join " ", split /\n/, $line;
+			}
+			my @options = split / /, $CFLAGS;
+			foreach $option(@options){
+				if($option =~ /^-.*/ && $option !~ /^-M.* /&& $option !~ /^-I.*/  && $option !~ /^-D.*/ 
+						&& $option !~ /^-W.*/ && $option !~ /-[co]/){
+					$LINKFLAGS .= $option." ";
+				}
+			}	
+				
+			my @acfiles = <$directory/*.$SUFFIX>;
+			if(@acfiles==0){
+				next;
+			}
+			if(!(-d $directory."/".$ACCDIR)){ 
+				try_cmd("mkdir $directory/$ACCDIR");
+			}
+			foreach $file (@acfiles){
+				if($file =~ /configure\.ac/){
+					next;
+				}
+				my @temp = split /.$SUFFIX$/,$file;
+				@temp = split /\//, $temp[0];
+				my $newfile1 = $directory."/".$ACCDIR."/".$temp[@temp-1]."_ac.c";
+				my $newfile2 = $directory."/".$ACCDIR."/".$temp[@temp-1]."_ac.$SUFFIX";
+				my $newfile1o = $directory."/".$ACCDIR."/".$temp[@temp-1]."_ac.o";
+				try_cmd("cp $file $newfile1");
+				if(system("$CC $CFLAGS -E $newfile1 > $newfile2")!=0){
+					exit 1; 
+				}
+				try_cmd("rm $newfile1");
+				#if(system("$ACC $ACFLAGS $newfile2")!=0) {
+				try_cmd("$ACC $newfile2");
+				try_cmd("$ACC $newfile2 -map=\"$newfile1|$file\"");
+				try_cmd("$CC $LINKFLAGS -c -o $newfile1o $newfile1");
+				try_cmd("rm $newfile1");
+				#try_cc(`$CC $ACFLAGS -c $newfile1`); 
+				push @files,$newfile2;
+			}
+		}
+	}
+	return @files;
+}
+
+
+sub checkunmatched {
+	my %matched, %info;
+	@files = `ls -R | grep $MATCHINFOFILE`;
+	foreach $file(@files){
+		my $out = `cat $file`;
+		my @groups = split /\n\n/,$out;
+		foreach $group (@groups){
+			my $label = $group;
+			$label =~ s/\n.*//;
+			if($label =~ /ad:/){
+				my @contents = split /:/,$label;
+				my $key = $contents[1];
+				$key =~ s/,.*//;
+				$info{$key}=$label;
+				if($group =~ /\n\t/){
+					$matched{$key} = 1;
+				}else{
+					$matched{$key} = 0;
+				}
+			}
+		}
+	}	
+	foreach $key (keys %matched){
+		if($matched{$key}==0){
+			my @contents = split /,/,$info{$key};
+			my $kind = $contents[1];
+			my $aspectname = $contents[2];
+			my $linenumber = $contents[3];
+			$aspectname =~ s/^.*\///;
+			$aspectname =~ s/\.c//;
+			$aspectname =~ s/_ac/.acc/;
+			print "[acc warning]: ".$kind." advice defined in aspect ".$aspectname." line : ".$linenumber." did not match any code.\n";
+		}
+	}
+}
+
+sub getacchome {
+	if($ACCBOOTSTRAPPATH ne ""){
+		return $ACCBOOTSTRAPPATH;
+	}
+	my $out = `which tacc`;
+	chomp($out);
+	if($out =~ /no tacc/ || $out eq ""){
+		die "Cannot find tacc on the path. Please make sure tacc is on your path";
+	}
+	$out =~ s/\/bin\/tacc//;
+	return $out;
+}

@@ -1,0 +1,19 @@
+in foo, call foo1(2) 
+in foo1, call foo2(2) 
+in foo2, assign a to be 2 
+aspect: before set(int a) 
+aspect: end 
+in foo2, a = 2
+end of foo2
+end of foo1
+in foo, call foo1(-1) 
+in foo1, call foo2(-1) 
+in foo2, assign a to be -1 
+aspect: before set(int a) 
+throw exception 9 inside advice, 
+aspect: catch an exception for set(int a), err = 9
+throw a new exception = 10
+aspect: catch an exception for call($ foo()) , err = 10
+call foo3() in main
+aspect : call foo3 in cflow of execution(main) 
+in foo3

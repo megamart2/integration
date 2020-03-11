@@ -1,0 +1,23 @@
+This is a bug reported by Prof. Jacobsen.
+
+----- Original Message ----- 
+From: "H.-Arno Jacobsen" <jacobsen@eecg.toronto.edu>
+To: "Michael Gong" <mwgong@cs.toronto.edu>
+Sent: Saturday, May 20, 2006 11:25 PM
+Subject: bug
+
+
+> 
+> I think there is a bug. If for some reason we have smth. like
+> the following "if" and we weave before/after advice that takes
+> effect say before the "return" no brackets are generated to
+> go around the if-/else-branch in the woven code. Then cc complains.
+> 
+> if (a < 10)
+>    return 100;
+>  else
+>    return 400;
+> 
+> I will put together a full example tomorrow.
+> 
+>

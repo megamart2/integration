@@ -1,0 +1,6 @@
+in main, call foo
+	 in foo
+		 in foo1
+aspect, throw exception 3 before calling foo2
+catch exception = 3 when calling foo
+end of main

@@ -1,0 +1,13 @@
+aspect : call foo
+around aspect: call foo
+here is foo
+
+here is foo2
+aspect : call foo
+around aspect: call foo
+here is foo
+
+here is foo3 
+aspect : call foo
+around aspect: call foo
+here is foo

@@ -1,0 +1,11 @@
+extern void foo();
+
+void foo3() {
+
+	foo();
+}
+
+after(): call(void foo()) {
+
+
+} 

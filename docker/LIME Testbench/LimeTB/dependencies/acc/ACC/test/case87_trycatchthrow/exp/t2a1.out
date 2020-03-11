@@ -1,0 +1,7 @@
+in main, call foo
+	 in foo
+		 in foo1
+aspect, throw 3
+catch exception = 3
+after aspect for foo
+end of main

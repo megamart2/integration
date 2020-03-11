@@ -1,0 +1,8 @@
+before(): set(int a) {
+	printf("aspect: before set global a\n");
+}
+
+after(): set(int a) {
+	printf("aspect: after set global a\n");
+}
+

@@ -1,0 +1,18 @@
+before() : call(int foo3(int)) {
+	printf("before call foo3, throw exception 3\n");
+	throw(3);
+	printf("end of aspect\n");
+}
+
+catch(int e): try(call(int foo1(int))) {
+	printf("1st catch exception, = %d\n", e);
+	printf("call %s in %s \n", this->targetName, this->funcName);
+	throw(e+1);
+}
+
+catch(int e): try(call(int foo1(int))) {
+	printf("catch exception %d from calling foo1\n", e);
+	printf("in %s \n", this->funcName);
+	preturn(9);
+}
+

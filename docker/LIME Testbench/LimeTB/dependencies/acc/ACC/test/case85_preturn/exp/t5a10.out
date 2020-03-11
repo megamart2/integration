@@ -1,0 +1,7 @@
+call foo in main
+return value of foo1 = 198
+return value of foo2 = 11.000000
+return value of foo3 = 1.000000
+return value of foo4 = This is a preturn value from advice
+return value of foo5 = Z
+return value of foo6 = 0

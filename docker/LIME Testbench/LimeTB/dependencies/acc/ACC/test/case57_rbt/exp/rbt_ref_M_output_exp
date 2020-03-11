@@ -1,0 +1,16 @@
+bst-test for GNU libavl 2.0.2; use --help to get help.
+Testing seed=10000...
+  Insertion order: 2 1 0 4 3.
+Deletion order: 3 4 0 1 2.
+    Afterward: 2
+    Afterward: 2(1)
+    Afterward: 1(0,2)
+    Afterward: 1(0,2(,4))
+    Afterward: 1(0,3(2,4))
+    Afterward: 1(0,4(2))
+    Afterward: 1(0,2)
+    Afterward: 1(,2)
+    Afterward: 2
+    Afterward: 
+  No errors.
+aspect: total memory allocated = 424

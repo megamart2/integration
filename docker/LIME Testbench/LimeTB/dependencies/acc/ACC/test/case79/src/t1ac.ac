@@ -1,0 +1,15 @@
+before(): call($ foo(int *, void (*)(int,int))) {
+	printf("aspect 1: before call foo\n");
+}
+
+before(): call($ foo2(int, void * (*)(int, int))) {
+	printf("aspect 2: before call foo2\n");
+}
+
+before(): callp(void call1(int,int)) {
+	printf("aspect 3: before call call1\n");
+}
+
+before(): callp(void * call2(int,int)) {
+	printf("aspect 4: before call call2\n");
+}

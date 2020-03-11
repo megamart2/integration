@@ -1,0 +1,17 @@
+before() : call(int foo2(int)) {
+	printf("aspect, throw 3\n");
+	throw(3);
+	printf("end of aspect\n");
+}
+
+catch(int e): try(execution(int foo(int)) && cflow(call(int foo3(int)))) {
+	printf("1st cacth, exception = %d\n", e);
+}
+
+catch(int e): try(execution(int foo(int))) {
+        printf("2nd cacth, exception = %d\n", e);
+}
+
+after(): call(int foo(int)) {
+	printf("after aspect for foo\n");
+}

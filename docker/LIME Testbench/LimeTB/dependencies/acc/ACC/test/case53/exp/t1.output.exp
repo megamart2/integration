@@ -1,0 +1,199 @@
+
+struct JoinPoint { 
+	void** (*fp) (struct JoinPoint *);
+	void ** args;
+	int argsCount;
+	const char ** argsType;
+	 void * (*arg)(int, struct JoinPoint *); 
+	 const char * (*argType)(int , struct JoinPoint *); 
+	void ** retValue;
+	const char * retType;
+	const char * funcName ;
+	const char * targetName ;
+	const char * fileName ;
+	const char * kind ;
+	void * excep_return ;
+};
+
+ struct __UTAC__EXCEPTION {
+	void * jumpbuf ;
+	unsigned long long int prtValue ;
+	int pops;
+	struct __UTAC__CFLOW_FUNC {
+		int (*func)(int,int) ;
+		int val ;
+		struct __UTAC__CFLOW_FUNC * next; 
+	} * cflowfuncs; 
+}; 
+
+
+# 1 "t1mc_mc.c" 
+# 1 "<built-in>" 
+# 1 "<command line>" 
+# 4 "t1mc_mc.c" 
+struct A {char *firstname; 
+
+
+
+int a;
+
+char b;
+
+char *c;
+
+
+
+char d;
+}; 
+#line 8 "t1mc_mc.c"
+union B {char firstname; 
+
+
+
+long long a;
+
+int (*funp)(int );
+
+
+
+double newMember;
+
+
+
+double newMember2;
+}; 
+#line 12 "t1mc_mc.c"
+typedef struct {char a; 
+
+
+
+double c;
+
+
+
+double newMember;
+
+
+
+double newMember2;
+
+
+
+char *point;
+}STRD; 
+#line 16 "t1mc_mc.c"
+typedef struct X {char a; 
+
+
+
+double c;
+
+
+
+double d;
+
+
+
+double e;
+
+
+
+double newMember;
+
+
+
+double newMember2;
+
+
+
+double f;
+
+
+
+double g;
+
+
+
+double h;
+
+
+
+char *point;
+}MYSTRX; 
+#line 19 "t1mc_mc.c"
+typedef  MYSTRX MYSTRX2; 
+#line 21 "t1mc_mc.c"
+typedef struct X MYSTRX3; 
+#line 23 "t1mc_mc.c"
+typedef  MYSTRX3 MYSTRX4; 
+#line 25 "t1mc_mc.c"
+typedef  MYSTRX4 MYSTRX5; 
+#line 27 "t1mc_mc.c"
+typedef  MYSTRX5 *MYSTRX6; 
+  void __utac_acc__t1ac__8 (void);
+
+
+  void __utac_acc__t2ac__9 (void);
+
+
+  void __utac_acc__t2ac__9 (void);
+
+
+#line 29 "t1mc_mc.c"
+int main()  
+# 145 "t1mc.c"
+{
+# 147 "t1mc.c"
+int retValue_acc;
+
+
+
+
+{
+__utac_acc__t1ac__8();
+
+}
+
+# 158 "t1mc.c"
+{
+
+#line 30 "t1mc_mc.c"
+printf("size of struct A = %d\n", sizeof (struct A )); 
+#line 32 "t1mc_mc.c"
+printf("size of union B = %d\n", sizeof (union B )); 
+#line 34 "t1mc_mc.c"
+printf("size of STRD = %d\n", sizeof ( STRD )); 
+#line 36 "t1mc_mc.c"
+printf("size of struct X = %d\n", sizeof (struct X )); 
+#line 38 "t1mc_mc.c"
+printf("size of MYSTRX = %d, %d, %d, %d , %d , %d\n", sizeof (struct X ), sizeof ( MYSTRX ), sizeof ( MYSTRX2 ), sizeof ( MYSTRX3 ), sizeof ( MYSTRX4 ), sizeof ( MYSTRX5 )); 
+#line 45 "t1mc_mc.c"
+printf("size of MYSTRX6 = %d\n", sizeof ( MYSTRX6 )); 
+#line 47 "t1mc_mc.c"
+
+# 175 "t1mc.c"
+retValue_acc = 0;
+{
+__utac_acc__t2ac__9();
+
+}
+
+# 182 "t1mc.c"
+return (int )retValue_acc;
+ 
+# 185 "t1mc.c"
+
+}
+
+{
+__utac_acc__t2ac__9();
+
+}
+
+# 194 "t1mc.c"
+return (int )retValue_acc;
+
+# 197 "t1mc.c"
+
+}
+ 

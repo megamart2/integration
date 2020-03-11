@@ -1,0 +1,37 @@
+before(): call(unsigned foo1()) {
+	printf("aspect1\n");
+}
+
+before(): call(signed foo2()) {
+        printf("aspect2\n");
+}
+
+
+before(): call(unsigned int foo3()) {
+        printf("aspect3\n");
+}
+
+
+before(): call(signed int foo4()) {
+        printf("aspect4\n");
+}
+
+before(): call(void foo5(unsigned)) {
+        printf("aspect5\n");
+}
+
+before(): call(void foo6(signed)) { 
+        printf("aspect6\n");
+}
+
+
+before(): call(void foo7(unsigned int)) {
+        printf("aspect7\n");
+}
+
+
+before(): call(void foo8(signed int)){
+        printf("aspect8\n");
+}
+
+

@@ -1,0 +1,7 @@
+in foo
+assignment: b = a = 1 
+aspect: around set global a
+end of aspect, return 2000
+a = 99, b = 2000 
+assignment: b=a=-1 
+aspect: around set global a

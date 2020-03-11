@@ -1,0 +1,26 @@
+catch(int e) : try(call(void foo1())) {
+	printf("aspect: catch an exception during call foo1 = %d\n", e);
+}
+
+
+void foo3() {
+	printf("in foo3\n");
+}
+
+void foo4() {
+	printf("in foo4\n");
+}
+
+extern void foo2();
+
+before(): call($ foo2(...)) {
+	printf("aspect: before calling foo2, call foo4 \n");
+	foo4();
+	printf("end of aspect \n");
+}
+
+after(): call(void foo4()) {
+	printf("aspect: throw exception 4 after call foo4\n");
+	throw(4);
+}
+

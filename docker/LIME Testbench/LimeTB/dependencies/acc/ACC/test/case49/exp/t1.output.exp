@@ -1,0 +1,8 @@
+call foo(30) in main
+aspect 2
+aspect 3
+core program: x = 30 
+---------
+call foo2 in main
+call foo(30) in foo2
+aspect 1

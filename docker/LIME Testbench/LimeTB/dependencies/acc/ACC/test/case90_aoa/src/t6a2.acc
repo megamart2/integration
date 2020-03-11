@@ -1,0 +1,11 @@
+extern int a;
+
+char b ='b';
+
+after(): get(char b) {
+	printf("aspect 2: after get global b\n");
+	printf("set b to be 't' inside advice \n");
+	b = 't';
+	printf("in aspect 2, a = %d, b = %c \n", a, b);
+}
+

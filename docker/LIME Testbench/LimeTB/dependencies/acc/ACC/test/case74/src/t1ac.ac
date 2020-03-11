@@ -1,0 +1,8 @@
+before(): call(int foo(_Bool)) {
+	printf("aspect1: before foo\n");
+}
+
+before(_Bool a): call($ foo(...)) && args(a) {
+        printf("aspect2: before foo\n");
+}
+

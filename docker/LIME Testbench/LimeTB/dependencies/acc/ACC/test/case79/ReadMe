@@ -1,0 +1,7 @@
+bug fix:
+  a un-normal function pointer declaration, like:
+	
+  void foo( int (p)(int,int)) ;
+	
+  where "p" is a function pointer.
+

@@ -1,0 +1,4 @@
+in foo1
+before aspect 1
+before aspect 2
+return value of foo1 = 99 

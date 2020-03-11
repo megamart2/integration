@@ -1,0 +1,5 @@
+aspect: before call foo in main
+inside foo, a = call foo in main
+aspect: before call foo in foo2
+inside foo, a = call foo in foo2
+

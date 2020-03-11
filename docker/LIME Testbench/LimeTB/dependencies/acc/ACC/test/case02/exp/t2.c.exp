@@ -1,0 +1,15 @@
+
+#line 1 "t2_ac.k"
+int mp; 
+#line 3
+void foo(int a); 
+#line 5
+int foo2(); 
+#line 7
+char *foo3(double a); 
+#line 9
+static void foo4(); 
+#line 13
+struct A {int b; }a; 
+#line 15
+static struct A ab; 

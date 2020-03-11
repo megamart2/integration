@@ -1,0 +1,9 @@
+
+extern void foo();
+extern void foo1();
+extern void foo2();
+
+before(): call(void foo3()) || call(void foo2()) {
+	printf("aspect 3: before call foo3 or before call foo2\n");
+}
+

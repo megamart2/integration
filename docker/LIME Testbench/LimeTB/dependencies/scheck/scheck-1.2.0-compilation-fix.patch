@@ -1,0 +1,182 @@
+diff -urb scheck-1.2.0/Automata/Automaton.h scheck-1.2.0.fixed/Automata/Automaton.h
+--- scheck-1.2.0/Automata/Automaton.h	2003-08-11 14:52:41.000000000 +0300
++++ scheck-1.2.0.fixed/Automata/Automaton.h	2008-07-15 16:41:29.000000000 +0300
+@@ -13,7 +13,8 @@
+ //forward declaration of file
+ struct _IO_FILE;
+ typedef struct _IO_FILE FILE;
+-extern FILE *stdout;
++
++#include <cstdio>
+ 
+ class Automaton {
+   
+diff -urb scheck-1.2.0/Automata/Implicant.h scheck-1.2.0.fixed/Automata/Implicant.h
+--- scheck-1.2.0/Automata/Implicant.h	2004-10-31 13:05:46.000000000 +0200
++++ scheck-1.2.0.fixed/Automata/Implicant.h	2008-07-17 15:22:51.000000000 +0300
+@@ -59,7 +59,7 @@
+   /**The copy constructor 
+    * @param other Implicant to initialise this one with
+    */
+-  explicit Implicant(const class Implicant &other) : mySize(other.mySize) {
++  Implicant(const class Implicant &other) : mySize(other.mySize) {
+     myValues = new enum Value[mySize];
+     for(unsigned i=mySize; i--; ) {
+       myValues[i]=other[i];
+Only in scheck-1.2.0.fixed/Automata: Implicant.h~
+diff -urb scheck-1.2.0/Automata/NonDetAut.h scheck-1.2.0.fixed/Automata/NonDetAut.h
+--- scheck-1.2.0/Automata/NonDetAut.h	2003-08-11 14:52:41.000000000 +0300
++++ scheck-1.2.0.fixed/Automata/NonDetAut.h	2008-07-15 16:41:29.000000000 +0300
+@@ -32,7 +32,7 @@
+    */
+   void addTransition(unsigned source, unsigned label, unsigned dest) {
+     assert(source<mySize && label<myAlphabetSize && dest<mySize);
+-    myTransRel.insert(TransRel::value_type(class UIPair(source, label), dest));
++    myTransRel.insert(TransRel::value_type(UIPair(source, label), dest));
+     return;
+   }
+   /**Delete a transition
+@@ -42,7 +42,7 @@
+    */
+   void deleteTransition(unsigned source, unsigned label, unsigned dest) {
+     assert(source <= mySize && label<myAlphabetSize && dest<mySize);
+-    for(std::pair<TransRel::iterator, TransRel::iterator> p=myTransRel.equal_range(class UIPair(source, label));
++    for(std::pair<TransRel::iterator, TransRel::iterator> p=myTransRel.equal_range(UIPair(source, label));
+ 	p.first!=p.second; ++p.first) {
+       if((*p.first).second == dest) {
+ 	myTransRel.erase(p.first);
+@@ -62,7 +62,7 @@
+     assert(source < mySize && label<myAlphabetSize);
+     unsigned j=0;
+     for(std::pair<TransRel::const_iterator, TransRel::const_iterator> 
+-	  p=myTransRel.equal_range(class UIPair(source, label));
++	  p=myTransRel.equal_range(UIPair(source, label));
+     	p.first!=p.second; ++p.first) {
+       if(index == j++ ) {
+       	return (*p.first).second;
+@@ -73,7 +73,7 @@
+   /**@return Number of arcs with the given source and label*/  
+   unsigned numArcs(unsigned source, unsigned label) const {
+     assert(source<mySize && label<myAlphabetSize);
+-    return myTransRel.count(class UIPair(source, label));
++    return myTransRel.count(UIPair(source, label));
+   }
+   /*Check if a state belongs to a final set
+    * @param state
+diff -urb scheck-1.2.0/Automata/Pathologic.C scheck-1.2.0.fixed/Automata/Pathologic.C
+--- scheck-1.2.0/Automata/Pathologic.C	2003-08-11 14:52:41.000000000 +0300
++++ scheck-1.2.0.fixed/Automata/Pathologic.C	2008-07-15 16:41:29.000000000 +0300
+@@ -13,7 +13,7 @@
+ #include "ExtHashMap.h"
+ #include <list>
+ 
+-typedef Sgi::hash_map<class Pathologic::State, unsigned, Pathologic::statehash> StateMap;
++typedef Sgi::hash_map<Pathologic::State, unsigned, Pathologic::statehash> StateMap;
+ typedef std::list<class Pathologic::State> StateStack;
+ typedef std::list<class Pathologic::Depth> DepthStack;
+ 
+diff -urb scheck-1.2.0/LTL/BinOp.h scheck-1.2.0.fixed/LTL/BinOp.h
+--- scheck-1.2.0/LTL/BinOp.h	2003-08-11 14:52:41.000000000 +0300
++++ scheck-1.2.0.fixed/LTL/BinOp.h	2008-07-15 16:41:29.000000000 +0300
+@@ -50,7 +50,7 @@
+   enum Formula::Type getType() const { return fBinOp;} 
+   /**@return The hashvalue of the formula*/
+   int hash() const {
+-    return 0x9e3779b9*myLeft->hash() + myOp^myRight->hash();
++    return 0x9e3779b9*myLeft->hash() + (myOp^myRight->hash());
+   }
+   /**@return true of the Formulas are syntactically equal*/
+   bool operator==(const class Formula &other) const;
+diff -urb scheck-1.2.0/LTL/Formula.C scheck-1.2.0.fixed/LTL/Formula.C
+--- scheck-1.2.0/LTL/Formula.C	2003-08-11 14:52:41.000000000 +0300
++++ scheck-1.2.0.fixed/LTL/Formula.C	2008-07-15 16:41:29.000000000 +0300
+@@ -49,7 +49,7 @@
+ 
+ //-------------------------------------
+ 
+-Formula::PostIterator::PostIterator(const class Formula *formula): myStack(*new class FormulaStack()) 
++Formula::PostIterator::PostIterator(const class Formula *formula): myStack(*new FormulaStack()) 
+ {
+   bool loop=true;
+   myCurrent=const_cast<Formula *>(formula);
+@@ -174,22 +174,22 @@
+   for(Formula::Iterator i=f.newIterator(); !i.atEnd(); ++i) {
+     switch((*i).getType()) {
+     case Formula::fTemporalBinOp:
+-      value^= value << static_cast<const class TemporalBinOp &>(*i).getOp() + 20;
++      value^= (value << static_cast<const class TemporalBinOp &>(*i).getOp()) + 20;
+       break;
+     case Formula::fBinOp:
+-      value += value >> static_cast<const class BinOp &>(*i).getOp() + 7;
++      value += (value >> static_cast<const class BinOp &>(*i).getOp()) + 7;
+       break;
+     case Formula::fTemporalUnOp:
+-      value^= value >> static_cast<const class TemporalBinOp &>(*i).getOp() + 12;
++      value^= (value >> static_cast<const class TemporalBinOp &>(*i).getOp()) + 12;
+       break;
+     case Formula::fNot:
+       value += value << 15;
+       break;
+     case Formula::fAtom:
+-      value += value << static_cast<const class Atom &>(*i).getId() + 2;
++      value += (value << static_cast<const class Atom &>(*i).getId()) + 2;
+       break;
+     case Formula::fConst:
+-      value ^= value >> static_cast<const class Const &>(*i).getVal() + 24;
++      value ^= (value >> static_cast<const class Const &>(*i).getVal()) + 24;
+       break;
+     }
+   }
+diff -urb scheck-1.2.0/LTL/Formula.h scheck-1.2.0.fixed/LTL/Formula.h
+--- scheck-1.2.0/LTL/Formula.h	2003-08-11 14:52:41.000000000 +0300
++++ scheck-1.2.0.fixed/LTL/Formula.h	2008-07-15 16:41:29.000000000 +0300
+@@ -12,9 +12,7 @@
+ #include <stack>
+ #include "NumberMap.h"
+ 
+-//forward declaration of file
+-struct _IO_FILE;
+-typedef struct _IO_FILE FILE;
++#include <cstdio>
+ 
+ class Formula {  
+ public: 
+@@ -73,7 +71,7 @@
+    *@param formula Formula to iterate trough
+    */
+   //Iterator(const class Formula *formula);
+-  Iterator(const class Formula *formula): myStack(*new class FormulaStack()) 
++  Iterator(const class Formula *formula): myStack(*new FormulaStack()) 
+   {
+     myStack.push(formula);
+   }
+@@ -89,7 +87,7 @@
+   bool atEnd() const;
+ 
+ private:
+-  class FormulaStack &myStack;
++  FormulaStack &myStack;
+ };
+ 
+ /**Traverse the formula in postorder*/
+@@ -111,7 +109,7 @@
+   bool atEnd() const;
+ 
+ private:
+-  class FormulaStack &myStack;
++  FormulaStack &myStack;
+   class Formula *myCurrent;
+ };
+ 
+diff -urb scheck-1.2.0/Makefile scheck-1.2.0.fixed/Makefile
+--- scheck-1.2.0/Makefile	2004-10-31 13:05:46.000000000 +0200
++++ scheck-1.2.0.fixed/Makefile	2008-07-17 15:25:26.000000000 +0300
+@@ -19,7 +19,7 @@
+ 
+ DEFINES = -DSGI_HASH_MAP -DHASH_MAP_LOC=$(HASH_MAP_LOC) -DHASH_SET_LOC=$(HASH_SET_LOC) $(OUTPUT)  
+ INCLUDES=-IAutomata -ILTL
+-CFLAGS =  -Wall -ansi -pedantic
++CFLAGS =  -Wall -ansi -pedantic -Wno-deprecated
+ CXXFLAGS = -fno-exceptions -fno-rtti $(CFLAGS) $(DEBUG) $(INCLUDES) $(PROF) $(OPT) $(DEFINES)
+ TARGET = scheck2
+ 

@@ -1,0 +1,14 @@
+feature : match aspects against the join points inside aspects.
+
+case 1: before() / after() / around() advice 
+
+case 2: cflow() pointcut
+
+case 3: intype() pointcut
+
+case 4: preturn()
+
+case 5: exception handling
+
+case 6: set()/get()
+

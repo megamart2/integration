@@ -1,0 +1,2 @@
+support a list of specified attributes.
+support __attribute__((__cdecl)) . 

@@ -1,0 +1,5 @@
+
+before():call($ $(...)) {
+  
+	printf("in aspect : %s\n", this->targetName); 
+}

@@ -1,0 +1,11 @@
+#include <stdio.h>
+
+before(char * a, char * b) : cflow(execution(int foo(char*))&& args(a) )
+                                              && call(void foo1(char *))  && args(b) {	
+
+          // "a" matches the argument of foo , "b" matches argument of foo1
+             printf("aspect: call foo1 in cflow of foo\n");
+             printf("foo argument = %s \n", a);
+             printf("foo1 argument = %s \n", b);
+}
+

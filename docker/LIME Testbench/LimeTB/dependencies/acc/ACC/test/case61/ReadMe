@@ -1,0 +1,6 @@
+case36 fails on Cygwin and Mac.
+
+Files under src/ are preprocessed on Cygwin or Mac platform. They are used here as a sanity test for ACC compiler. 
+
+The requirement is that ACC compiler should compile those files.
+

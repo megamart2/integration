@@ -1,0 +1,2 @@
+A test case created for testing the special format used in args() and result() pointcut, which is "args(* ...)" and "result(* ...)". It could modify the parameter passed into a function or a return value from a function.
+

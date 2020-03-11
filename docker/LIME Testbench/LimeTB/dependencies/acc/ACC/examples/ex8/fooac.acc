@@ -1,0 +1,6 @@
+#include <stdio.h>
+
+before(): call(void foo1()) && cflow(execution(void foo3())) {	
+	printf("aspect: call foo1 in cflow of foo3 \n");
+}
+

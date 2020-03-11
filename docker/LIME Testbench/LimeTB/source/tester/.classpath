@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry kind="lib" path="../../lib/external/javaparser-1.0.8.jar"/>
+	<classpathentry kind="lib" path="../../lib/external/difflib-1.2.1-udiffpatched.jar"/>
+	<classpathentry kind="lib" path="../../lib/external/junit.jar"/>
+	<classpathentry kind="lib" path="../../lib/external/soot-j9-4.0.0-20180509.160158-13-jar-with-dependencies.jar" sourcepath="/lib/external/soot-j9-4.0.0-20180509.160158-13-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:../../lib/external/soot-j9-4.0.0-20180509.160158-13-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

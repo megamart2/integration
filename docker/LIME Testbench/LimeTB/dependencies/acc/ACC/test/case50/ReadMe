@@ -1,0 +1,4 @@
+bug fix: 
+1. handle "void" as parameter type for a function prototype.
+2. when combining function declarations, use the latter one, instead of the previous one.
+3. skip the join point matching for funtions having variable argument list.

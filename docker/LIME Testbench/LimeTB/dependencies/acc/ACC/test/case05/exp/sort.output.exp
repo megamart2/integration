@@ -1,0 +1,3 @@
+before call of foo3, short = 2, int = 99
+before execution of foo3, short = 2, int = 99
+here is foo3, short = 2, int = 99

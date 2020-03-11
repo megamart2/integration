@@ -1,0 +1,7 @@
+
+
+int around():cflow(call($ $(...))) {
+	printf("around aspect c3: func = %s, type = %s \n", this->funcName, this->kind);
+	proceed();
+	return 0;
+}

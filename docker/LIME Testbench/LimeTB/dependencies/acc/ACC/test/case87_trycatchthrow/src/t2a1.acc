@@ -1,0 +1,13 @@
+before() : call(int foo2(int)) {
+	printf("aspect, throw 3\n");
+	throw(3);
+	printf("end of aspect\n");
+}
+
+catch(int e): try(execution(int foo(int))) {
+	printf("catch exception = %d\n", e);
+}
+
+after(): call(int foo(int)) {
+	printf("after aspect for foo\n");
+}

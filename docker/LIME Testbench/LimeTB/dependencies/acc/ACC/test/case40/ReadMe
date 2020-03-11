@@ -1,0 +1,9 @@
+test the support of new features and bug fixs:
+
+1. gcc asm.
+2. __alignof__ keyword.
+3. integer constant and suffix.
+4. have a ";" after function definition.
+
+The requirement is that acc compiler should be able to process the files without syntax error.
+

@@ -1,0 +1,67 @@
+/*
+Copyright (c) 2008 Helsinki University of Technology (TKK)
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fi.hut.ics.lime.tester.server.strategies;
+
+import java.util.Set;
+
+import fi.hut.ics.lime.tester.threading.EventIdentity;
+import fi.hut.ics.lime.tester.threading.EventSelection;
+
+public interface ExecutionStrategy
+{
+    void computeNewInputs();
+    String getPrimitiveInputs();
+    String getReferenceInputs();
+    Iterable<EventSelection> getScheduling();
+    Iterable<EventIdentity> getSleepSet();
+
+    boolean isFinished();
+    void setFinished (String reason);
+
+    // must not store reference to condition as it will change
+        
+    void addMethodCall (String signature);
+    
+    void addBranch (String condition, boolean branch, int id, String path);
+    
+    void addAssignment (String condition);
+
+    void updatePath(String path);
+
+    void addPointerCondition (String condition, boolean branch, String path);
+
+    void addLimits (String symbolicValue, String min, String max);
+
+    void inform (String message);
+
+    void scheduled(EventSelection selection);
+
+    void addBacktrack(int transitionNum, Set<EventIdentity> backtrack);
+
+    void updateSleepSet(Set<EventIdentity> sleepSet);
+
+    boolean isPartialOrderReductionStrategy();
+}

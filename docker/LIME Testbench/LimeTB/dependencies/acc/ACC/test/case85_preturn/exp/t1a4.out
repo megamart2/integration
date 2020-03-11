@@ -1,0 +1,5 @@
+in foo1
+before aspect 1
+before aspect 2
+end of foo1
+return value of foo1 = 0 

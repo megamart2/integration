@@ -1,0 +1,8 @@
+# NOTE: Must be run from the directory in which the script is located and with
+# '. classpath' instead of the usual './classpath'.
+
+PREFIX=`dirname "$0"`
+. $PREFIX/currentversion
+CLASSPATH="$CLASSPATH:$PREFIX/../lib/lime/ljut-$LJUT_VERSION.jar"
+CLASSPATH="$CLASSPATH:$PREFIX/../lib/external/jopt-simple-3.1.jar"
+CLASSPATH="$CLASSPATH:$PREFIX/../lib/lime/LCT-$LCT_VERSION.jar"

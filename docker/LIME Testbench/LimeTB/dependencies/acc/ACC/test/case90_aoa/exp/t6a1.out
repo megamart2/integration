@@ -1,0 +1,19 @@
+set a in main 
+aspect: before set global a
+set a to be 9 inside advice 
+aspect: before set global a
+set a to be 9 inside advice 
+in aspect 1, a = 9, b = b 
+aspect 2: after get global b
+set b to be 't' inside advice 
+in aspect 2, a = 9, b = t 
+in aspect 1, a = 9, b = b 
+get a = 3 in main 
+set b in main 
+aspect 2: after get global b
+set b to be 't' inside advice 
+aspect 2: after get global b
+set b to be 't' inside advice 
+in aspect 2, a = 3, b = t 
+in aspect 2, a = 3, b = t 
+get b = x in main 

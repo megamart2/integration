@@ -1,0 +1,23 @@
+aspect1: before call foo2
+aspect2: before call foo2
+aspect3: before call foo2
+in foo, a = B, b = 99
+aspect4: before call foo2
+in foo2, c = 3, d = 4
+in foo, a = A, b = 4
+aspect5:
+aspect6:
+call foo6
+in foo4, c = x
+aspect9:
+in foo7
+call foo2 inside foo7
+aspect1: before call foo2
+aspect2: before call foo2
+aspect3: before call foo2
+in foo, a = B, b = 99
+aspect4: before call foo2
+aspect7:
+aspect8:
+in foo2, c = 3, d = -3
+in foo, a = A, b = -3

@@ -1,0 +1,14 @@
+call foo in main
+call foo1 in foo
+aspect 1: call foo1 in cflow of calling foo 
+call foo2 inside aspect 1
+in foo2 
+call foo3 inside aspect 1
+aspect 2: call foo3 in cflow of calling foo 
+foo3, in aspect file 
+call foo4 in foo3
+aspect 4: call foo4 in cflow of call foo3
+aspect 3: call foo4 in cflow of call foo3 
+foo4, in aspect file 
+call foo2 in foo1
+in foo2 

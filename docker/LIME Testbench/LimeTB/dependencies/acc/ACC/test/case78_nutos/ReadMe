@@ -1,0 +1,6 @@
+Michael used ACC compiler to compile Nut/OS source, in order to expose bugs in "acc".
+
+Following files are preprocessed Nut/OS source files:
+
+nutinit.mc
+ide.mc

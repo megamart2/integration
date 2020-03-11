@@ -1,0 +1,18 @@
+catch(int err): try(get(int a)) {
+	printf("aspect: catch an exception for get(int a), err = %d\n", err);
+	printf("throw a new exception = %d\n", err + 1);
+	throw(err+1);
+}
+
+catch(int err): try(call($ foo())) {
+	printf("aspect: catch an exception for call($ foo()) , err = %d\n", err);
+}
+
+before(int val): get(int a) && args(val) {
+	printf("aspect: before get(int a) \n");
+	if(val < 0) {
+		printf("throw exception %d inside advice, \n", 9);
+		throw(9);
+	}
+	printf("aspect: end \n");
+}

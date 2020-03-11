@@ -1,0 +1,4 @@
+test the case: 
+ a line directive having 3 numbers.
+
+It also test the function pointer declaration should not conflict with a function declaration.

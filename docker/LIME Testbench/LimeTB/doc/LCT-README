@@ -1,0 +1,321 @@
+LCT - LIME Concolic Tester (version 1.0.0)
+==========================================
+
+=============
+Instructions:
+=============
+
+LCT is a testing tool that automatically tries to test all possible behaviours
+of a given program.
+
+The tool is based on concolic testing (aka dynanamic symbolic execution). For
+more information about this approach, see for example the research report
+Automated Test Generation for Software Components available at the LIME website
+http://www.tcs.hut.fi/Software/lime/
+
+
+Setting up the tool:
+--------------------
+
+Before LCT can be used, it is necessary to download a constraint solver
+that LCT uses as part of the testing. Currently Yices (http://yices.csl.sri.com/)
+and Boolector (http://fmv.jku.at/boolector/) are supported. After downloading
+one or both of the solvers, a shared library used by LCT must be compiled.
+
+This can be achieved by going to the LimeTB/dependencies/solvers/ directory
+and using the Makefile provided in that directory. First modify the Makefile
+to set the paths to Java, Yices and Boolector so that they correspond to the
+paths in your system. After that, the library for Yices can be compiled with
+command "make yices" and Boolector with command "make boolector". If you are
+planning on using only one of the supported solvers, it is not necessary to
+download and compile the other one. For more information about the different
+solvers, see section "Configuring the tool" in this README.
+
+LCT can be used with scripts provided in /LimeTB/bin directory. It is 
+recommended that the user sets PATH environment to include this directory.
+
+E.g., export PATH=$PATH:/home/exampleuser/LimeTB/bin
+
+The user is also required to set JRELIBPATH environment variable to
+point to a directory that contains rt.jar, jce.jar and jsse.jar files that
+are disributed with the Java runtime environment.
+
+E.g., export JRELIBPATH=/usr/lib/jvm/java-6-sun-1.6.0.10/jre/lib
+
+(Alternatively these three files can be added to CLASSPATH and JRELIBPATH can
+then be ignored completely.)
+
+After these steps, LCT should be ready to be used.
+
+Preparing a program to be tested:
+---------------------------------
+
+To use the tool, one needs to indicate the points in the program under test
+where it reads input values. For example, if you want to unit test a
+method foo(int a, int b) in class TestMe, you can write the following main
+method:
+
+public static void main(String args[])
+{
+    int a = LCT.getInteger();
+    int b = LCT.getInteger();
+
+    TestMe obj = new TestMe();
+
+    obj.foo(a, b);
+}
+
+
+The expression LCT.getInteger() indicates that a new input value is given to the
+program at this point. The tool provides the following methods for indicating
+new input values:
+
+LCT.getInteger();
+LCT.getBoolean();
+LCT.getByte();
+LCT.getShort();
+LCT.getLong;
+
+Floating point numbers are not supported in this version of the tool. The
+methods above allow the input values to be any valid values of the correspoding
+primitive type. If you want to give limits to the possible input values, the
+following methods can be used
+
+LCT.getInteger(int min, int max)
+LCT.getShort(int min, int max)
+
+where min denotes the minimum input value possible and max the maximum value.
+
+It is also possible to use the tool to give inputs that are objects instead of
+primitive types. This can be done by using the method
+
+LCT.getObject(String name)
+
+where the method gets the name of the object to be created as a String. The 
+input objects created have their field variables
+initialized as new input values. This means that the fields have mainly random
+values which limits the usability of this kind of inputs. See Chapter 3.4 of
+Automated Test Generation for Software Components for discussion how
+to use input objects in cases where the fields should not have arbitrary values.
+
+Note also that if multiple input objects of the same type are created, the tool
+can generate test cases where the objects given by the getObject method refer to
+the same object. This means that the tool can create, for example, cyclic linked
+lists as a result of using getObject if it is necessary for testing some
+execution paths in the program.
+
+In order to use the methods described earlier, you must import the LCT package
+to the class where the methods are used (import fi.hut.ics.lime.tester.LCT;).
+For examples of using these methods, see the files provided in the /tests
+directory of the tool.
+
+Note also that the methods described earlier have no limitations in which parts
+of the program code they can be used.
+
+
+
+Instrumenting the program and running tests:
+--------------------------------------------
+
+After the input locations are marked with the methods described in the previous
+section, the program must be instrumented in order to make symbolic execution
+of the program possible during normal execution. This means that new statements
+are added to the program code.
+
+The instrumentation process takes Java bytecode as input and therefore then
+program under test must first be compiled. The scripts LCTcompile can be used
+for this. The script simply adds Java packages needed by LCT to the classpath
+and then uses standard javac to compile the program
+
+E.g., LCTcompile Test1.java
+
+You can also manually compile the program provided LimeTB/lib/lime/LCT-1.0.0.jar
+is in the classpath.
+
+Note that if you are using LIMT to compile a program, the compilation stage
+is naturally not needed. To get more information about using LCT and LIMT
+together, see the LIMT-LCT instructions file located in the /doc directory.
+
+To instrument the compiled program, the script LCTinstrument can be used. 
+The script takes as an argument the name of the Java file that is to be 
+instrumented. 
+
+If you want to instrument the Test1.java file in the examples/lct directory, it
+can be done in the following way:
+
+/lct> LCTinstrument Test1
+
+Note that the instrumentation also tries to replace some core Java classes
+(Integer, Long, Boolean, Byte, and Short) with alternative implementations. If
+the program under test does not use these classes (or if the input values
+cannot at any point influence the values stored in these classes) the
+instrumentation can be done also the following way:
+
+/lct> LCTinstrument Test1 -noreplacement
+
+The -noreplacement option disables the core class replacement and speeds up
+the instrumentation process somewhat.
+
+The instrumentation results in a new output directory to be created to the
+current directory. The output directory now contains the instrumented program
+as a runnable class file. 
+
+Before the instrumented program can be executed, a test server must be started.
+This can be done using the script LCTserver:
+
+> LCTserver
+
+It is recommended that the server is started in a new terminal/window. After the
+server has started the instrumented program can be executed by using the script
+LCTrun that takes the name of a Java program as argument. By giving an 
+additional argument "all", the script executes test runs as long as the 
+test server decides that the testing has been completed. 
+The following examples illustrate the usage of LCTrun.
+
+/lct/output> LCTrun Test1 all     (tests the whole program)
+
+/lct/output> LCTrun Test1         (single test run)
+
+
+If you are testing a large program, you can stop the testing process by
+running the script LCTstop.
+
+It is also possible to run multiple test executions concurrently (e.g., by
+executing multiple "LCTrun filename all" scripts simultaneously.) This helps
+take advantage of multicore processors and computer networks.
+
+
+Replaying executions:
+---------------------
+
+If LCT finds an error, the server will print the input values used in the
+test run. If you want to replay this test run with the uninstrumented program 
+(for example, to use debugging tools), the script ljut-rerun can be used. 
+Running the command ljut-rerun will print instructions on how to use the script.
+
+The basic use is as follows: 
+
+ljut-rerun --input "list of inputs" --target [Class with a main method]
+
+Example:
+
+ljut-rerun --input "1 2 5 2" --target TestClass
+
+
+Note that input objects are not supported in this version with the ljut-rerun
+script.
+
+
+Configuring the tool:
+---------------------
+
+It is possible to configure how LCT works by changing the options located in
+testerproperties/usersettings.properties file. The file looks like this:
+
+# User settings of LCT
+
+#-----------------------------------------
+#--         Connection Settings         --
+#-----------------------------------------
+serverIP                    = localhost
+serverPort                  = 10253
+
+#-----------------------------------------
+#--       Instrumetation Settings       --
+#-----------------------------------------
+instrumentationType         = basic
+concurrency                 = false
+executionVerbosity          = 1
+instrumentationVerbosity    = 1
+
+#-----------------------------------------
+#--       Test Strategies Settings      --
+#-----------------------------------------
+seed                        = current time
+strategy                    = random selection
+maxDepth                    = 5000
+serverVerbosity             = 1
+testRuns                    = infinite
+maxDefects                  = infinite
+/
+#-----------------------------------------
+#--      Constraint solver settings     --
+#-----------------------------------------
+solver                      = Boolector
+
+#-----------------------------------------
+#--      Miscellaneous settings         --
+#-----------------------------------------
+testInputFile               = testcases
+heuristicPercentage         = 0
+heuristicClass              = none
+heuristicMethod             = none
+
+
+The instrumented programs and the test server communicate using TCP/IP.
+Therefore it is possible to have the test server running on a different computer
+than the instrumented programs. The IP address and port of the server can be
+configured using the properties serverIP and serverPort. Note that the
+instrumentation process hard codes these values to the instrumented program and
+therefore if the address or port is changed, the program must be instrumented
+again. This must also be done if any of the properties under Instrumentation
+Settings are changed.
+
+The instrumentationType property can currently have two values: "basic" and
+"object". The basic case is meant to be used when no input objects
+(LCT.getObject) are used. By setting the property to "object", these input types
+can be used but this makes the execution slower as using object inputs require
+more code to be instrumented to the program.
+
+The seed property allows setting a specific seed for the random number generator
+used in the tool. This makes it possible to repeat the testing process in the
+same way if needed. By using the value "current time" the random number
+generator is initialized with the current system time as the seed.
+
+The strategy property is used to select the test strategy used by the test
+server. Current alternatives are "random selection", "random priority", "DFS", 
+"branch coverage" and "random". The strategies are explained in the Section 4.2 
+of the research report Automated Test Generation for Software Components.
+
+The strategy "random" is meant for comparison with random testing and it is not
+meant to be used for real testing.
+
+MaxDepth property can be used to limit the test executions. The value "infinite"
+means that the test runs are executed until the program under test terminates
+normally or due to an error. A number value means that the test runs are
+terminated before the normal exit point if the execution depth goes bellow
+the given number. (The number value does not have any intuitive meaning and
+therefore experimentation is needed to get a good depth limit if it is needed.)
+
+TestRuns property describes the maximum number of test runs that are made
+before testing is finished. The value "infinite" means that testing is continued
+until all distinct execution paths have been explored.
+
+MaxDefects property describes how many errors the testing is allowed to find
+before the testing process is terminated. Value 1 means that when the first
+error is found, no further test executions are made. (If multiple tests are
+executing concurrently, those are finished normally.) The value "infinite" can
+also be used here, if all execution paths that contain errors are wanted to be
+found.
+
+Solver property can be used to specify which SMT solver is used to compute
+new input values from the collected path constraints. In the current version,
+this property can have values "Yices" or "Boolector". When using Yices, the
+input values are considered as unbounded integer values which can cause
+inaccurate testing if type conversions (e.g., from int to short) are used.
+Furthermore, the Yices option approximates many collected constraints (e.g.,
+when the program under test uses multiplication or bit shifing) and this
+can cause LCT to fail generate all possible test cases. Boolector option uses
+bit vectors to represent input values. This results in more accurate path
+constraints and allows full support for operators like multiplication and
+modulo. Therefore by using the Boolector option, it is possible to generate
+test cases more accurately. This option, however, is in some cases slower than
+using Yices.
+
+The heuristicPercentage, heuristicClass and heuristicMethod options are
+covered in the LIMT-LCT README as they affect how the LIME specifications
+are taken into account during testing. If these settings are changes, the
+program under test must be re-instrumented.
+
+Note that only "random priority" and "branch coverage" strategies support
+the heuristic options in this release.  

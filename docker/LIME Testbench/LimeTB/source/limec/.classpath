@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry kind="src" path="target/generated-sources/java_cup"/>
+	<classpathentry kind="src" path="target/generated-sources/jflex"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="../../lib/external/automaton.jar"/>
+	<classpathentry kind="lib" path="../../lib/external/java-cup-11a-runtime.jar"/>
+	<classpathentry kind="lib" path="../../lib/external/JFlex.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/common"/>
+	<classpathentry kind="lib" path="/home/viorel/test/megamart/LimeTB-2.2.0/lib/external/java-cup-11a.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

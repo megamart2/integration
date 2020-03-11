@@ -1,0 +1,4 @@
+test a bug fix reported by Ken McMillan:
+
+"unsigned", "signed", "__signed__" is not handled correctly when it is used in a pointcut declaration.
+

@@ -1,0 +1,65 @@
+#!/bin/sh
+
+# This script does all the necessary preprocessing and the actual compilation of
+# the C sources with interface spesification annotations.
+
+set -e
+
+if [ -z "$1" ] || [ ! -d "$1" ]; then
+    echo "Error: Please give the directory with the source files as argument." >/dev/stderr
+    exit 1
+fi
+
+PREFIX=`dirname "$0"`
+
+. $PREFIX/classpath-limec
+
+# Name of the directory where to move the source files for processing so that
+# the original files don't get messed up.
+SOURCEDIR="limec_tmp_source"
+
+echo "Creating tmp directory '$1/$SOURCEDIR'..."
+
+if [ -e "$1/$SOURCEDIR" ]; then
+    echo "File or directory '$1/$SPOONDIR' already exists, emptying it."
+    rm -r $1/$SOURCEDIR
+fi
+
+mkdir $1/$SOURCEDIR
+cp $PREFIX/../lib/lime/lime.h $1/$SOURCEDIR/
+
+echo "Running limec..."
+
+java -cp $CLASSPATH fi.hut.ics.lime.isl_c.Main -s "$1"
+
+echo "Moving the created sources to the tmp directory..."
+
+# NOTE: IF THE USER HAS .acc OR .mc FILES OF HIS OWN IN THE DIRECTORY, THEY WILL
+# ALSO BE MOVED TO THE TMP FOLDER AND SUBSEQUENTLY DELETED, SHOULD BE NOTED IN
+# THE DOCUMENTATION
+mv *.acc $1/$SOURCEDIR/
+mv *.mc $1/$SOURCEDIR/
+# also copy the header files
+cp *.h $1/$SOURCEDIR/
+
+echo "Preprocessing the source files..."
+
+lime_preprocess() {
+	mv "$1" "$1.c"
+	gcc -E "$1.c" > "$1"
+	rm "$1.c"
+	echo "  preprocessed $1"
+}
+
+find "$1/$SOURCEDIR" -name *.acc -o -name *.mc | \
+while read i; do lime_preprocess "$i"; done
+
+echo "Running ACC..."
+
+acc $1/$SOURCEDIR/*.acc $1/$SOURCEDIR/*.mc
+
+echo "Compiling..."
+
+gcc $1/$SOURCEDIR/*.c -L$ACC -lacc
+
+exit 0

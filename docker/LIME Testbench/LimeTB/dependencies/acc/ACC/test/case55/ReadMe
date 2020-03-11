@@ -1,0 +1,8 @@
+test feature: add type qualifier, like "const", "__const", "__restrict" and "volatile" support.
+
+Apr.12,2007
+	ignore the type qualifiers appearing inside gcc attribute specifier.
+
+
+May 27,2007
+	check the generated file, instead of running the executable, because __attribute__((const)) behaves differently across different platforms.

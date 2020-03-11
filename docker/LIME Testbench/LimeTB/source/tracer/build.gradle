@@ -1,0 +1,6 @@
+apply plugin: 'java'
+
+dependencies {
+    implementation files("../../lib/external/junit.jar")
+}
+

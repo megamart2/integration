@@ -1,0 +1,19 @@
+in foo, b = a = 0
+aspect: before set global a
+aspect: after set global a
+a = 0, b = 0 
+end of foo
+in foo1, local a shadows global a 
+a = 34
+end of foo1
+in foo2, assign a be 2
+aspect: before set global a
+aspect: after set global a
+aspect: before set global a
+aspect: after set global a
+end of foo2, a = 2 
+in foo, b = a = 0
+aspect: before set global a
+aspect: after set global a
+a = 0, b = 0 
+end of foo

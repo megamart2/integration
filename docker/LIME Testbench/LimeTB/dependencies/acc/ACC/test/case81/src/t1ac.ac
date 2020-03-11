@@ -1,0 +1,18 @@
+
+pointcut mypc(double a, int * b): args(a, *b, $);
+
+before(int * b, double a, int c) :
+	cflow(call($ foo(...)) && mypc(a, b)) 
+		&& call($ foo3(...)) && args(c) {
+	
+	printf("aspect1: first 2 parameters of foo = %d, %d \n", (int)a, *b);
+	printf("aspect1: parameter of foo3 = %d\n", c);
+}
+
+
+after(int b, int d, int c) :
+        cflow(call($ foo(...)) && args($, b, d))
+                && call($ foo3(...)) && result(c) {
+        printf("aspect2: last 2 parameters of foo = %d, %d \n", b, d);
+        printf("aspect2: result of foo3() = %d\n", c);
+}

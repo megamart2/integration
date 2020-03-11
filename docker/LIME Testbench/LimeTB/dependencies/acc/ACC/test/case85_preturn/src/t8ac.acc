@@ -1,0 +1,17 @@
+pointcut CALL4(): call(int foo4());
+
+before(): CALL4() && cflow(call(int foo1())) {
+	printf("call foo4 in cflow of foo1\n");
+}
+before(): CALL4() && cflow(call(int foo2())) {
+        printf("call foo4 in cflow of foo2\n");
+}
+before(): CALL4() && cflow(call(int foo3())) {
+        printf("call foo4 in cflow of foo3\n");
+}
+
+after(): execution(int foo3()) && cflow(call(int foo2())) {
+	printf("execute foo3 inside foo2 cflow, \n");
+	preturn(99);
+}
+

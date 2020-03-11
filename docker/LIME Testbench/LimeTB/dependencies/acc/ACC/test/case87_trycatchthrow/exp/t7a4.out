@@ -1,0 +1,12 @@
+in main, call foo
+	 in foo
+		 in foo1
+			 in foo2
+before call foo3, throw exception 3
+catch exception 3 from executing foo2
+		 end of foo1
+	 end of foo
+call foo4 in main
+call foo4 in cflow of execution of main
+in foo4
+end of main

@@ -1,0 +1,35 @@
+const int around(): call(const int foo$(...)) {
+	printf("aspect1: call %s in %s \n", this->targetName, this->funcName);
+	proceed();
+	printf("aspect: end\n");
+	return 0;
+}
+
+int around(): call(int foo$(...)) {
+        printf("aspect2: call %s in %s \n", this->targetName, this->funcName);
+        proceed();
+        printf("aspect: end\n");
+	return 0;
+}
+
+
+int around(): call($ foo$($const$)) {
+        printf("aspect3: name = %s\n", this->targetName);
+        proceed();
+        printf("aspect: end\n");
+        return 0;
+}
+
+int around(): call($ foo$(int)) {
+        printf("aspect4: name = %s\n", this->targetName);
+        proceed();
+        printf("aspect: end\n");
+        return 0;
+}
+
+int around(): call($ foo3(...)) {
+	printf("aspect5: name = %s\n", this->targetName);
+	proceed();
+	printf("aspect: end\n");
+	return 0;
+}

@@ -1,0 +1,4 @@
+bug fix: around() advice for execution join point on a static function.
+
+Gcc should not give any warning for the generated source file.
+

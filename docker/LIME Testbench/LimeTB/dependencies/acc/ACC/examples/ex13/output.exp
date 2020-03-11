@@ -1,0 +1,8 @@
+inside foo1, a = call foo1 in main
+
+inside foo, a = call foo in main
+inside foo2, a = call foo2 in foo
+aspect: call foo1 in cflow of foo
+foo argument = call foo in main 
+foo1 argument = call foo1 in foo2 
+inside foo1, a = call foo1 in foo2

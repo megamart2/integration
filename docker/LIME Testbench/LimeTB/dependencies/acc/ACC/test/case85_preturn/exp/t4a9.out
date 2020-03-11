@@ -1,0 +1,14 @@
+call foo(3,4,5) in main
+in foo, a = 3, b = 4, c = 5 
+call foo2 in cflow of foo
+in foo2, a = 12, b = 20 , c = 5 
+in aspect
+
+---------------------
+call foo2(3,4,5) in main
+in foo2, a = 3, b = 4 , c = 5 
+
+---------------------
+call foo4 in main
+in foo4, call foo3
+in aspect

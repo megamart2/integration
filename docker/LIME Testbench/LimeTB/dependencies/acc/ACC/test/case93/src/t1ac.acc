@@ -1,0 +1,27 @@
+
+before(int * a, int ap) :
+	call(void foo(...)) && args(*a, ap) {
+
+   printf("before calling foo, original parameter = %d, %d \n", *a, ap);
+   *a *= 2;
+   ap *= 2;
+  
+   printf("in aspect, double their value. The 1st should be modified, 2nd should be unchanged  \n");
+
+}
+
+after(int * x) : call(int foo1()) && result(*x) {
+
+   printf("after advice 1: original return value of foo1 = %d\n", *x);
+   *x *= 2;
+   printf("in aspect, double its value. Return value should be changed  \n");
+}
+
+after(int x) : call(int foo2()) && result(x) {
+
+   printf("after advice 2: original return value of foo2 = %d\n", x);
+   x *= 2;
+   printf("in aspect, double its value. Return value should be unchanged  \n");
+}
+
+

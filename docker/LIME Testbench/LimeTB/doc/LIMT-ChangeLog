@@ -1,0 +1,100 @@
+------------------------------------
+Lime Interface Monitoring Tool 1.0.0
+------------------------------------
+
+CHANGES FROM PREVIOUS VERSION (0.2.6):
+--------------------------------------
+
+- Bug fixes.
+
+CHANGES FROM VERSION (0.2.5):
+-----------------------------
+
+- Added new tracing utility 'tracer' that can be used to parse aspect-monitor
+  log files (tracer -h for usage info)
+- Monitored programs now automatically create a run log (spoon/runlog) when run,
+  this file can then be parsed using the aforementioned tracer.
+- Added a regexp optimizer for aspect monitor, making the generated code much
+  cleaner and for more complicated regular expressions.
+- Also several bug fixes.
+
+CHANGES FROM VERSION (0.2.4):
+-----------------------------
+
+- This is mostly just a bug fix realease, next version with LCT and preliminary
+  tracing utilities is going to be released soon after we manage to integrate
+  the tools properly.
+- Some changes in tools and scripts in preparation to the upcoming feature
+  release.
+- Several bug fixes.
+
+CHANGES FROM VERSION (0.2.3):
+-----------------------------
+
+- Added a simple graphical user interface that can be launched with the
+  'limegui' script.
+- 'beautify.py' can now be used to clean up exception traces when a
+  specification is broken. (usage: java <class> 2>&1 | beautify.py)
+- Moved all the scripts to 'bin' directory under limt root.
+- 'bin' directory also has a precompiled scheck2 available, if that doesn't
+  work, sources for compiling a new copy are still provided under
+  'dependencies'.
+- Several bug fixes.
+
+
+CHANGES FROM VERSION (0.2.2):
+-----------------------------
+
+- Fixed most of "advice did not match" warnings (LIMET-1).
+- A mere warning is now output instead of error if the package names begin with
+  an uppercase letter, which seems to sometimes cause problems in the weaving or
+  compilation process.
+- Bumped all tool version numbers up to sync with monitoring toolkit for easier
+  maintenance.
+
+CHANGES FROM VERSION (0.2.1):
+-----------------------------
+
+- Made a small fix to the limejava and limejc scripts so that they don't bug out
+  when used with classpath script anymore.
+- Fixed a bug with certain specifications resulting in duplicate variable names
+  (LIMET-2).
+- Fixed an "affected type not exposed to the weaver" warning that happened often
+  when using the tools (LIMET-4).
+- Package names should begin with a lowercase letter, and the user is now
+  reminded about this if they don't.
+
+CHANGES FROM VERSION (0.2.0):
+-----------------------------
+
+Updated the .jar files to match the latest source tree.
+
+CHANGES FROM VERSION (0.1.2):
+-----------------------------
+
+Aspect-monitor:
+
+- Added support from exception overriding.
+
+Added support for C programming language, details below.
+
+Added support for partially implemented systems, details below.
+
+Added a new 'classpath' script, details below.
+
+CHANGES FROM VERSION (0.1.1):
+-----------------------------
+
+- Changed the language keywords to better reflect their meaning:
+  - InterfaceCheckers -> CallSpecifications
+  - LibraryCheckers   -> ReturnSpecifications
+  - TriggeredCheckers -> Observe
+  - pltlCheckers      -> pltl
+  - regexpCheckers    -> regexp
+  - automatonCheckers -> nfa
+  - checkers          -> specs
+
+CHANGES FROM VERSION (0.1.0):
+-----------------------------
+
+- Added the support for exception propositions.

@@ -1,0 +1,4 @@
+call foo in main, argu = 1,3,5
+in around advice, 2nd argument = 3.
+double its value in advice
+inside foo, argu = 1, 6, 5

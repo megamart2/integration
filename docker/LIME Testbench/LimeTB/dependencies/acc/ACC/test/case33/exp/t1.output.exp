@@ -1,0 +1,12 @@
+call foo1 in main, argu = 3,4,5
+advice:before call foo1, second argu = 4, third argu = 5
+advice:before execution of foo1
+inside foo1, a1 = 3 , a2 = 4 , a3 = 5 
+advice:call foo2 in foo1
+inside foo2
+advice:after call foo1, second argum = 4, result = 12
+call foo2 in main
+advice:before call foo2 in main
+inside foo2
+advice:around foo3 execution
+inside foo3

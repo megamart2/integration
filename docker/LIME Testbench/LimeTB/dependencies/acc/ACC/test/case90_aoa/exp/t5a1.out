@@ -1,0 +1,13 @@
+call foo in main
+call foo1 in foo
+aspect: before calling foo1, call foo2 
+call foo3 in foo2 
+in foo3
+aspect: after calling foo3, throw exception 4
+aspect: catch an exception during call foo2 = 4
+end of aspect 
+call foo2 in foo1
+call foo3 in foo2 
+in foo3
+aspect: after calling foo3, throw exception 4
+aspect: catch an exception during call foo2 = 4

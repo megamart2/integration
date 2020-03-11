@@ -1,0 +1,6 @@
+aspect Function Call: t1mc.mc: call "call_f" in function main
+aspect Function Call by function pointer : t1mc.mc: callp "my_f1" in function call_f
+Function "my_f1" has been called
+aspect Function Call: t1mc.mc: call "call_f" in function main
+aspect Function Call by function pointer : t1mc.mc: callp "my_f2" in function call_f
+Function "my_f2" has been called

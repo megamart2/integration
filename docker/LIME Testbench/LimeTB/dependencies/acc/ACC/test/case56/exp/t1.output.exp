@@ -1,0 +1,6 @@
+aspect1: call foo1 from main , p[0] = 1
+inside foo1, a[0] = 1, a[1] = 2
+sizeof(a) = 4
+sizeof(*a) = 1
+sizeof(struct X) = 12
+aspect: end

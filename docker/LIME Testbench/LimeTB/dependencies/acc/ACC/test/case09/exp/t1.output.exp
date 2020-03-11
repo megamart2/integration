@@ -1,0 +1,3 @@
+inside foo3, parameter = hello, 345
+return value = abcde
+after calling foo3, parameter = hello, result = abcde 

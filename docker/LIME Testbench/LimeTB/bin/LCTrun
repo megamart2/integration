@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Script to start a test run
+
+set -e
+
+PREFIX=`dirname "$0"`
+
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PREFIX/../dependencies/solvers"
+
+CLASSPATH=$CLASSPATH:.
+
+. $PREFIX/classpath-common
+. $PREFIX/classpath-lct
+
+if [ $# -ge 2 ]
+    then
+         java -cp $CLASSPATH -Djava.library.path=$LD_LIBRARY_PATH fi.hut.ics.lime.tester.TestLauncher "$@"
+    else
+         java -cp $CLASSPATH -Djava.library.path=$LD_LIBRARY_PATH "$@"
+fi

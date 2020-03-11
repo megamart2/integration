@@ -1,0 +1,19 @@
+feature work:
+	test combination of preturn() and cflow(), to make sure preturn() doesn't mess up with cflow() levels.
+
+
+example:
+
+	foo() {
+		...
+		foo1();
+		...
+	}
+
+
+cflow(): foo/call , foo/execution, foo1/call, foo1/execution
+
+preturn(): foo1/execution, foo1/call
+
+
+	

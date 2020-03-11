@@ -1,0 +1,3 @@
+A test case created the features required to process the header files , like stdio.h, stdlib.h.
+
+The minimum requirement is : for a .mc file containing some extension, the AC compiler should not report syntax error, but rather just output those texts without semantic implementation.

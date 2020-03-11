@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Script to start a test server
+
+set -e
+
+PREFIX=`dirname "$0"`
+
+. $PREFIX/classpath-lct
+
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PREFIX/../dependencies/solvers"
+
+clear
+
+exec java -Xmx1024m -cp $CLASSPATH -Djava.library.path=$LD_LIBRARY_PATH fi.hut.ics.lime.tester.TestServer

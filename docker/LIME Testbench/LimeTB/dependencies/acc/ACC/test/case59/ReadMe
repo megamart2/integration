@@ -1,0 +1,2 @@
+more test cases for introduce() advice:
+	make sure the new members are inserted in the same order in the core file and in the aspect file

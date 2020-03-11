@@ -1,0 +1,13 @@
+initial array:
+3 5 2 1 4 
+before sort function execution
+around sort function execution
+no sorting
+after sort function execution
+new array:
+3 5 2 1 4 
+init value: 8
+before incr function call
+around incr function call
+after incr function call
+new value: 100

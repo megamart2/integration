@@ -1,0 +1,5 @@
+call foo1 in main
+aspect 1 
+aspect 2 
+aspect 3 
+inside foo1

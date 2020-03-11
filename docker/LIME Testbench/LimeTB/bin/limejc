@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# This script does all the necessary preprocessing and the actual compilation of
+# the java classes with interface spesification annotations.
+
+set -e
+
+if [ -z "$1" ] || [ ! -d "$1" ]; then
+    echo "Error: Please give the directory with the source files as argument." >/dev/stderr
+    exit 1
+fi
+
+PREFIX=`dirname "$0"`
+
+. $PREFIX/classpath-common
+. $PREFIX/classpath-limejc
+
+# This is here, because this being in the common classpath breaks the something in jasmin (used by the LCT)
+CLASSPATH="$CLASSPATH:$PREFIX/lib/external/java-cup-11a-runtime.jar"
+
+# Name of the directory to which spoon will store the altered class files.
+SPOONDIR="spoon"
+
+echo "Checking spoon directory '$1/$SPOONDIR'..."
+
+if [ -e "$1/$SPOONDIR" ]; then
+    echo "File or directory '$1/$SPOONDIR' already exists, removing it."
+    rm -r $1/$SPOONDIR
+fi
+
+echo "Running spoon..."
+
+#java -cp $CLASSPATH spoon.Launcher -p fi.hut.ics.lime.aspectmonitor.SpecProcessor -i "$1" -o "$1/$SPOONDIR"
+java -cp $CLASSPATH fi.hut.ics.lime.aspectmonitor.SpoonRunner "$@"
+
+echo "Compiling the classes with aspectj..."
+cd "$1/$SPOONDIR"
+
+find -name \*.java -or -name \*.aj | xargs java -cp $CLASSPATH org.aspectj.tools.ajc.Main -1.5 
+
+exit 0

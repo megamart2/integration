@@ -1,0 +1,18 @@
+#!/bin/bash
+
+
+if [ $# -ne 1  ]; then
+	echo "Usage: LCTmethods [changed methods file]"
+	exit
+fi
+
+set -e
+
+PREFIX=`dirname "$0"`
+
+CLASSPATH=$CLASSPATH:.
+
+. $PREFIX/classpath-common
+. $PREFIX/classpath-lct
+
+ java -cp $CLASSPATH fi.hut.ics.lime.tester.TestMethods "$@"

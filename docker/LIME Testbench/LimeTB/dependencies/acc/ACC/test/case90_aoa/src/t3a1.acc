@@ -1,0 +1,26 @@
+
+
+
+struct A {
+	int a;
+};
+
+introduce(): intype(struct A) {
+	int b;
+}
+
+introduce(): intype(struct B) {
+	int c;
+}
+
+extern int get_struct_B_size();
+
+before(): call(void foo1()) {
+	printf("aspect 1: call foo1 \n");
+
+	printf("size of struct A = %d\n", sizeof(struct A));
+	
+	printf("size of struct B = %d\n", get_struct_B_size());
+
+}
+

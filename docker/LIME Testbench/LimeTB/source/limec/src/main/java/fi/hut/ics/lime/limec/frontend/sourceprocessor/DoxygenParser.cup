@@ -1,0 +1,13 @@
+package fi.hut.ics.lime.limec.frontend.sourceprocessor;
+
+terminal String OTHER; 
+
+non terminal StringBuilder stringContent;
+
+stringContent ::= OTHER:s {:  	StringBuilder stringContent = new StringBuilder();
+								stringContent.append(s);
+								RESULT = stringContent; :}
+				  | stringContent:sc OTHER:s {:
+				  	sc.append(s);
+				  	RESULT = sc;
+				  :};

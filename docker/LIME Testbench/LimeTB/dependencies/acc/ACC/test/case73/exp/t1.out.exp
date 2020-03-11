@@ -1,0 +1,7 @@
+aspect: before foo, a = A, b = 4
+logging aspect: call foo in main 
+in foo, a = A , b = 4
+inside foo1
+logging aspect: call foo2 in main 
+in foo2
+size of struct A = 1

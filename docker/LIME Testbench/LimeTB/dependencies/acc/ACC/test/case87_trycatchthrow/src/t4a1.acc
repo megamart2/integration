@@ -1,0 +1,14 @@
+before() : call(int foo2(int)) {
+	printf("aspect 1, throw 3\n");
+	throw(3);
+}
+
+before() : call(int foo4(int)) {
+        printf("aspect 2 , throw 9\n");
+        throw(9);
+}
+
+catch(int e): try(call(int foo(int))) || try(call(int foo3(int))) {
+	printf("catch an exception, exception = %d\n", e);
+}
+

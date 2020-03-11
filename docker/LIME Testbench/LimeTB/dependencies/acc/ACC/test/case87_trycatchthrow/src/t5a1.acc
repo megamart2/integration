@@ -1,0 +1,30 @@
+before() : call(int foo2(int)) {
+	printf("aspect, throw 3\n");
+	throw(3);
+}
+
+catch(int e) : try(call(int foo2(int))) {
+	printf("catch 1, exception = %d\n", e);
+	throw(e+1);
+}
+
+catch(int e): try(call(int foo1(int))) {
+	printf("catch 2, exception = %d\n", e);
+	throw(e+1);
+}
+
+catch(int e): try(call(int foo(int)) && 
+			!cflow(call(int foo3(int))))
+ {
+	printf("catch 3, not in cflow of foo3, exception = %d\n", e);
+}
+
+catch(int e): try(call(int foo(int)) && cflow(call(int foo3(int)))) {
+        printf("catch 4, in cflow of foo3,  exception = %d\n", e);
+	throw(e+1);
+}
+
+catch(int e): try(call(int foo3(int))) {
+        printf("catch 5, exception = %d\n", e);
+}
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry kind="lib" path="../../lib/external/javaparser-1.0.8.jar"/>
+	<classpathentry kind="lib" path="../../lib/external/difflib-1.2.1-udiffpatched.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/limec"/>
+	<classpathentry kind="lib" path="../../lib/external/junit.jar"/>
+	<classpathentry kind="lib" path="/home/viorel/megamart/LimeTB-2.2.0/lib/external/sootclasses-2.3.0.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

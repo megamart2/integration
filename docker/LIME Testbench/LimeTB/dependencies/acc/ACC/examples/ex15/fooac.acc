@@ -1,0 +1,13 @@
+#include <stdio.h>
+
+before() : call(int foo2(int)) {
+	printf("aspect, throw exception 3 before calling foo2\n");
+	throw(3);
+	printf("end of aspect\n");
+}
+
+catch(int e): try(call(int foo(int))) {
+	printf("catch exception = %d when calling foo\n", e);
+}
+
+

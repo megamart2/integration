@@ -1,0 +1,16 @@
+support 
+	1. compound literal.
+	2. designated initializer.
+	3. typeof operator.
+	4. __builtin_va_arg function.
+	5. a floating number without leading "0", like: .1.
+	6. support a typedef type name used as a field name inside a struct/union.
+	7. support __volatile keyword.	
+
+* 
+orbit-policy.mc
+test-linc.mc
+client.mc
+test-dynany.mc 
+ 
+  are preprocessed orbit source files provided by Charles.

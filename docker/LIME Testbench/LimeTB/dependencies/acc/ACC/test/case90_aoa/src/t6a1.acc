@@ -1,0 +1,11 @@
+int a;
+
+extern char b;
+
+before(): set(int a) {
+	printf("aspect: before set global a\n");
+	printf("set a to be 9 inside advice \n");
+	a = 9;
+	printf("in aspect 1, a = %d, b = %c \n", a, b);
+}
+

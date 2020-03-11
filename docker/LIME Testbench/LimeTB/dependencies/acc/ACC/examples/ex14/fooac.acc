@@ -1,0 +1,7 @@
+#include <stdio.h>
+
+before(): call(int foo2()) {
+	printf("before advice \n");
+	preturn(99);
+}
+

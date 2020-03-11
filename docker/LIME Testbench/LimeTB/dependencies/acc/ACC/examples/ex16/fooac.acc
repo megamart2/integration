@@ -1,0 +1,6 @@
+#include <stdio.h>
+
+before() : set(int a) {
+	printf("aspect, before set variable a \n");
+}
+

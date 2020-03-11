@@ -1,0 +1,12 @@
+advice 4
+advice 6
+calling sort in main 
+advice 4
+advice 6
+advice 1
+advice 3 
+advice 4
+advice 6
+begin sorting
+finish sorting
+after calling sort in main

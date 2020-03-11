@@ -1,0 +1,19 @@
+call foo in main
+aspect 1: before execution foo
+call foo2 inside aspect 
+aspect 3: before execution foo3 or before execution foo2
+in foo2 
+call foo3 inside aspect 
+aspect 3: before execution foo3 or before execution foo2
+foo3, in aspect file 
+call foo1 in foo
+call foo2 in foo1
+aspect 3: before execution foo3 or before execution foo2
+in foo2 
+aspect 2: after exeuction foo
+call foo2 inside aspect 
+aspect 3: before execution foo3 or before execution foo2
+in foo2 
+call foo3 inside aspect 
+aspect 3: before execution foo3 or before execution foo2
+foo3, in aspect file 

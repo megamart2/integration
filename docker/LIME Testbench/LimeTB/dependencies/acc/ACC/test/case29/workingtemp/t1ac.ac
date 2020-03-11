@@ -1,0 +1,11 @@
+# 1 "t1ac_ac.c"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "t1ac_ac.c"
+before(): call(void foo(char *)) && infunc(main) {
+ printf("aspect: call foo in main \n");
+}
+
+before(): call(void foo(char *)) && infunc(foo2) {
+ printf("aspect: call foo in foo2\n");
+}

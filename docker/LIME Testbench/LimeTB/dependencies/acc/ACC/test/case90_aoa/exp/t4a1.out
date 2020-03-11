@@ -1,0 +1,9 @@
+call foo in main
+aspect 1: before call foo
+call foo2 inside aspect 
+in foo2 
+call foo3 inside aspect 
+aspect 2: before call foo3 
+call foo1 in foo
+call foo2 in foo1
+in foo2 

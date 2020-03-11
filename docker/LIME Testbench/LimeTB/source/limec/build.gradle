@@ -1,0 +1,27 @@
+
+apply plugin: 'java'
+
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src'
+            srcDirs 'target/generated-sources/java_cup'
+            srcDirs 'target/generated-sources/jflex'
+        }
+    }
+    main {
+        resources {
+            srcDirs "target/generated-sources/resources"
+        }
+    }
+}
+
+dependencies {
+    implementation project(':common')
+    implementation files("../../lib/external/automaton.jar")
+    implementation files("../../lib/external/java-cup-11a.jar")
+    implementation files("../../lib/external/JFlex.jar")
+    implementation files("../../lib/external/java-cup-11a-runtime.jar")
+}
+

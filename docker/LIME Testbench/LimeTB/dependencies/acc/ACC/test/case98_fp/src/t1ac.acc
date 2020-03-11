@@ -1,0 +1,8 @@
+before(): callp(int my_f1(void)) || callp(int my_f2(void)) {
+	printf("aspect Function Call by function pointer : %s: %s \"%s\" in function %s\n", this->fileName, this->kind, this->targetName, this->funcName);
+}
+
+before(): call($ $(...)) {
+	printf("aspect Function Call: %s: %s \"%s\" in function %s\n", this->fileName, this->kind, this->targetName, this->funcName);
+}
+

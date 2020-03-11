@@ -1,0 +1,41 @@
+in foo, b = a = 0
+aspect 1: set && args 
+aspect 2: set && args , val = 0
+aspect 3: set && args , ori val = 0, change to 1000 
+aspect 6: set && infunc(foo) 
+aspect 4: set && result 
+aspect 5: set && result, = 1000 
+a = 1000, b = 1000 
+end of foo
+in foo1, local a shadows global a 
+a = 34
+end of foo1
+in foo2, assign a be 2
+aspect 1: set && args 
+aspect 2: set && args , val = 2
+aspect 3: set && args , ori val = 2, change to 1000 
+aspect 4: set && result 
+aspect 5: set && result, = 1000 
+aspect 1: set && args 
+aspect 2: set && args , val = 1000
+aspect 3: set && args , ori val = 1000, change to 1000 
+aspect 4: set && result 
+aspect 5: set && result, = 1000 
+end of foo2, a = 1000 
+in foo, b = a = 0
+aspect 1: set && args 
+aspect 2: set && args , val = 0
+aspect 3: set && args , ori val = 0, change to 1000 
+aspect 6: set && infunc(foo) 
+aspect 4: set && result 
+aspect 5: set && result, = 1000 
+a = 1000, b = 1000 
+end of foo
+assign a in main
+aspect 1: set && args 
+aspect 2: set && args , val = -1
+aspect 3: set && args , ori val = -1, change to 1000 
+aspect 7: set && infunc(main) 
+aspect 4: set && result 
+aspect 5: set && result, = 1000 
+in the end of main, a = 1000

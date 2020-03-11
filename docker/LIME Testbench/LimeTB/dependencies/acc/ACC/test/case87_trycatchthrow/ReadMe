@@ -1,0 +1,18 @@
+feature : exception handling by try-throw-catch.
+
+case 1: test throw() statement
+	before/after/around/catch advices.
+
+case 2: try(call(...)) , try(execution(...))
+
+case 3: try() has composite pointcut
+
+case 4: try() || try()
+
+case 5: multiple catch() 
+
+case 6: preturn() inside catch() advice
+
+case 7: cflow() should not be messed up by using try-throw-catch
+
+

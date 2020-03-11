@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+PREFIX=`dirname "$0"`
+
+. $PREFIX/classpath-common
+. $PREFIX/classpath-ljut
+
+CLASSPATH=$CLASSPATH:`pwd`
+
+java -cp $CLASSPATH fi.hut.ics.lime.ljut.TestRunner "$@"

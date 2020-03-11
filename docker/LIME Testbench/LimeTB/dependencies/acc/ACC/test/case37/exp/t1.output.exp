@@ -1,0 +1,8 @@
+aspect: call function
+inside foo1, b = call foo1
+aspect: call function
+inside foo2, d = call foo2
+aspect: call function
+aspect, the second last parameter is 0, skip the call
+aspect: call function
+aspect, the second last parameter is 0, skip the call

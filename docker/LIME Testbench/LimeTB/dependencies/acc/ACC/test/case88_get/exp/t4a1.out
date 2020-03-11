@@ -1,0 +1,11 @@
+aspect 2: match get($int$ $a$ ) 
+aspect 3: match get(myintt daf ) 
+aspect 4: match get($ $ ) 
+j = 1
+aspect 2: match get($int$ $a$ ) 
+aspect 3: match get(myintt daf ) 
+aspect 4: match get($ $ ) 
+aspect 1: match get(int a) 
+aspect 2: match get($int$ $a$ ) 
+aspect 4: match get($ $ ) 
+j = 3

@@ -1,0 +1,7 @@
+bug fix:
+  a un-normal parameter declaration like:
+
+  void foo(int (*p)) ;
+
+  where "p" is a "int *", not a function pointer.
+

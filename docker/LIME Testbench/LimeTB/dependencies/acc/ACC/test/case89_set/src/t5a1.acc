@@ -1,0 +1,7 @@
+before(int val ): set(int a) && args($,val) {
+	printf("aspect: before set global a\n");
+	if(val < 0) preturn(3);
+	printf("end of aspect\n");
+}
+
+

@@ -1,0 +1,4 @@
+in foo1
+around aspect 
+end of foo1
+return value of foo1 = 0 

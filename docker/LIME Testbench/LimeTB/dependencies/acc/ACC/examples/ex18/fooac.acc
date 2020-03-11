@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+before(): call($ $(...)) {
+   printf("%s \" %s \" in function %s \n", this->kind, this->targetName, this->funcName);
+   printf("\" %s \" parameter type: \n", this ->targetName);   
+   if ( this->argsCount == 0 ) printf("no parameter \n");
+   else {
+        int i; 
+	for(i = 1 ; i <= this->argsCount; i++) {
+                  printf("arg[%d] = %s  ", i, this->argType(i));
+                  
+                  if(strcmp(this->argType(i), "int") == 0) {
+                         printf(", value = %d ", *(int *)(this->arg(i)));
+                  } else if(strcmp(this->argType(i), "double") == 0) {
+                         printf(", value = %.2f ", *(double *)(this->arg(i)));
+                  }
+                  
+                  printf("\n");
+          }
+    }
+
+    printf("return type = %s \n \n", this->retType);
+}
+

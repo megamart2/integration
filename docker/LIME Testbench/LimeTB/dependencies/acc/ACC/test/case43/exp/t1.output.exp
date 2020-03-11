@@ -1,0 +1,37 @@
+main-->foo4
+foo4-->foo3
+foo3-->foo
+inside foo, a = call foo directly from foo3
+
+foo3-->foo2
+****aspect 1: around call foo2 in the control flow of foo3, argument = call foo2 from foo3
+ 
+--------------
+main-->foo3
+foo3-->foo
+inside foo, a = call foo directly from foo3
+
+foo3-->foo2
+****aspect 1: around call foo2 in the control flow of foo3, argument = call foo2 from foo3
+ 
+--------------
+main-->foo2
+foo2-->foo
+****aspect 2: around call foo in the control flow of foo2, argument = call foo from foo2
+ 
+--------------
+main-->foo
+inside foo, a = call foo in main
+
+--------------
+main-->foo5
+foo5-->foo4
+****aspect 3: around call foo4 under foo5, start
+foo4-->foo3
+foo3-->foo
+inside foo, a = call foo directly from foo3
+
+foo3-->foo2
+****aspect 1: around call foo2 in the control flow of foo3, argument = call foo2 from foo3
+ 
+****aspect 3: around call foo4 under foo5, end, result = 9 

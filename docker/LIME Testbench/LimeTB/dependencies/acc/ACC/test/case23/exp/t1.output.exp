@@ -1,0 +1,4 @@
+match call using args (int *) 
+inside foo3
+match call using args (int ) 
+inside foo4

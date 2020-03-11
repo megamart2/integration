@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# This script can be used to run the java classes with interface spesification
+# language annotations previously compiled with limejc.
+
+PREFIX=`dirname "$0"`
+
+. $PREFIX/classpath-common
+
+java -cp $CLASSPATH "$@"
+exit 0

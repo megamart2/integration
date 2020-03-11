@@ -1,0 +1,62 @@
+test :
+ 1. revised gcc attribute support.
+ 2. __builtin_offsetof support.
+ 3. support empty initializer brace.
+
+ACC compiler should be able to parse source files.
+
+May 2, 2007
+   add a test case for a user reported gcc attribute use.
+   ********************************************************
+   Michael:
+>
+> I have one more test case for you.
+>
+> Our current system has the following declaration which is not liked by
+> the ACC v0.5x. It would be great if you can comment on this.
+>
+> ----
+> typedef void (__attribute__((cdecl)) *XML_ElementDeclHandler) (void
+> *userData,
+>                                                 const char name,
+>                                                 const char* model);
+> ---
+>
+> I get a compilation error near the token __attribute__
+
+May 3, 2007
+   add a new test case.
+*********************************************************
+Hi Mike,
+
+Thanks for your fix. Unfortunately, that problem didn't go away
+completely. I place a case for you.
+
+----
+typedef struct {
+  int (__attribute__((cdecl)) *convert)(void *data, const char *s); /*
+ACC error*/
+  void (__attribute__((cdecl)) *release)(void *data); /* ACC error */
+} XML_Encoding;
+---
+
+One more test case. Our application has the following code fragement.
+ACC does not like this. You can see the error in the comment.
+
+---
+typedef struct X
+{
+    const char **paramNames_apvc;
+} X_t;
+
+X_t X_a[ 1 ] = {
+    
+    {
+      .paramNames_apvc    = (const char  *[0]) { 
+       } /* ACC error */
+    }
+};
+---
+
+*****************************************************************
+

@@ -1,0 +1,14 @@
+feature work: callp() pointcut to capture a call join point through a function pointer.
+
+ACC supports the following function pointer:
+1. global function pointer.
+2. local function pointer.
+3. a function pointer passed as an argument.
+
+eg.
+
+int (*gp)();
+
+void foo( int (*ap)()) {
+	int (*lp)();
+} 

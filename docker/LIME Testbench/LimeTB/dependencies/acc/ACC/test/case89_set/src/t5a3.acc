@@ -1,0 +1,8 @@
+int around(int val ): set(int a) && args($,val) {
+	printf("aspect: around set global a\n");
+	if(val < 0) preturn(3);
+	printf("end of aspect, return 2000\n");
+	return 2000;
+}
+
+

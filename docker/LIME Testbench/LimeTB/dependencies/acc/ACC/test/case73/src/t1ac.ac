@@ -1,0 +1,11 @@
+before(int b, char c): call(void foo(char, int, int (*)(int) )) && args(c, b, int (*)(int) ){
+	printf("aspect: before foo, a = %c, b = %d\n", c, b);
+}
+
+before(): call($ $ (...)) {
+        printf("logging aspect: call %s in %s \n", this->targetName, this->funcName);
+}
+
+introduce(): intype(struct A) {
+	char b;
+}

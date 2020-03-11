@@ -1,0 +1,1 @@
+feature work: callp() pointcut to capture a call join point through a function pointer.

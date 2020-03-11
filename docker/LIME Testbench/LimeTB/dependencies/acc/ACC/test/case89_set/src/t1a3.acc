@@ -1,0 +1,9 @@
+int around(): set(int a) {
+	int res ;
+	printf("aspect: around set global a\n");
+	printf("call proceed();\n");
+	
+	res = proceed() + 2;
+	return res;
+}
+

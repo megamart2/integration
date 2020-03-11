@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="/home/viorel/test/megamart/LimeTB-2.2.0/lib/lime/partial-2.2.0.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/partial/partial.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <folder path="/partial/src"/>
+        <javaElement handleIdentifier="=partial/src\/main\/java"/>
+        <file path="/partial/.classpath"/>
+        <file path="/partial/.project"/>
+        <javaElement handleIdentifier="=partial/src\/test\/java"/>
+    </selectedElements>
+</jardesc>

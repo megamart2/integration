@@ -1,0 +1,13 @@
+in main, call foo
+	 in foo
+		 in foo1
+			 in foo2
+before call foo3, throw exception 3
+1st catch for foo2, exception = 3
+2nd catch for foo2, exception = 4
+3rd catch for foo2, exception = 5
+4th catch for foo2, exception = 6
+	 call foo3 in foo
+before call foo3, throw exception 3
+catch for foo , e = 3
+end of main

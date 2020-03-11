@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Script to stop testing
+
+set -e
+
+PREFIX=`dirname "$0"`
+
+. $PREFIX/classpath-lct
+
+java -cp $CLASSPATH fi.hut.ics.lime.tester.Messenger stop
+
+exit 0;

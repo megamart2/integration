@@ -1,0 +1,165 @@
+------------------------------------
+Lime Interface Monitoring Tool 0.2.6
+------------------------------------
+
+INSTALLING:
+-----------
+
+For dependencies you'll need to have:
+
+1) Java 8
+2) Scheck (packaged with this release under 'dependencies')
+
+And for using the C-version (limec):
+
+3) Doxygen 
+4) AspeCt-oriented C
+5) gcc (http://gcc.gnu.org/)
+
+Compiling scheck is pretty straightforward (just typing 'make' in the directory
+after extracting the tarball), but it needs a patch (supplied in the directory
+'dependencies/scheck-1.2.0_fix/') to compile correctly on newer versions of the
+gcc. To apply the patch please follow the instructions in the corresponding
+README file. In the more recent versions, scheck is already provided precompiled
+in the 'bin/' directory. If this version of scheck doesn't work however, it can
+and should be recompiled. (Whether scheck works or not can be tested by running
+the binary 'scheck2' and seeing if it runs without errors. Also if spoon returns 
+errors about "broken pipes" it indicates that scheck might need to be
+recompiled.)
+
+On additional information about how to compile and use Doxygen and
+AspeCt-oriented C, consult the homepages of the tools (links available at the
+end of this document). 
+
+NOTE: AspeCt-oriented C needs the environment variable $ACC to point to ACC's
+own lib directory to work correctly, this is documented in ACC's installation
+instructions and shouldn't be overlooked.
+
+After the dependencies have been taken care of, the 'bin/' directory should be
+added to the search path for commands ($PATH or equivalent, this can be done
+with e.g. 'export PATH=$PATH:/home/exampleuser/limt/bin'). After this, the tool
+is pretty much ready to be used.
+
+JAVA USAGE:
+-----------
+
+At it's current state Lime Monitoring Toolkit consists of two shellscripts which
+can be used to easily compile and run java programs with annotations specified
+in interface specification language (more on which later), namely limejc and
+limejava.
+
+Basically the usage of the tool goes as follows:
+
+1) The user writes a java program with specifications about how the program
+   program should behave with interface specification language. 
+
+2) The user runs 'limejc <source folder>' which then generates the necessary
+   classes with the annotations compiled in to a directory 'spoon/' which can be
+   found under the original source folder. If a directory named like this
+   already exists, the script will remove it.
+
+3) The user tests if the program works as intended by running it with limejava.
+   (For example in the case of provided examples by moving to the 'spoon/' dir
+   generated in the last step and typing 'limejava examplepackage.Main' (where
+   examplepackage of course represents the correct name of the package).
+
+4) If some requirements are broken, special exceptions will be thrown and the
+   user can see what is violating them.
+
+5) The user can also use the provided beautify.py script to make the output from
+   more readable. The script takes as input the output of limejava, so it can be
+   used with a (bash) command 'limejava examplepackage.Main 2>&1 | beautify.py'.
+
+Some simple examples demonstrating different features of the tool can be found
+under 'examples/' directory, and playing around with them a bit isn't a bad way
+to learn how the toolkit and the language actually work.
+
+SHORT GUIDE TO JAVA GUI:
+------------------------
+
+The limegui script can be used to start the java user interface, which can be
+used to run the other lime tools. The first time starting the UI the user should
+configure at least the lime path variable (tools->set bin path) to point to the
+limt/bin directory, and the lime library variable (tools->set lib path) to point
+to the limt/lib directory. 
+
+Then the user can point the tool to a folder containing source code files by
+"open":ing that folder, and then the "compile" button can be used to run what is
+equivalent to limejc script. After source files have been compiled, "run" button
+can be used to run the main class (that can be specified in the same menu) just
+like limejc script. The output in case of an exception is automatically
+beautified, and the "emacs" button can be used to open emacs on the current
+output, which contains links to the files where the specifications were
+violated.
+
+The user can also add and run custom commands, which will be run with bash in
+the spoon directory created by the compilation process. These commands should be
+used with great care, since they could end up doing some damage if used
+improperly (think rm -fr in the wrong place). This functionality is 
+mainly provided to support additional required steps in building some 
+software packages.
+
+The current settings can be saved with the "save config" item in the tools menu.
+This will save all information about current working directories, paths,
+additional paths if set and custom commands. Old settings will always be loaded
+from .limt file on startup.
+
+C USAGE:
+--------
+
+C version of the LIME tool isn't quite as simple to use as the Java version
+because of the more complicated way of dealing with aspects. The LIME project
+doesn't at this time provide a general script for compiling and running
+LIME-annotated C-programs, but the process is described below and two example
+scripts are provided under 'example_c_lock' directory.
+
+If the user wishes to get working with LIME-C-tool quickly, the following
+explanation can be omitted and the details found out quite easily from the
+scripts in the example directory.
+
+The process goes as follows (assuming all the dependencies have been installed
+and are working correctly):
+
+1) To use the LIME-C-tool, the user must have the classpath variable ($CLASSPATH
+   with bash) set correctly. This can be done by simply adding everything under
+   'lib/' to classpath and be done with it.
+
+2) Then, the user should have the source code for his or her program with the
+   necessary LIME annotations written in a header file.
+
+3) Now to run the LIME-C-tool, the user should call 
+   'java fi.hut.ics.lime.isl_c.Main [-s] <path/to/dir/with/files>' where '-s'
+   implies silent operation (without any output) should the user so desire. This
+   command will generate an ACC aspect in the directory with other source files,
+   and also make original C-source files work with this aspect by doing some
+   changes and copying them under the suffix '.mc' to the same directory.
+
+4) The LIME-C-tool has now done it's part, but in order to run the program the
+   user must take few additional steps. At first the aspect and '.mc' files must
+   be preprocessed since the ACC compiler doesn't have this functionality. This
+   can be done with gcc, but the user must first rename the aspects ('.acc'
+   files) and '.mc' files to '.c' files so gcc understands them. When this has
+   been done, 'gcc -E spec.c > spec.acc' for all the aspects and 'gcc -E code.c
+   > code.mc' for rest of the source code will take care of the preprocessing
+   part (with the actual filenames in the place of 'spec' and 'code' 
+   respectively).
+
+5) The next step is running ACC weaver itself, which can be done by simply
+   calling 'acc <list of preprocessed .acc and .mc files>'. This will produce
+   new '.c' files (possibly overwriting the old ones if the names haven't been
+   changed but this doesn't matter since they are no longer needed), that can be
+   then compiled with gcc.
+
+6) The last part is compiling the '.c' files created in the previous step with
+   gcc, remembering to link ACC-related stuff correctly. The correct command
+   should be something like 'gcc spec.c code.c -L$ACC -lacc'. NOTE: This command
+   will produce errors if the variable $ACC doesn't hold a correct value as
+   specified in ACC documentation.
+
+7) What results from all this is an executable that will print an error if any
+   of the specifications are broken during the execution.
+
+NOTE: The 'lime.h' header file which has all the macro definitions for observer
+creation and destruction is available in the 'libs/lime/' directory. This header
+must be included if the macros are to be used (which is any time LIME
+specifications are to be observed).

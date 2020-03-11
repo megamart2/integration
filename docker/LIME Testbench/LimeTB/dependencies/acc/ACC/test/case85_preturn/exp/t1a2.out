@@ -1,0 +1,5 @@
+in foo1
+in foo2
+after aspect 1
+after aspect 2
+return value of foo1 = 99 

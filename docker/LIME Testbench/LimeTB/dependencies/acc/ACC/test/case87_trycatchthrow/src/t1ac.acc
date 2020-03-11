@@ -1,0 +1,34 @@
+int around(): call(int foo(int)) && infunc(foo2) {
+	int k;
+	k = proceed();
+
+	if(k == 0) {
+		returnp(99);
+	}else {
+		return 4;
+	}
+}
+
+
+int around(): call(int foo(int)) && infunc(foo3) {
+        int k;
+        k = proceed();
+
+        if(k == 0) {
+                returnp("raise exception in foo");
+        }else {
+                return 4;
+        }
+}
+
+
+
+int around(): execution(int foo2()) {
+
+	int k = proceed();
+
+	if(k == 99) {
+		return 100;
+	}
+	return k;
+}

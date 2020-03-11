@@ -1,0 +1,6 @@
+using __asm() after a function declaration. It appears in /usr/include/stdlib.h on Mac, like:
+
+   __strtold(...) __asm( "" "kkkerk" "kkkkfe");
+
+ACC compiler should be able to parse source files.
+

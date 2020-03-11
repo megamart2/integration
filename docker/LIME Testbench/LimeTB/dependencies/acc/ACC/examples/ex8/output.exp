@@ -1,0 +1,14 @@
+call foo1 in main
+inside foo1
+-----------------
+
+call foo2 in main
+inside foo2
+inside foo1
+-----------------
+
+call foo3 in main
+inside foo3
+inside foo2
+aspect: call foo1 in cflow of foo3 
+inside foo1

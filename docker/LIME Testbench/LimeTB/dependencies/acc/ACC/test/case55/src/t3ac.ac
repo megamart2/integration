@@ -1,0 +1,50 @@
+const int around(): execution(const int foo$(...)) {
+	printf("aspect1: name = %s\n", this->funcName);
+	proceed();
+	printf("aspect: end1\n");
+	return 0;
+}
+
+int around(): execution(int foo$(...)) {
+        printf("aspect2: name = %s\n", this->funcName);
+        proceed();
+        printf("aspect: end2\n");
+	return 0;
+}
+
+
+int around(): execution($ foo$($const$)) {
+        printf("aspect3: name = %s\n", this->funcName);
+        proceed();
+        printf("aspect: end3\n");
+        return 0;
+}
+
+int around(): execution($ foo$(int)) {
+        printf("aspect4: name = %s\n", this->funcName);
+        proceed();
+        printf("aspect: end4\n");
+        return 0;
+}
+
+int around(): execution($ foo3(...)) {
+	printf("aspect5: name = %s\n", this->funcName);
+	proceed();
+	printf("aspect: end5\n");
+	return 0;
+}
+
+int around(): execution($ foo4(int volatile, int * __restrict, int __const)) {
+	printf("aspect 6: name = %s\n", this->funcName);
+	proceed();
+	printf("aspect: end6\n");
+	return 0;
+}
+
+const int * around(const int * ap): execution($ foo5(int const *, $)) && args(ap,$) {
+	printf("aspect 7: name = %s, argument value = %d\n", this->funcName, *ap);
+	proceed();
+	printf("aspect: end7\n");
+	return ap;
+}
+

@@ -1,0 +1,5 @@
+foo.a = 3
+foo.b = 4
+foo.a = 9
+ub.b = 77
+size of i = 1, ip = 4

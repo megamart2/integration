@@ -1,0 +1,8 @@
+inside foo
+---------
+aspect: around, argument: x = abc, y = 3
+caller = main, callee = foo3 
+inside foo3, s =abc, b = 3
+inside foo2, s = call foo2 in foo3
+
+inside foo

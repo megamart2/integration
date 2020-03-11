@@ -1,0 +1,13 @@
+after(): execution(int foo2()) {
+	printf("after aspect 1\n");
+}
+
+after(): execution(int foo2()) {
+	printf("after aspect 2\n");
+	preturn(99);
+}
+
+after(): execution(int foo2()) {
+	printf("after aspect 3, should be skipped \n");
+}
+

@@ -1,0 +1,9 @@
+call foo in main
+in foo
+in foo1
+aspect: after execution foo1, do preturn
+end of foo
+
+call foo2 in main
+call foo2 in cflow of execution main
+in foo2

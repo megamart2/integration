@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+before(): call(void foo(char *)) && infunc(main) {		
+	printf("aspect 1: call foo in main \n");
+}
+
+before(): call(void foo(char *)) && infunc(foo2) {		
+	printf("aspect 2: call foo in foo2\n");
+}
+

@@ -1,0 +1,32 @@
+call foo in main
+aspect5, call foo in function name end with n 
+inside foo, k = 3
+call foo in foo2
+aspect4, call foo in function name start with foo 
+inside foo, k = 2
+call foo in foo4
+aspect4, call foo in function name start with foo 
+inside foo, k = 2
+call foo in fo3
+aspect6, call foo in functio name start with f, and end with 3 
+inside foo, k = 1
+aspect7,catch a call function, first parameter value = 1, last parameter value = 2
+in fo, first = 1, last = 2
+aspect7,catch a call function, first parameter value = 3, last parameter value = 4
+in f3o, first = 3, last = 4
+aspect7,catch a call function, first parameter value = 5, last parameter value = 6
+in f44o, first = 5, last = 6
+aspect8, for c$bc function call
+in cbc
+aspect8, for c$bc function call
+in cbcbc
+aspect2 : call foo5, x = 5
+aspect7,catch a call function, first parameter value = 3, last parameter value = 5
+in foo5, second argument = 5
+aspect3: after call foo5
+aspect1, call in function name start with foo , second param = w, last param = 4
+aspect7,catch a call function, first parameter value = 3, last parameter value = 4
+inside foo6
+aspect1, call in function name start with foo , second param = c, last param = 4
+aspect7,catch a call function, first parameter value = 1, last parameter value = 4
+inside foo7, a = 1, b = a, c = 2, d = b, e = 3, f = c , g = 4

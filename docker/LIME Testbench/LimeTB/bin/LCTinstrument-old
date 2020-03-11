@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# Script to instrument files
+
+set -e
+
+PREFIX=`dirname "$0"`
+
+CLASSPATH=$CLASSPATH:.
+
+. $PREFIX/classpath-common
+. $PREFIX/classpath-lct-old
+
+#CLASSPATH=$CLASSPATH:$JRELIBPATH/rt.jar:$JRELIBPATH/jce.jar:$JRELIBPATH/jsse.jar
+
+
+clear
+
+#echo $CLASSPATH
+#MYCLASSPATH=$CLASSPATH
+
+if [ $# -le 0 ]
+then
+  echo "Usage: LCTinstrument [fully qualified class name] [optional: -norereplacement]"
+  echo "Example: LCTinstrument example.TestClass"
+else
+  java -cp $CLASSPATH fi.hut.ics.lime.tester.Instrumenter -cp $CLASSPATH -x fi.hut.ics.lime -i fi.hut.ics.lime.tester.coreclasses -main-class "$1" --app -f class -d ./output -p cg enabled:false -w "$@"
+  echo "Instrumentation finished. The resulting files are at ./output directory." 
+fi
+
+exit 0;

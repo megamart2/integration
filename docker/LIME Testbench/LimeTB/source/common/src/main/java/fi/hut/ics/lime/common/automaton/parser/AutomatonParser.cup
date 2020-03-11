@@ -1,0 +1,104 @@
+package fi.hut.ics.lime.common.automaton.parser;
+import fi.hut.ics.lime.common.automaton.ast.*;
+import fi.hut.ics.lime.common.logic.ast.node.*;
+import fi.hut.ics.lime.common.logic.parser.PropositionKind;
+import java.util.LinkedList;
+import fi.hut.ics.lime.common.specification.ErrorReporter;
+//import java_cup.runtime.*;
+
+action code {:
+	private static final PropositionalConnectiveType OR = PropositionalConnectiveType.OR;
+	private static final PropositionalConnectiveType AND = PropositionalConnectiveType.AND;
+	private static final PropositionalConnectiveType EQ = PropositionalConnectiveType.EQUIVALENCE;
+	private static final PropositionalConnectiveType XOR = PropositionalConnectiveType.XOR;
+	private static final PropositionalConnectiveType NOT = PropositionalConnectiveType.NOT;
+	private static final PropositionKind CALL = PropositionKind.CALL;
+	private static final PropositionKind VALUE = PropositionKind.VALUE;
+	private PropositionNode pnTemp;
+:}
+
+parser code {:
+	private ErrorReporter errorReporter = null;
+
+	public void setErrorReporter(ErrorReporter r) {
+		errorReporter = r;
+	}
+
+	@Override
+	public void syntax_error(java_cup.runtime.Symbol cur_token) {
+		if (errorReporter == null)
+			report_error("Parse error", cur_token);
+		else
+			errorReporter.report("Parse error", cur_token);
+	}
+	
+	@Override
+	public void unrecovered_syntax_error(java_cup.runtime.Symbol cur_token) throws Exception {
+		report_fatal_error("Confused by previous errors and stopped parsing", cur_token);
+	}
+:}
+
+terminal 		ALWAYS_NFA, IF, FI, GOTO;
+terminal String	IDENTIFIER;
+terminal 		LBRACE, RBRACE, DOUBLE_COLON, LPAREN, RPAREN, COLON, SEMICOLON;
+terminal 		ARROW, EQ, NEQ, NOT, AND, OR, ZERO, ONE;
+
+non terminal AutomatonDefinition automaton;
+non terminal	 LinkedList<AutomatonState> state_list;
+non terminal AutomatonState state;
+non terminal LinkedList<AutomatonIfBranch> if_branch_list;
+non terminal AutomatonIfBranch if_branch;
+non terminal BooleanExpression constant_expr, expr;
+
+precedence left	OR;
+precedence left	AND;
+precedence left EQ, NEQ;
+precedence right NOT;
+
+
+automaton ::= ALWAYS_NFA LBRACE state_list:li RBRACE
+				{: RESULT = new AutomatonDefinition(li); :}
+			;
+
+state_list ::= /* empty state list */
+				{: RESULT = new LinkedList<AutomatonState>(); :}
+			 | state_list:li state:s
+			 	{: RESULT = li; li.add(s); :}
+			 ;
+
+state ::= IDENTIFIER:id COLON IF if_branch_list:li FI SEMICOLON
+			{: RESULT = new AutomatonState(id, li); :}
+		;
+
+// don't allow ifs with zero branches
+// (even if we allow automata with no states in the parser)
+
+if_branch_list ::= if_branch:b
+					{: RESULT = new LinkedList<AutomatonIfBranch>(); RESULT.add(b); :}
+				 | if_branch_list:li if_branch:b
+					{: RESULT = li; RESULT.add(b); :}
+				 ;
+
+if_branch ::= DOUBLE_COLON LPAREN expr:e RPAREN ARROW GOTO IDENTIFIER:id SEMICOLON
+				{: RESULT = new AutomatonIfBranch(e,id); :}
+			;
+
+constant_expr ::= ZERO		{: RESULT = new Literal(false); :}
+                | ONE		{: RESULT = new Literal(true); :}
+                ;
+
+expr ::= constant_expr:e				{: RESULT = e; :} 
+	   | IDENTIFIER:id					{: RESULT = new PropositionNode(id); :} 
+//	   | NATIVE:n						{: pnTemp = new PropositionNode(n);
+//	   									   pnTemp.setPropositionKind(VALUE);
+//	   									   RESULT = pnTemp; :}
+	   | expr:e1 OR expr:e2				{: RESULT = new PropositionalConnective(OR, e1, e2); :}
+	   | expr:e1 AND expr:e2			{: RESULT = new PropositionalConnective(AND, e1, e2); :}
+	   | expr:e1 EQ expr:e2				{: RESULT = new PropositionalConnective(EQ, e1, e2); :}
+	   | expr:e1 NEQ expr:e2			{: RESULT = new PropositionalConnective(XOR, e1, e2); :}
+	   | NOT expr:e						{: RESULT = new PropositionalConnective(NOT, e); :}
+	   | LPAREN expr:e RPAREN			{: RESULT = e; :} 
+//	   | IDENTIFIER:id LPAREN RPAREN	{: pnTemp = new PropositionNode(id);
+//	   									   pnTemp.setPropositionKind(CALL);
+//	   									   RESULT = pnTemp; :}
+	   ;

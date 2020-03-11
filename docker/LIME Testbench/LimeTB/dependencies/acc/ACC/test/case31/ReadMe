@@ -1,0 +1,27 @@
+This case covers more than test case: 15,16,20,21.
+
+A more comprehensive case for making sure the ACC keyword does not conflict with normal name space. In following source files, ACC keywords are used as specified. The requirement is that ACC compiler should process the files successfully and the generated file could be used to generate object (.o) files.
+
+1. t1ac.ac / t1mc.mc :
+		parameter name
+	      	struct member name
+		function name
+
+2. t2ac.ac / t2mc.mc :
+		variable name
+	
+
+3. t3ac.ac / t3ma.mc :
+		struct name
+
+4. t4ac.ac / t4mc.mc :
+		typedef name
+
+5. t5ac.ac / t5mc.mc :
+		enum name
+
+
+Following keywords are tested:
+
+before, around, after, call, execution, args, result, infile, infunc , proceed 
+

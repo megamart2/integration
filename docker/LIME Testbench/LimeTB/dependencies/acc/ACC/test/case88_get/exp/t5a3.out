@@ -1,0 +1,6 @@
+in foo
+aspect: around get global a
+end of aspect, return 2000
+a = 2000
+assign a to be -1 
+aspect: around get global a

@@ -1,0 +1,6 @@
+int around(): get(int a) {
+	printf("aspect: around get global a\n");
+	return 23;
+}
+
+

@@ -1,0 +1,30 @@
+How to compile the solver libraries
+===================================
+
+You need to first download either Yices or Boolector. See the user guide for 
+the web addresses of these tools.
+
+First modify the Makefile to set the paths to Java, Yices and Boolector so that 
+they correspond to the paths in your system. After that, the library for Yices 
+can be compiled with command "make yices" and Boolector with command 
+"make boolector". If you are planning on using only one of the supported 
+solvers, it is not necessary to download and compile the other one. 
+
+In case the compilation of boolector library succeeds but the LCT displays an
+"undefined reference to `__stack_chk_fail'" error when running tests, you
+can try to add -fstack-protector flag to the boolector gcc line in the Makefile.
+
+The boolector library and picosat must be compiled with -fPIC, as they will be
+included in a shared object. The 1.4 source release of boolector does not have
+this as a default.
+
+The boolector library's header file btormem.h contains a function prototype:
+
+void *btor_realloc (BtorMemMgr * mm, void *, size_t old, size_t new);
+
+, which must be changed to:
+
+void *btor_realloc (BtorMemMgr * mm, void *, size_t old, size_t new_size);
+
+, or equivalent. Otherwise the c++ jni source file that includes it will not
+compile (because of the "new").

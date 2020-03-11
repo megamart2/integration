@@ -1,0 +1,1 @@
+test calling same function inside 2 different functions, and it could be matched by 2 different pointcuts.

@@ -1,0 +1,23 @@
+struct B {
+	int a1;
+	int a2;
+	int a3;
+};
+
+
+
+int get_struct_B_size() {
+	return sizeof(struct B);
+}
+
+
+introduce(): intype(struct A) {
+	int d;
+}
+
+introduce(): intype(struct B) {
+
+	int e;
+}
+
+

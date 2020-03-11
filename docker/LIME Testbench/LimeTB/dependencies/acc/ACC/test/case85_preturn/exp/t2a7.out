@@ -1,0 +1,28 @@
+call foo1 in main
+in foo1
+call foo2 in foo1
+	in foo2
+	call foo3 in foo2
+		in foo3
+		call foo4 in foo3
+call foo4 in cflow of foo1
+call foo4 in cflow of foo2
+call foo4 in cflow of foo3
+			in foo4
+
+		end of foo3
+call foo3 inside foo2 cflow, 
+call foo3 in foo1
+		in foo3
+		call foo4 in foo3
+call foo4 in cflow of foo1
+call foo4 in cflow of foo3
+			in foo4
+
+		end of foo3
+call foo4 in foo1
+call foo4 in cflow of foo1
+			in foo4
+
+end of foo1
+end of main

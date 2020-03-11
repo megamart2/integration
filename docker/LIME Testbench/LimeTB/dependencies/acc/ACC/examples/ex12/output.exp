@@ -1,0 +1,5 @@
+inside foo 
+aspect: call foo1 through a function pointer
+inside foo1, a = call foo1
+inside foo 
+inside foo2, a = call foo2

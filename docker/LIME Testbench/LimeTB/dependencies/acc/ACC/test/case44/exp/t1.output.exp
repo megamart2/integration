@@ -1,0 +1,16 @@
+before execution of foo, caller = foo, callee = foo, file = t1mc_mc.c
+inside foo
+---------
+inside foo3
+aspect: within cflow of foo3, before, caller = foo3
+aspect: within cflow of foo3, before, callee = foo2
+aspect: within cflow of foo3, before, file = t1mc_mc.c
+inside foo2, s = call foo2 in foo3
+
+aspect: within cflow of foo3, before, caller = foo2
+aspect: within cflow of foo3, before, callee = foo
+aspect: within cflow of foo3, before, file = t2mc_mc.c
+before execution of foo, caller = foo, callee = foo, file = t1mc_mc.c
+inside foo
+aspect: within cflow of foo3, after, call = foo2
+aspect: within cflow of foo3, after, call = foo3

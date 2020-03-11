@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# This script cleans up what runtest left behind.
+
+rm -i code.*
+rm -i spec.*
+rm -i *.acc
+rm -i *.mc
+rm -i a.out

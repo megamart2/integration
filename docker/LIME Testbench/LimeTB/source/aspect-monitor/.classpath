@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java"/>
+	<classpathentry excluding="**/*.java" kind="src" output="target/test-classes" path="src/test/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/common"/>
+	<classpathentry kind="lib" path="../../lib/external/automaton.jar"/>
+	<classpathentry kind="lib" path="../../lib/external/jsap-2.1.jar"/>
+	<classpathentry kind="lib" path="../../lib/external/spoon-core-1.4+strcat.jar"/>
+	<classpathentry kind="lib" path="../../lib/external/java-cup-11a-runtime.jar"/>
+	<classpathentry kind="lib" path="../../lib/external/JFlex.jar"/>
+	<classpathentry kind="lib" path="../../lib/external/aspectjrt.jar"/>
+	<classpathentry kind="lib" path="../../lib/external/junit.jar"/>
+	<classpathentry kind="lib" path="/home/viorel/test/megamart/LimeTB-2.2.0/lib/external/java-cup-11a.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

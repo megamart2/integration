@@ -1,0 +1,10 @@
+# Contains the current version numbers for all lime tools.
+# Sourced by classpath scripts.
+
+ASPECT_MONITOR_VERSION="2.2.0"
+COMMON_VERSION="2.2.0"
+LCT_VERSION="2.2.0"
+LIMEC_VERSION="2.2.0"
+LIMEGUI_VERSION="2.2.0"
+LJUT_VERSION="2.2.0"
+TRACER_VERSION="2.2.0"

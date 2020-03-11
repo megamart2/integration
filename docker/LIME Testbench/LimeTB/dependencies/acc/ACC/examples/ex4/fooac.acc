@@ -1,0 +1,6 @@
+#include <stdio.h>
+
+after(int value, char * argu): call(int foo(char *)) && args(argu) && result(value) {
+	printf("aspect: after call foo, param1 = %s , return value = %d\n", argu, value);
+}
+

@@ -1,0 +1,16 @@
+before(): get(int a) {
+	printf("aspect 1: match get(int a) \n");
+}
+
+before(): get($int$ $a$) {
+	printf("aspect 2: match get($int$ $a$ ) \n");
+}
+
+before(): get(myintt daf) {
+        printf("aspect 3: match get(myintt daf ) \n");
+}
+
+before(): get($ $) {
+	printf("aspect 4: match get($ $ ) \n");
+}
+

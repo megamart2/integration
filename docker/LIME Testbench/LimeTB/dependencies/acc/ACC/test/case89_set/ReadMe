@@ -1,0 +1,17 @@
+feature : set() pointcut.
+
+case 1: before() / after() / around() advice 
+
+case 2: composite pointcut including set()
+
+case 3: named pointcut for set()
+
+case 4: wildcard matching for set()
+
+case 5: preturn() for set()
+
+case 6: exception handling for set()
+
+case 7: set() should not mess up with "&" and "*" operator
+
+case 8: thisJoinpoint should work correctly.

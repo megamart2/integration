@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# This script can be used to compile and run example_lock for C. The cleanup
+# script should be run afterwards.
+
+echo "Running lime-c..."
+
+ACC=../../../lib
+JAR="../../../lib/lime/limec-2.2.0.jar;../../../lib/external/java-cup-11a-runtime.jar;../../../lib/external/automaton.jar"
+
+# java fi.hut.ics.lime.isl_c.Main -s .
+java -cp $JAR fi.hut.ics.lime.isl_c.Main -s .
+
+echo "Preprocessing generated files for ACC..."
+
+cp CallSpecificationlockalternation.acc spec.c
+cp lock.mc code.c
+
+gcc -E spec.c > spec.acc
+gcc -E code.c > code.mc
+
+echo "Running ACC..."
+
+../../../bin/acc spec.acc code.mc
+
+echo "Compiling..."
+
+gcc spec.c code.c -L$ACC -lacc
+
+echo "Running the program..."
+echo "--------output--------"
+
+./a.out
+
+echo "------output-end------"

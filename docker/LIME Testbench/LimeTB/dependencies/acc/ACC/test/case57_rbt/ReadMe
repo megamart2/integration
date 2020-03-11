@@ -1,0 +1,6 @@
+red black tree implementation from Libavl: www.stanford.edu/~blp/avl
+
+three aspects are added:
+	1. trace
+	2. node count
+	3. memory profiling

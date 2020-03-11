@@ -1,0 +1,10 @@
+call foo3 inside main
+match all foo3 in main of t1mc.c 
+inside foo3
+end of calling foo3 inside main
+call foo3 inside foo4
+inside foo3
+end of call foo3 inside foo4
+call foo3 inside t2mc.mc foo5
+match call foo3 in t2mc.c
+inside foo3

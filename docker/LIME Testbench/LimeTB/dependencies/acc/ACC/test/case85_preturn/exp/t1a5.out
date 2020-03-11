@@ -1,0 +1,6 @@
+in foo1
+in foo2
+after aspect 1
+after aspect 2
+end of foo1
+return value of foo1 = 0 

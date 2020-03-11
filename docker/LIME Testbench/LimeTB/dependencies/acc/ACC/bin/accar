@@ -1,0 +1,66 @@
+#!/usr/bin/perl
+# 
+# A script that behaves like ar but automatically packages aspect object files 
+# by the current/sibling rule 
+#
+# copyright: Middleware Systems Research Group
+# 			 University of Toronto
+# author:    Charles Zhang czhang@eecg.utoronto.ca
+#
+
+$acchome = getacchome();
+require $acchome."/bin/acclib.pl";
+
+$LINKER = "ar";
+$line = "";
+$objectdir=".ac_obj";
+my $option = shift @ARGV; #get rid of the option
+if($option =~ /(.*)?[cr].*/){	
+	my $target = shift @ARGV; #get rid of the target
+	if(-d $objectdir){
+		try_cmd("rm -rf $objectdir");
+	}
+	try_cmd("mkdir $objectdir");
+	foreach $item (@ARGV){
+		if($item =~ /\.o$/){
+			try_cmd("cp $item $objectdir");
+		}	
+		if($item =~ /\.a$/){
+			try_cmd("cd $objectdir && ar x ../$item");
+		}	
+	}
+	@objectfiles = get_object_files($line);	
+	my @targetobjects = <$objectdir/*.o>;
+	foreach $item (@targetobjects) {
+		my $output1 = `nm $item`;
+		foreach $aspect (@objectfiles){
+			my $output2 = `nm $aspect`;
+			if($output1 eq $output2){
+				try_cmd("rm $item");
+			}
+		}
+	}
+
+	foreach $item (@objectfiles) {
+		try_cmd("cp $item $objectdir");
+	}
+	$line = join " ", <$objectdir/*.o>;
+	$line = $LINKER." ".$option." ".$target." ".$line;
+}else{
+	$line = join " ", @ARGV;
+	$line = $LINKER." ".$option." ".$line;
+}
+try_cmd($line);
+if(-d $objectdir){
+	try_cmd("rm -rf $objectdir");
+}
+
+sub getacchome {
+	my $out = `which tacc`;
+	chomp($out);
+	if($out =~ /no tacc/ || $out eq ""){
+		die "Cannot find tacc on the path. Please make sure tacc is on your path";
+	}
+	$out =~ s/\/bin\/tacc//;
+	return $out;
+}

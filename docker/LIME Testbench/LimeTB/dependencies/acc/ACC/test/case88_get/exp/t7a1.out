@@ -1,0 +1,2 @@
+should match get(int *a) 
+aspect, match get(int *a)

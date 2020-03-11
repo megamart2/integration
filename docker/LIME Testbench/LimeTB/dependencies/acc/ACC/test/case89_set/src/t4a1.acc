@@ -1,0 +1,16 @@
+before(): set(int a) {
+	printf("aspect 1: match set(int a) \n");
+}
+
+before(): set($int$ $a$) {
+	printf("aspect 2: match set($int$ $a$ ) \n");
+}
+
+before(): set(myintt daf) {
+        printf("aspect 3: match set(myintt daf ) \n");
+}
+
+before(): set($ $) {
+	printf("aspect 4: match set($ $ ) \n");
+}
+

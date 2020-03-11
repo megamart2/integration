@@ -1,0 +1,4 @@
+before(): call(void foo()) {
+
+
+}

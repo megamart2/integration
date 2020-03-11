@@ -1,0 +1,39 @@
+bug fix:
+  print out a function's declaration before its calling wrapper function.
+
+case:
+/* t1.mc */
+int main() {
+	extern void foo(void);
+	foo();
+	return 0;
+}
+
+/* t2.acc */
+before(): call($ foo(...)) {
+}
+
+The current behavior will generate something like:
+
+... foo_wrapper(...);
+
+int main() {
+        extern void foo(void);
+        foo_wrapper();
+        return 0;
+}
+					
+				<--- there is no function declaration available for foo()
+				<--- because its declaration is inside main() function
+... foo_wrapper(...) {
+
+   advice call;
+
+   foo();
+
+}
+
+
+Fix:
+	add a function declaration for foo() in the above location.
+

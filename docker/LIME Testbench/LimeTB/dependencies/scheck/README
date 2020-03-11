@@ -1,0 +1,16 @@
+scheck 1.2.0 needs a patch to compile on gcc >= 3.4.
+
+The patch `scheck-1.2.0-compilation-fix.patch' should fix the
+compilation problems.
+
+Apply the patch like this:
+
+------------------------------------------------------------
+~/somedir$ tar zxf scheck-1.2.0.tar.gz
+~/somedir$ cd scheck
+~/somedir/scheck$ patch -p1 <../scheck-1.2.0-compilation-fix.patch
+[output from patch]
+~/somedir/scheck$ 
+------------------------------------------------------------
+
+and then proceed with compilation normally.

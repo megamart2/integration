@@ -1,0 +1,6 @@
+in foo
+aspect: before get global a
+end of aspect
+a = 99
+assign a to be -1 
+aspect: before get global a

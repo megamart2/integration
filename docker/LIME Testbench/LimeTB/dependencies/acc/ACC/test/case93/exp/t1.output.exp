@@ -1,0 +1,14 @@
+call foo by 3, 4 
+before calling foo, original parameter = 3, 4 
+in aspect, double their value. The 1st should be modified, 2nd should be unchanged  
+inside foo, parameter = 6, 4 
+inside foo1, return 1; 
+after advice 1: original return value of foo1 = 1
+in aspect, double its value. Return value should be changed  
+
+in main, return value of foo1 = 2
+
+inside foo2, return 2; 
+after advice 2: original return value of foo2 = 2
+in aspect, double its value. Return value should be unchanged  
+in main, return value of foo2 = 2

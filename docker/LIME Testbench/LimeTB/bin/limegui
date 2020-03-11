@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# A simple script to run the lime gui.
+
+PREFIX=`dirname "$0"`
+. $PREFIX/currentversion
+CLASSPATH="$CLASSPATH:$PREFIX/../lib/lime/limegui-$LIMEGUI_VERSION.jar"
+CLASSPATH="$CLASSPATH:$PREFIX/../lib/external/miglayout-3.7.1-swing.jar"
+
+exec java -cp $CLASSPATH fi.hut.ics.lime.gui.Main $@

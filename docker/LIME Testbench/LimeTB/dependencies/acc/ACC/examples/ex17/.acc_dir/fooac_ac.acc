@@ -1,0 +1,7 @@
+# 1 "/home/kee/examples/ex17/.acc_dir/fooac_ac.c"
+# 1 "<built-in>"
+# 1 "<command line>"
+# 1 "/home/kee/examples/ex17/.acc_dir/fooac_ac.c"
+before() : get(int a) {
+ printf("aspect, before get variable a \n");
+}

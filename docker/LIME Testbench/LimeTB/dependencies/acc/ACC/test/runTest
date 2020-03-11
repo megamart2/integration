@@ -1,0 +1,50 @@
+#!/bin/bash
+
+#it accepts a list of directories containing test cases
+#run test case under each directory
+#report the final results
+
+if [ $# -eq 0 ]
+then
+	echo "usage: runTest case01 case02 ..."
+	exit
+fi
+
+total=0
+succ=0
+fail=0
+space=" "
+while [ $# -gt 0 ]
+do
+     cname=$1
+     cd $1
+     total=`expr $total + 1` 
+     logfilename=log_$1
+     make > ../$logfilename 2>&1
+     res=$?
+     printf "testing: $cname ........"
+     if [ $res -eq 0 ]
+     then
+	succ=`expr $succ + 1`
+        succName=$succName$space$cname
+        rm -rf ../$logfilename
+        printf "pass\n"
+     else
+	fail=`expr $fail + 1`
+	failName=$failName$space$cname
+        printf "fail\n"
+     fi
+     cd ..
+     shift
+done
+
+
+echo "result:"
+echo "total=$total, succeed = $succ , fail = $fail"
+
+if [ $fail -gt 0 ]
+then
+	echo "fail case : $failName"
+	echo "see log file for details"
+fi
+

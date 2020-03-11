@@ -1,0 +1,50 @@
+main-->foo4
+foo4-->foo3
+foo3-->foo
+****aspect 1: call foo in the control flow of foo3
+****aspect 3: call foo in the control flow of : main --> foo4 
+inside foo, a = call foo directly from foo3
+
+foo3-->foo2
+foo2-->foo
+****aspect 1: call foo in the control flow of foo3
+****aspect 2: call foo in the control flow of foo2
+****aspect 3: call foo in the control flow of : main --> foo4 
+inside foo, a = call foo from foo2
+
+--------------
+main-->foo3
+foo3-->foo
+****aspect 1: call foo in the control flow of foo3
+inside foo, a = call foo directly from foo3
+
+foo3-->foo2
+foo2-->foo
+****aspect 1: call foo in the control flow of foo3
+****aspect 2: call foo in the control flow of foo2
+inside foo, a = call foo from foo2
+
+--------------
+main-->foo2
+foo2-->foo
+****aspect 2: call foo in the control flow of foo2
+inside foo, a = call foo from foo2
+
+--------------
+main-->foo
+inside foo, a = call foo in main
+
+--------------
+main-->foo5
+foo5-->foo4
+foo4-->foo3
+foo3-->foo
+****aspect 1: call foo in the control flow of foo3
+inside foo, a = call foo directly from foo3
+
+foo3-->foo2
+foo2-->foo
+****aspect 1: call foo in the control flow of foo3
+****aspect 2: call foo in the control flow of foo2
+inside foo, a = call foo from foo2
+

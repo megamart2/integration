@@ -1,0 +1,11 @@
+before(): call($ foo$(...)) {
+	int i;
+	printf("function name = %s \n", this->targetName);
+	for(i = 1 ; i <= this->argsCount; i++) {
+		printf("parameter type : arg[%d] = |%s| \n", i, this->argType(i));
+	}
+	
+	printf("return type = |%s| \n", this->retType);
+	
+	printf("\n");
+}

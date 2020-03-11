@@ -1,0 +1,16 @@
+call " foo3 " in function main 
+" foo3 " parameter type: 
+no parameter 
+return type = void 
+ 
+call " foo2 " in function foo3 
+" foo2 " parameter type: 
+arg[1] = int  , value = 5 
+arg[2] = double  , value = 2.20 
+return type = void 
+ 
+call " foo " in function foo2 
+" foo " parameter type: 
+arg[1] = int  , value = 3 
+return type = char* 
+ 

@@ -1,0 +1,7 @@
+call foo in main
+call foo1 in foo
+aspect 1: call foo1 
+size of struct A = 12
+size of struct B = 20
+call foo2 in foo1
+in foo2 

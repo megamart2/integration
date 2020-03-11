@@ -1,0 +1,11 @@
+
+apply plugin: 'java'
+
+
+dependencies {
+    implementation files("../../lib/external/miglayout-3.7.1-swing.jar")
+    //implementation files("../../lib/external/javaparser-1.0.8.jar")
+    //implementation files("../../lib/external/junit.jar")
+    //implementation files("../../lib/external/soot-j9-4.0.0-20180509.160158-13-jar-with-dependencies.jar")
+}
+

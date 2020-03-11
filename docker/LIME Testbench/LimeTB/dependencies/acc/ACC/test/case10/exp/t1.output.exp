@@ -1,0 +1,6 @@
+in around aspect 
+inside foo3, parameter =  3, return 99 
+result of foo3 = 102
+in around aspect 
+inside foo4, parameter = 3 + 8 
+result of foo4 = 27

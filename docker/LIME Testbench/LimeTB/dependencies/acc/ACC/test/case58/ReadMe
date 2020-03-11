@@ -1,0 +1,4 @@
+more test cases for introduce() advice:
+	1). insert member into a struct/union type nested inside another struct/union.
+        2). handle the no-named struct/union correctly.
+

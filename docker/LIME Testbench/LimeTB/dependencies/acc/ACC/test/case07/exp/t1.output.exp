@@ -1,0 +1,9 @@
+In `fct'
+after fct function execution, parameter = 8, result = 100 
+after fct function call, parameter = 8, result = 100 
+In `fct'
+after fct function execution, parameter = 0, result = 9 
+after fct function call, parameter = 0, result = 9 
+Result from `fct' 9
+In fct2
+in fct3

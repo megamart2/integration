@@ -1,0 +1,36 @@
+pointcut mygeta(): get(int a);
+
+before(): mygeta() && args(int) {
+	printf("aspect 1: get && args \n");
+}
+
+before(int j): mygeta() && args(j) {
+	printf("aspect 2: get && args , val = %d\n" , j);
+}
+
+before(int * j): mygeta() && args(*j) {
+        printf("aspect 3: get && args , ori val = %d, change to 1000 \n" , *j);
+	*j = 1000;
+}
+
+after() : mygeta() && result(int) {
+	printf("aspect 4: get && result \n");
+}
+
+after(int res) : mygeta() && result(res) {
+        printf("aspect 5: get && result, = %d \n", res);
+}
+
+before(): call($ $(...)) && cflow(mygeta()) {
+	printf("aspect error: should not match \n");
+}
+
+before() : mygeta() && infunc(foo) {
+        printf("aspect 6: get && infunc(foo) \n");
+}
+
+before(): mygeta() && infunc(main) {
+	
+	printf("aspect 7: get && infunc(main) \n");
+
+}

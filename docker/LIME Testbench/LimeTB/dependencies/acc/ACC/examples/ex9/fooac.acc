@@ -1,0 +1,7 @@
+#include <stdio.h>
+
+
+before(): call(void $()) && cflow(execution(void foo3())) {
+	printf("aspect: call %s in cflow of foo3. \n", this->targetName);
+}
+

@@ -1,0 +1,6 @@
+int around(): set(int a) {
+	printf("aspect: around set global a\n");
+	return 23;
+}
+
+

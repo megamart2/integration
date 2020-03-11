@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE spoon SYSTEM "http://spoon.gforge.inria.fr/pub/xml/spoonlet.dtd">
+<spoon>
+ <processor name="Spec Processor" 
+  class="fi.hut.ics.lime.aspectmonitor.SpecProcessor" active="true" 
+  doc="ADD DOC">
+  <property name="displayMode" doc="How properties are shown in their corresponding methods"
+    value="PARSED"/>
+  <property name="specStateCounting" doc="Whether to have observers update the SpecStateCounter (needed for LCT path selection heuristics)" value="true"/>
+ </processor>
+</spoon>

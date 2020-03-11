@@ -1,0 +1,129 @@
+=============
+LCT ChangeLog 
+=============
+
+-------------------------------------------------------------------------------
+Version 1.0.0 (07-October-2009)
+
+* LCTstop script can now be used to stop the testing process. The test server
+  will give information to the user about the completed part of testing.
+
+* LCTrun does not take a number of test runs as argument any more (the option
+  all is still usable). See information on LCTstop script and testRuns property
+  if you want to run a specific number of test runs.
+
+* Boolector can now also be used with "instrumentationType = object" option
+
+* The test server now prints branch coverage information
+
+* Another performance boost to instrumentation with core class replacement
+
+* LCTserver can now be started with optional command line arguments. 
+  Supported arguments:
+  -strategy:randomselection, -strategy:randompriority, -strategy:DFS and
+  -strategy:BFS for selecting search strategy, -depth:[number] for 
+  selecting maximum test depth, -maxErrors:[number] for selecting maximum
+  number of errors to be searched, -maxTests:[number]
+
+* Fixed a bug that caused the test server to crash when using input objects
+
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+Version 0.1.1 (04-September-2009)
+
+* Instrumenting files with core class replacement is now done considerably 
+  faster
+
+* Fixed bug [LIMET-21]. (The core class replacement did not transform class
+  cast expressions correctly which caused the modified programs under test
+  to crash.)
+
+-------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------
+Version 0.1.0 (02-September-2009)
+
+* LCT now supports (partially) the use of Integer, Short, Boolean and Byte 
+  classes. See the LCT documentation for more detailed information. This
+  allows better integration with LIMT tool.
+
+* The user now needs to add rt.jar, jce.jar, jsse.jar files that are
+  distributed with Java to the classpath.
+
+* LCTinstrument script has been split into two parts. LCTcompile is now used to 
+  compile a java file to byte code. The resulting class files can then be 
+  instrumented with LCTinstrument. See README for futher instructions.
+
+* LCTinstrument does not take the class option anymore. (See README for more
+  information.)
+
+* The tool now searches actively for division by zero errors
+
+* Fixed a number of bugs that caused test runs to crash when using boolector
+  as the solver
+
+* Fixed a bug where in some special cases where method returns an array,
+  the instrumented code throws VerificationError
+
+* Fixed a bug where the maximum number of test runs given by user (in 
+  usersettings.properties) was not handled correctly
+
+* LCT.dropTest() can now be used denote places in the code where the
+  testing should go no further. (This option was in fact available
+  in earlier versions as well but was not documented.)
+
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+Version 0.0.6 (17-August-2009)
+
+* Added a new search strategy called "random selection" that provides
+  better randomization for the test generation process than "random priority".
+
+* Added prelimany support for guiding test generation based on heuristic
+  values computed from LIME interface specification observers
+
+* Removed an unnecessary warning that was displayed when the program
+  under test used instanceof expressions
+
+* Fixed bug [LIMET-14] (Casts from double and float
+  to other primitive data types were not handled properly.)
+
+* Fixed an infinite loop when LCTrun was used with uninstrumented programs.
+  The program also warns the user when uninstrumented programs are used.
+
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+Version 0.0.5 (09-June-2009)
+
+* Added support for using Boolector to solve path constraints
+  (See README for more information)
+
+* Added some new examples to illustrate the advantages of using bitvectors
+  (Boolector) to solve path constraints
+
+* Added LCT.getShort(int min, int max) to give limits to short type inputs
+
+* Fixed bug [LIMET-3] (Instrumenter assumed that floating point 
+  variables can have symbolic values. This is not supported yet.)
+
+* Fixed bug [LIMET-7] (Intrumenter did not handle type casting correctly.
+  Type casting is still not fully supported but the tester should 
+  behave better now in most cases. More improvements in this area will be 
+  made in future versions. We recommend that Boolector is used as the
+  constraint solver as the support for type casting is more complete for
+  bitvectors in this version of LCT.)
+
+* Fixed a bug where using multiplication operator in the program under
+  test caused the tester to fail to create some test cases
+
+* Fixed a segmentation fault when using a division operator in the 
+  program under test
+
+* Fixed an instrumentation problem where negation assignments 
+  (e.g., x = -x) were not handled properly.
+
+-------------------------------------------------------------------------------

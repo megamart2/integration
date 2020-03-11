@@ -1,0 +1,8 @@
+before(): call(void foo$(int *)) {
+	printf("aspect 1\n");
+}
+
+before(): call(void foo$(int (*)())) {
+	printf("aspect 2\n");
+}
+

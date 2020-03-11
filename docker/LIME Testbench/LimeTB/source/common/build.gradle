@@ -1,0 +1,38 @@
+apply plugin: 'java'
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src'
+            srcDirs 'target/generated-sources/java_cup'
+            srcDirs 'target/generated-sources/jflex'
+        }
+    }
+ }
+
+task buildAutomatonParser(type: JavaExec) {
+    classpath('../../lib/external/java-cup-11a.jar')
+    main = 'java_cup.Main'
+    args('-destdir')
+    args('target/generated-sources/java_cup/fi/hut/ics/lime/common/automaton/parser')
+    args('-parser')
+    args('AutomatonParser')
+    args('src/main/java/fi/hut/ics/lime/common/automaton/parser/AutomatonParser.cup')
+}
+
+dependencies {
+    // This dependency is exported to consumers, that is to say found on their compile classpath.
+    //api 'org.apache.commons:commons-math3:3.6.1'
+
+    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
+    //implementation 'com.google.guava:guava:20.0'
+
+    // Use JUnit test framework
+    //testImplementation 'junit:junit:4.12'
+    implementation files("../../lib/external/automaton.jar")
+    implementation files("../../lib/external/java-cup-11a.jar")
+    implementation files("../../lib/external/JFlex.jar")
+    implementation files("../../lib/external/java-cup-11a-runtime.jar")
+    implementation files("../../lib/external/junit.jar")
+}
+

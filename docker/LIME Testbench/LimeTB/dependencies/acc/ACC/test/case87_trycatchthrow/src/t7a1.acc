@@ -1,0 +1,44 @@
+before() : call(int foo3(int)) {
+	printf("before call foo3, throw exception 3\n");
+	throw(3);
+	printf("end of aspect\n");
+}
+
+catch(int e): try(call(int foo(int))) {
+	printf("catch exception %d from calling foo\n", e);
+}
+
+before(): call(int foo4(int)) && cflow(execution($ main(...))) {
+	printf("call foo4 in cflow of execution of main\n");
+}
+
+before(): call(int foo4(int)) && cflow(execution($ foo(...))) {
+        printf("call foo4 in cflow of execution of foo\n");
+}
+
+before(): call(int foo4(int)) && cflow(execution($ foo1(...))) {
+        printf("call foo4 in cflow of execution of foo1\n");
+}
+before(): call(int foo4(int)) && cflow(execution($ foo2(...))) {
+        printf("call foo4 in cflow of execution of foo2\n");
+}
+before(): call(int foo4(int)) && cflow(execution($ foo3(...))) {
+        printf("call foo4 in cflow of execution of foo3\n");
+}
+
+
+before(): call(int foo4(int)) && cflow(call($ foo(...))) {
+        printf("call foo4 in cflow of call of foo\n");
+}
+
+before(): call(int foo4(int)) && cflow(call($ foo1(...))) {
+        printf("call foo4 in cflow of call of foo1\n");
+}
+before(): call(int foo4(int)) && cflow(call($ foo2(...))) {
+        printf("call foo4 in cflow of call of foo2\n");
+}
+before(): call(int foo4(int)) && cflow(call($ foo3(...))) {
+        printf("call foo4 in cflow of call of foo3\n");
+}
+
+

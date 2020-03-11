@@ -1,0 +1,1 @@
+bug fix: more than 1 type are specified in a pointcut declaration, like "long long".

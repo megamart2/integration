@@ -1,0 +1,11 @@
+disable matching for function call in the global scope, like:
+
+int foo() { return 0; }
+
+int a = foo();  /* this foo() should not be matched */
+
+
+
+comment: it might be supported in the future. 
+
+

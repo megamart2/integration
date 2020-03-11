@@ -1,0 +1,102 @@
+
+struct JoinPoint { 
+	void** (*fp) (struct JoinPoint *);
+	void ** args;
+	int argsCount;
+	const char ** argsType;
+	 void * (*arg)(int, struct JoinPoint *); 
+	 const char * (*argType)(int , struct JoinPoint *); 
+	void ** retValue;
+	const char * retType;
+	const char * funcName ;
+	const char * targetName ;
+	const char * fileName ;
+	const char * kind ;
+	void * excep_return ;
+};
+
+ struct __UTAC__EXCEPTION {
+	void * jumpbuf ;
+	unsigned long long int prtValue ;
+	int pops;
+	struct __UTAC__CFLOW_FUNC {
+		int (*func)(int,int) ;
+		int val ;
+		struct __UTAC__CFLOW_FUNC * next; 
+	} * cflowfuncs; 
+}; 
+
+
+# 1 "t3mc_mc.c" 
+# 1 "<built-in>" 
+# 1 "<command line>" 
+# 1 "t3mc_mc.c" 
+int (*p)(); 
+#line 3 "t3mc_mc.c"
+int foo()  
+# 38 "t3mc.c"
+{
+# 40 "t3mc.c"
+int retValue_acc;
+
+
+
+
+# 46 "t3mc.c"
+{
+
+#line 4 "t3mc_mc.c"
+printf("in foo\n"); 
+#line 5 "t3mc_mc.c"
+
+# 53 "t3mc.c"
+retValue_acc = 1;
+# 55 "t3mc.c"
+return (int )retValue_acc;
+ 
+# 58 "t3mc.c"
+
+}
+
+# 62 "t3mc.c"
+return (int )retValue_acc;
+
+# 65 "t3mc.c"
+
+}
+ 
+#line 9 "t3mc_mc.c"
+int main()  
+# 71 "t3mc.c"
+{
+# 73 "t3mc.c"
+int retValue_acc;
+
+
+
+
+# 79 "t3mc.c"
+{
+
+#line 10 "t3mc_mc.c"
+p = foo; 
+#line 12 "t3mc_mc.c"
+((*p))(); 
+#line 14 "t3mc_mc.c"
+
+# 88 "t3mc.c"
+retValue_acc = 0;
+# 90 "t3mc.c"
+return (int )retValue_acc;
+ 
+# 93 "t3mc.c"
+
+}
+
+# 97 "t3mc.c"
+return (int )retValue_acc;
+
+# 100 "t3mc.c"
+
+}
+ 

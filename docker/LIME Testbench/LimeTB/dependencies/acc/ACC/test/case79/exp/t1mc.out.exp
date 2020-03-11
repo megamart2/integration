@@ -1,0 +1,11 @@
+call foo in main
+aspect 1: before call foo
+in foo, call call1 with 3, 4
+aspect 3: before call call1
+in call1, a = 3, b = 4
+
+call foo2 in main
+aspect 2: before call foo2
+in foo2, call call2 with 5, 6
+aspect 4: before call call2
+in call2, a = 5, b = 6

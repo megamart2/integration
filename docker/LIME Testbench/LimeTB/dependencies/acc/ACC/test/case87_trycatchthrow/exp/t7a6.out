@@ -1,0 +1,14 @@
+in main, call foo
+	 in foo
+		 in foo1
+			 in foo2
+before call foo3, throw exception 3
+1st catch from executing foo2, exception = 3 
+2nd catch from executing $foo2, exception = 4
+3rd catch from executing foo2, exception = 5
+		 end of foo1
+	 end of foo
+call foo4 in main
+call foo4 in cflow of execution of main
+in foo4
+end of main

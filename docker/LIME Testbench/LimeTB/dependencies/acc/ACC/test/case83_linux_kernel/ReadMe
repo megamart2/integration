@@ -1,0 +1,11 @@
+Michael used ACC compiler to compile linux kernel source, in order to expose bugs in "acc".
+
+Following files are preprocessed gcc source files:
+
+main.mc
+summit.mc
+es7000.mc
+bootflag.mc
+sched.mc
+sky2.mc
+ 

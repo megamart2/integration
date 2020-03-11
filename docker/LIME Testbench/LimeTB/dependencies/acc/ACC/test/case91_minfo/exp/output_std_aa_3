@@ -1,0 +1,16 @@
+1. jp:foo,call,t1mc.mc,6
+	1. ad:__utac_acc__t1ac__1,before,t1ac.acc,1
+	2. ad:__utac_acc__t2ac__1,after,t2ac.acc,8
+
+2. jp:foo,call,t2ac.acc,5
+	1. ad:__vtac_acc__t1ac__1,before,t1ac.acc,1
+	2. ad:__vtac_acc__t2ac__1,after,t2ac.acc,8
+
+1. ad:__vtac_acc__t2ac__1,after,t2ac.acc,8
+	1. jp:foo,call,t2ac.acc,5
+	2. jp:foo,call,t1mc.mc,6
+
+2. ad:__vtac_acc__t1ac__1,before,t1ac.acc,1
+	1. jp:foo,call,t2ac.acc,5
+	2. jp:foo,call,t1mc.mc,6
+

@@ -1,0 +1,10 @@
+# NOTE: Must be run from the directory in which the script is located and with
+# '. classpath' instead of the usual './classpath'.
+
+PREFIX=`dirname "$0"`
+. $PREFIX/currentversion
+CLASSPATH="$CLASSPATH:$PREFIX/../lib/lime/limec-$LIMEC_VERSION.jar"
+CLASSPATH="$CLASSPATH:$PREFIX/../lib/lime/common-$COMMON_VERSION.jar"
+CLASSPATH="$CLASSPATH:$PREFIX/../lib/external/automaton.jar"
+CLASSPATH="$CLASSPATH:$PREFIX/../lib/external/java-cup-11a.jar"
+

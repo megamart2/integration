@@ -1,0 +1,44 @@
+#!/bin/bash
+
+#convert from dos to unix: fromdos $(find [dir] -name *.java)
+
+if [ $# -ne 3 ] || [ ! -d $1 ] || [ ! -d $2 ]; then
+	echo "Usage: $0 [original source dir] [revised source dir] [output file]"
+	exit
+fi
+
+WORKING_DIR=$(mktemp -d)
+PATCH_FILE=$(mktemp --tmpdir=$WORKING_DIR);
+
+source_dir=$(mktemp -d --tmpdir=$WORKING_DIR)
+revised_dir=$(mktemp -d --tmpdir=$WORKING_DIR)
+
+echo $source_dir
+echo $revised_dir
+
+cp -r $1/* $source_dir
+cp -r $2/* $revised_dir
+
+#delete all files except *.java
+
+rm -f $(find $WORKING_DIR -type f | grep -v ".java$")
+
+astyle -q -n --style=allman --recursive --delete-empty-lines "$WORKING_DIR/*"
+
+diff -rN -U 0 $source_dir $revised_dir > $PATCH_FILE
+
+set -e
+
+PREFIX=`dirname "$0"`
+
+CLASSPATH=$CLASSPATH:.
+
+. $PREFIX/classpath-common
+. $PREFIX/classpath-lct
+
+CLASSPATH="$CLASSPATH:$PREFIX/../lib/external/javaparser-1.0.8.jar"
+CLASSPATH="$CLASSPATH:$PREFIX/../lib/external/difflib-1.2.1-udiffpatched.jar"
+CLASSPATH=$CLASSPATH:$JRELIBPATH/rt.jar:$JRELIBPATH/jce.jar:$JRELIBPATH/jsse.jar
+
+java -cp $CLASSPATH fi.hut.ics.lime.tester.ChangedMethods $PATCH_FILE $3
+

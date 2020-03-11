@@ -1,0 +1,12 @@
+call foo5 in main
+in foo5
+call foo by local fp: e1
+aspect1: call foo by a function pointer in function foo5 
+in foo
+call foo by parameter fp: parap
+aspect1: call foo by a function pointer in function foo5 
+in foo
+call foo by global fp : d1
+aspect1: call foo by a function pointer in function foo5 
+in foo
+end of foo5

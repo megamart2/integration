@@ -1,0 +1,16 @@
+in main
+before aspect c1: func = main, type = call 
+around aspect c3: func = main, type = call 
+before aspect c1: func = foo, type = execution 
+around aspect c3: func = foo, type = execution 
+in foo
+before aspect c1: func = foo, type = call 
+around aspect c3: func = foo, type = call 
+before aspect c1: func = foo2, type = execution 
+around aspect c3: func = foo2, type = execution 
+in foo2
+after aspect c2: func = foo2, type = execution 
+after aspect c2: func = foo, type = call 
+after aspect c2: func = foo, type = execution 
+after aspect c2: func = foo, type = execution 
+after aspect c2: func = main, type = call 

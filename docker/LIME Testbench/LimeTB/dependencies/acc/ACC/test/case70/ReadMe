@@ -1,0 +1,4 @@
+bug fix: 
+   1. support both asm label and attribute specified for a function declaration.
+   2. support wide character/string literal.
+   3. better support for gcc __extension__ keyword.

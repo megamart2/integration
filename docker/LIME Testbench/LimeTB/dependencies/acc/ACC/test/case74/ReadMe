@@ -1,0 +1,3 @@
+support C99 _Bool type.
+
+Since not all versions of gcc recognizes _Bool, the requirement for this test case is that acc should be able to transform the files correctly.

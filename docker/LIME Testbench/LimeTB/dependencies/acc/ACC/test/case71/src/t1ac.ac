@@ -1,0 +1,108 @@
+/* semantic check */
+/* 1. for callp() pointcut, the function name specified can't have wildcard
+character */
+
+before(): callp(void fo$o()) { }
+
+/* 2. the identifier specifed in args() should be a parameter of the advice */
+
+before() : args(*i) { }
+
+
+/* 3. the file name in the infile() must be a string literal */
+before(): infile(abc) {}
+
+before(): args("abc") {}
+
+/* 4. the user-defined pointcut name should not collide with primitive pointcut name */
+pointcut call(): args(int) ;
+
+/* 5. the pointcut name must be either a primitive pointcut or a user-defined pointcut */
+
+before(): myfoo() {} /* myfoo is not definied */
+
+/* 6. the named pointcut must match the pointcut definition */
+pointcut myfoo2(int a) : call(int foo()) && args(a) ;
+before(): myfoo2() { } 	/* the signature of myfoo2 is not matched */
+
+pointcut myfoo3(char * a) : call(int foo()) && args(a);
+
+before(int a): myfoo3(a) {} /* type does not match */
+
+/* 7. the identifier in a named pointcut must be a parameter in the advice function */
+
+pointcut myfoo4(int a): args(a) ;
+
+before(): myfoo4(a) {}  
+
+/* 8. should not have nested cflow */
+
+before(): cflow(cflow(execution(void foo() ))) {}
+
+/* 9. only "before", "after", "around", "introduce" advice is supported */
+kkkerke(): call(void foo()) {}
+
+/* 10. only "around" advice has return type */
+int before(): call(void foo()) {}
+
+int introduce(): call(void foo()) {}
+
+/* 11. the advice parameter must be used in an args() or result() pointcut */
+before(int a): call(void foo()) {}
+
+/* 12. proceed() can only be used in around advice */
+before(): call(void foo()) {
+	proceed();
+}
+
+/* 13. the intype() must be used in an introduce() advice */
+before(): intype(A) {}
+
+introduce(): call(void foo()) {}
+
+pointcut MYA(): call(void foo());
+
+introduce(): MYA() {} 
+
+/* 14. address matching should only be used in an args() pointcut */
+before(int i): call(*i) {}
+
+
+/* 15. advice parameter should be used exactly once in the pointcut definition */
+before(int i): args(i, i) {} 
+
+before(int i): args() {}
+
+before(int i, int j): args(i) {}
+
+/* 16. wrong keyword */
+before(): infunc("abc") {}
+
+/* 17. result can only take 1 argument */
+before(): result(int, char) {}
+
+before(): infile("abc") {}
+
+before(): infile() { } 
+
+/* 18. throw() used in introduce() advice */
+introduce(): intype(struct A) {
+	throw(3);
+}
+
+/* 19. try() not used with catch() advice */
+before(): try(call(void foo())) { }
+
+catch(int e): call(void foo()) { }
+
+/* 20. catch() does not have 1 int parameter */
+catch(): try(call(void foo())) { }
+
+catch(int e, int f): try(call(void foo())) { } 
+
+catch(int e): try(call(void foo()) && args(e)) { }
+
+/* 21. try() && try() is not allowed */
+catch(int i): try(call(void foo())) && try(call(void foo2())) { }
+
+

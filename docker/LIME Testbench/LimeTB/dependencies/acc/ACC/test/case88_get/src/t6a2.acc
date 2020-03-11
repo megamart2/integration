@@ -1,0 +1,29 @@
+before(): call($ foo3()) && cflow(call($ foo())) {
+	printf("aspect error : call foo3 in cflow of call(foo) \n");
+}
+
+before(): call($ foo3()) && cflow(execution($ foo())) {
+        printf("aspect error : call foo3 in cflow of execution(foo) \n");
+}
+
+before(): call($ foo3()) && cflow(execution($ main())) {
+        printf("aspect : call foo3 in cflow of execution(main) \n");
+}
+
+
+before(): call($ foo3()) && cflow(call($ foo1())) {
+        printf("aspect error : call foo3 in cflow of call(foo1) \n");
+}
+
+before(): call($ foo3()) && cflow(execution($ foo1())) {
+        printf("aspect error : call foo3 in cflow of execution(foo1) \n");
+}
+
+before(): call($ foo3()) && cflow(call($ foo2())) {
+        printf("aspect error : call foo3 in cflow of call(foo2) \n");
+}
+
+before(): call($ foo3()) && cflow(execution($ foo2())) {
+        printf("aspect error : call foo3 in cflow of execution(foo2) \n");
+}
+

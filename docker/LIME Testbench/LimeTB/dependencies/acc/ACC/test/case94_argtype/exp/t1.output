@@ -1,0 +1,20 @@
+function name = foo 
+parameter type : arg[1] = |int| 
+parameter type : arg[2] = |char| 
+parameter type : arg[3] = |char*| 
+return type = |void| 
+
+function name = foo2 
+parameter type : arg[1] = |double| 
+parameter type : arg[2] = |char*| 
+return type = |char*| 
+
+function name = foo3 
+parameter type : arg[1] = |char const| 
+parameter type : arg[2] = |char const*| 
+return type = |struct A *| 
+
+function name = foo4 
+parameter type : arg[1] = |struct A *| 
+return type = |double| 
+

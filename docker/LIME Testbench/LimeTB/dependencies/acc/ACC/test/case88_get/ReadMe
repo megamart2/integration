@@ -1,0 +1,18 @@
+feature : get() pointcut.
+
+case 1: before() / after() / around() advice 
+
+case 2: composite pointcut including get()
+
+case 3: named pointcut for get()
+
+case 4: wildcard matching for get()
+
+case 5: preturn() for get()
+
+case 6: exception handling for get()
+
+case 7: get() should not mess up with "&" and "*" operator
+
+case 8: disable get() join point under operators: __alignof__, sizeof, typeof, offsetof.
+

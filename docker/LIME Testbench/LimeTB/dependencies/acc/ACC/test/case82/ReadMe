@@ -1,0 +1,51 @@
+feature work:
+  debugging support in ACC.
+
+original file: t1mc.mc , t2mc.mc, t3mc.mc , t4mc.mc, t5mc.mc, t6mc.mc
+               t1ac.acc, t2ac.acc, t3ac.acc, t4ac.acc, t5ac.acc, t6ac.acc
+
+where t1mc.mc = t2mc.mc = t3mc.mc = t4mc.mc = t5mc.mc, ie, they are same files
+but used to demonstrate effects of different aspects.
+
+1. because the preprocessing is done by using "gcc -E", and gcc doesn't recognize .mc and .acc suffix, the above files are copied to :
+ t1mc_mc.c , t2mc_mc.c , ..., t6mc_mc.c , t1ac_acc.c , t2ac_acc.c , ... , t6ac_acc.c
+
+then the processing is done like:
+
+ gcc -E t1mc_mc.c > t1mc_m.mc
+ gcc -E t2mc_mc.c > t2mc_m.mc
+ gcc -E t3mc_mc.c > t3mc_m.mc
+ gcc -E t4mc_mc.c > t4mc_m.mc
+ gcc -E t5mc_mc.c > t5mc_m.mc
+ gcc -E t6mc_mc.c > t6mc_m.mc
+ 
+ gcc -E t1ac_acc.c > t1ac_ac.acc
+ gcc -E t2ac_acc.c > t2ac_ac.acc
+ gcc -E t3ac_acc.c > t3ac_ac.acc
+ gcc -E t4ac_acc.c > t4ac_ac.acc
+ gcc -E t5ac_acc.c > t5ac_ac.acc
+ gcc -E t6ac_acc.c > t6ac_ac.acc
+
+2. acc compilation is done like:
+
+ acc t1mc_m.mc t1ac_ac.acc 
+ acc t2mc_m.mc t2ac_ac.acc
+ acc t3mc_m.mc t3ac_ac.acc
+ acc t4mc_m.mc t4ac_ac.acc
+ acc t5mc_m.mc t5ac_ac.acc
+ acc t6mc_m.mc t6ac_ac.acc
+
+3. gcc compilation is done like:
+ 
+ gcc -g -o t1mc t1mc_m.c t1ac_ac.c
+ gcc -g -o t2mc t2mc_m.c t2ac_ac.c
+ gcc -g -o t3mc t3mc_m.c t3ac_ac.c
+ gcc -g -o t4mc t4mc_m.c t4ac_ac.c
+ gcc -g -o t5mc t5mc_m.c t5ac_ac.c
+ gcc -g -o t6mc t6mc_m.c t6ac_ac.c
+
+4. when debugging the t1mc/t2mc/t3mc/t4mc/t5mc/t6mc, users should be able to step through the original file: t1mc_mc.c, t2mc_mc.c, ..., t6mc_mc.c, t1ac_acc.c, t2ac_acc.c , ..., t6ac_acc.c
+
+
+5. the testing is done by comparing the output from step2 against expected output files.
+ 

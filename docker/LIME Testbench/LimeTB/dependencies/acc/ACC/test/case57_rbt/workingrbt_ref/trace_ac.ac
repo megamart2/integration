@@ -1,0 +1,126 @@
+# 1 "trace_ac_ac.c"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "trace_ac_ac.c"
+# 1 "rb.h" 1
+# 29 "rb.h"
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/4.4.1/include/stddef.h" 1 3 4
+# 149 "/usr/lib/gcc/x86_64-linux-gnu/4.4.1/include/stddef.h" 3 4
+typedef long int ptrdiff_t;
+# 211 "/usr/lib/gcc/x86_64-linux-gnu/4.4.1/include/stddef.h" 3 4
+typedef long unsigned int size_t;
+# 323 "/usr/lib/gcc/x86_64-linux-gnu/4.4.1/include/stddef.h" 3 4
+typedef int wchar_t;
+# 30 "rb.h" 2
+
+
+typedef int rb_comparison_func (const void *rb_a, const void *rb_b,
+                                 void *rb_param);
+typedef void rb_item_func (void *rb_item, void *rb_param);
+typedef void *rb_copy_func (void *rb_item, void *rb_param);
+
+
+
+
+struct libavl_allocator
+  {
+    void *(*libavl_malloc) (struct libavl_allocator *, size_t libavl_size);
+    void (*libavl_free) (struct libavl_allocator *, void *libavl_block);
+  };
+
+
+
+extern struct libavl_allocator rb_allocator_default;
+void *rb_malloc (struct libavl_allocator *, size_t);
+void rb_free (struct libavl_allocator *, void *);
+
+
+
+
+
+
+
+struct rb_table
+  {
+    struct rb_node *rb_root;
+    rb_comparison_func *rb_compare;
+    void *rb_param;
+    struct libavl_allocator *rb_alloc;
+
+
+    unsigned long rb_generation;
+  };
+
+
+enum rb_color
+  {
+    RB_BLACK,
+    RB_RED
+  };
+
+
+struct rb_node
+  {
+    struct rb_node *rb_link[2];
+    void *rb_data;
+    unsigned char rb_color;
+  };
+
+
+struct rb_traverser
+  {
+    struct rb_table *rb_table;
+    struct rb_node *rb_node;
+    struct rb_node *rb_stack[48];
+
+    size_t rb_height;
+    unsigned long rb_generation;
+  };
+
+
+struct rb_table *rb_create (rb_comparison_func *, void *,
+                              struct libavl_allocator *);
+struct rb_table *rb_copy (const struct rb_table *, rb_copy_func *,
+                            rb_item_func *, struct libavl_allocator *);
+void rb_destroy (struct rb_table *, rb_item_func *);
+void **rb_probe (struct rb_table *, void *);
+void *rb_insert (struct rb_table *, void *);
+void *rb_replace (struct rb_table *, void *);
+void *rb_delete (struct rb_table *, const void *);
+void *rb_find (const struct rb_table *, const void *);
+void rb_assert_insert (struct rb_table *, void *);
+void *rb_assert_delete (struct rb_table *, void *);
+
+
+
+
+
+void rb_t_init (struct rb_traverser *, struct rb_table *);
+void *rb_t_first (struct rb_traverser *, struct rb_table *);
+void *rb_t_last (struct rb_traverser *, struct rb_table *);
+void *rb_t_find (struct rb_traverser *, struct rb_table *, void *);
+void *rb_t_insert (struct rb_traverser *, struct rb_table *, void *);
+void *rb_t_copy (struct rb_traverser *, const struct rb_traverser *);
+void *rb_t_next (struct rb_traverser *);
+void *rb_t_prev (struct rb_traverser *);
+void *rb_t_cur (struct rb_traverser *);
+void *rb_t_replace (struct rb_traverser *, void *);
+# 2 "trace_ac_ac.c" 2
+
+pointcut INTEST (): infunc(test_correctness);
+
+before(void * node ): INTEST() && call($ rb_probe(...)) && args($, node) {
+        printf ("  Inserting %d...\n", *(int*)(node));
+}
+before(void * node) : INTEST() && call($ rb_t_find(...)) && args($, $, node) {
+        printf ("   Checking traversal from item %d...\n", *(int*)(node));
+}
+before(const void * node) : INTEST() && call($ rb_delete(...)) && args($, node) {
+        printf ("    Deleting item %d.\n", *(int*)(node));
+}
+before(void * node): INTEST() && call($ rb_t_insert(...)) && args($,$,node){
+ printf("    Re-inserting item %d.\n", *(int*)(node));
+}
+before(): INTEST() && call($ rb_copy(...)) {
+ printf ("  Copying tree and comparing...\n");
+}

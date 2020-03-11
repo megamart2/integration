@@ -1,0 +1,2 @@
+test handling the "." and "/" inside the file names specified on the command line.
+test sources are same as case38, but reside in different directories.

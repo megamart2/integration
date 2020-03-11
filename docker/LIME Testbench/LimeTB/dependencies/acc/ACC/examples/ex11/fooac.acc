@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+introduce(): intype(struct X) {		
+	int c;
+}
+
+introduce(): intype(MYX1) {		
+	char * d;
+}
+
+introduce(): intype(MYX2) {		
+	double e;
+}
+
+

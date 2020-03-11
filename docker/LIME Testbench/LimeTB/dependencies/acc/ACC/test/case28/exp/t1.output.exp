@@ -1,0 +1,24 @@
+in foo1 call around advice, begin, i = 3
+in foo1 exec around advice, begin, i = 3
+inside foo1, info = 3
+in foo1 exec around advice, end
+in foo1 call around advice, end
+in foo2 call around advice, begin, i = 9
+in foo2 exec around advice, begin, i = 9
+inside foo2, info = 9
+in foo2 exec around advice, end 
+result of proceed in exec = 18 
+in foo2 call around advice, end 
+result of proceed in call = 18 
+in foo1 call around advice, begin, i = 4
+in foo1 exec around advice, begin, i = 4
+inside foo1, info = 4
+in foo1 exec around advice, end
+in foo1 call around advice, end
+in foo2 call around advice, begin, i = -2
+in foo2 exec around advice, begin, i = -2
+inside foo2, info = -2
+in foo2 exec around advice, end 
+result of proceed in exec = -4 
+in foo2 call around advice, end 
+result of proceed in call = -4 

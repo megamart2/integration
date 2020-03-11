@@ -1,0 +1,12 @@
+before call foo1
+in foo1
+before call foo2
+in foo2
+before call foo3
+in foo3
+before call foo4
+in foo4
+before call foo5
+in foo5
+before call foo6
+in foo6

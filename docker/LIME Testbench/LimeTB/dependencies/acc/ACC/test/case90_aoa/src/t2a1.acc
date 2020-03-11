@@ -1,0 +1,35 @@
+
+extern void foo();
+extern void foo1();
+extern void foo2();
+
+void foo4() {
+	printf("foo4, in aspect file \n");
+}
+
+
+void foo3() {
+	printf("foo3, in aspect file \n");
+
+	printf("call foo4 in foo3\n");
+
+	foo4();
+}
+
+
+
+before(): call(void foo1()) && cflow(call(void foo())) {
+	printf("aspect 1: call foo1 in cflow of calling foo \n");
+	printf("call foo2 inside aspect 1\n");
+	foo2();
+	printf("call foo3 inside aspect 1\n");
+	foo3();	
+}
+
+before(): call(void foo3()) && cflow(call(void foo())) {
+        printf("aspect 2: call foo3 in cflow of calling foo \n");
+}
+
+before(): call(void foo4()) && cflow(call(void foo3())) {
+	printf("aspect 4: call foo4 in cflow of call foo3\n");
+}

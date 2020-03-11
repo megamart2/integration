@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+    <name>aspect-monitor</name>
+    <comment>Annotation-guided aspect generator for temporal logic formulas.</comment>
+    <projects/>
+    <buildSpec>
+	<buildCommand>
+	    <name>org.eclipse.jdt.core.javabuilder</name>
+	</buildCommand>
+    </buildSpec>
+    <natures>
+	<nature>org.eclipse.jdt.core.javanature</nature>
+	<nature>org.maven.ide.eclipse.maven2Nature</nature>
+    </natures>
+</projectDescription>

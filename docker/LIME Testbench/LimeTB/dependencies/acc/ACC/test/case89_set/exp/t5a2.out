@@ -1,0 +1,7 @@
+in foo
+assignment: b = a = 1 
+aspect: after set global a
+end of aspect
+a = 1, b = 1 
+assignment: b=a=-1 
+aspect: after set global a

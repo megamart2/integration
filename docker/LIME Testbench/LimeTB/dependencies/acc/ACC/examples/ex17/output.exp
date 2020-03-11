@@ -1,0 +1,3 @@
+in main
+aspect, before get variable a 
+a = 99

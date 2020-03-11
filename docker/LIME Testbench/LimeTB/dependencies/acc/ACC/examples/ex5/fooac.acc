@@ -1,0 +1,9 @@
+#include <stdio.h>
+
+void around(int * i): call(void foo(int,int,int)) && args(int,*i, int) { //use *i to pick the address of an argument
+	printf("in around advice, 2nd argument = %d.\n", *i);
+	printf("double its value in advice\n");
+	*i = (*i) * 2;	//change argument value
+	proceed();
+}
+

@@ -1,0 +1,12 @@
+before(): call(int foo2(...)) && cflow(execution($ foo(...))) {
+        printf("call foo2 in cflow of foo\n");
+}
+
+before() : call(int foo3(...)) {
+
+	printf("in aspect\n");
+
+	preturn(44);
+
+}
+

@@ -1,0 +1,14 @@
+int around() : call(int foo2(int)) {
+	printf("aspect, throw 3\n");
+	throw(3);
+	printf("end of aspect\n");
+}
+
+catch(int e): try(call(int foo(int))) {
+	printf("catch exception = %d\n", e);
+}
+
+catch(int e): try(call(int foo1(int))) {
+	printf("catch exception under foo1, = %d\n", e);
+	throw(e+1);
+}

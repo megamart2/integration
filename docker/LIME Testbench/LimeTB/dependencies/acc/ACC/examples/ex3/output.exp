@@ -1,0 +1,5 @@
+aspect 1: call foo in main 
+inside foo, a = abcde
+in foo2, call foo
+aspect 2: call foo in foo2
+inside foo, a = ABCDE

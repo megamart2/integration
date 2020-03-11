@@ -1,0 +1,8 @@
+aspect 2: match set($int$ $a$ ) 
+aspect 3: match set(myintt daf ) 
+aspect 4: match set($ $ ) 
+daf = 9
+aspect 1: match set(int a) 
+aspect 2: match set($int$ $a$ ) 
+aspect 4: match set($ $ ) 
+a = 11

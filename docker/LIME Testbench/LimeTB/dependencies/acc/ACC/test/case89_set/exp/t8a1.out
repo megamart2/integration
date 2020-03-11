@@ -1,0 +1,2 @@
+before aspect: in file t8mc.mc, in func main , type = set, target = t
+after aspect: in file t8mc.mc, in func main , type = get, target = t

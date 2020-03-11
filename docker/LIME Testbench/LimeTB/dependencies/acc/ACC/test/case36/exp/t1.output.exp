@@ -1,0 +1,4 @@
+call malloc in main
+aspect, before call malloc 
+call malloc in foo
+aspect, before call malloc 

@@ -1,0 +1,31 @@
+int around(): set(int a) && args($,int) {
+	printf("aspect 1: set && args \n");
+	return proceed();
+}
+
+int around(int j): set(int a) && args($,j) {
+	printf("aspect 2: set && args , val = %d\n" , j);
+	return proceed();
+}
+
+int around(int * j): set(int a) && args($, *j) {
+        printf("aspect 3: set && args , ori val = %d, change to 1000 \n" , *j);
+	*j = 1000;
+	return proceed();
+}
+
+before(): call($ $(...)) && cflow(set(int a)) {
+	printf("aspect error: should not match \n");
+}
+
+int around() : set(int a) && infunc(foo) {
+        printf("aspect 6: set && infunc(foo) \n");
+	return proceed();
+}
+
+int around(): set(int a) && infunc(main) {
+	
+	printf("aspect 7: set && infunc(main) \n");
+
+	return proceed();
+}

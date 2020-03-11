@@ -1,0 +1,5 @@
+before 'fct' call
+before `fct' function execution
+In `fct'
+after `fct' function execution
+Result from `fct' 100

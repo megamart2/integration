@@ -1,0 +1,24 @@
+before(): call(int foo2(...)) && cflow(call($ foo(...))) {
+	printf("call foo2 in cflow of call foo\n");
+}
+
+before(): call(int foo2(...)) && cflow(call($ foo1(...))) {
+        printf("call foo2 in cflow of call foo1\n");
+}
+
+before(): call(int foo2(...)) && cflow(execution($ foo(...))) {
+        printf("call foo2 in cflow of execution foo\n");
+}
+
+before(): call(int foo2(...)) && cflow(execution($ foo1(...))) {
+        printf("call foo2 in cflow of execution foo1\n");
+}
+
+before(): call(int foo2(...)) && cflow(execution($ main(...))) {
+        printf("call foo2 in cflow of execution main\n");
+}
+
+after(): call(int foo1()) {
+	printf("aspect: after call foo1, do preturn\n");
+	preturn(3);
+} 

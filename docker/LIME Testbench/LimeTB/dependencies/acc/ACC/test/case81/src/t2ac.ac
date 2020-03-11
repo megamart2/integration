@@ -1,0 +1,7 @@
+int around(int * b, double a, int c) :
+	cflow(call($ foo(...)) && args(a, *b, $)) 
+		&& call($ foo3(...)) && args(c) {
+	
+	printf("aspect3: first 2 parameters of foo = %d, %d \n", (int)a, *b);
+	printf("aspect3: parameter of foo3 = %d\n", c);
+}

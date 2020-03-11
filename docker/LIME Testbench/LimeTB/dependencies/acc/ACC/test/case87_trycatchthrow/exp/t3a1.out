@@ -1,0 +1,13 @@
+in main, call foo
+	 in foo
+		 in foo1
+aspect, throw 3
+2nd cacth, exception = 3
+in main, call foo3
+	 in foo3
+	 in foo
+		 in foo1
+aspect, throw 3
+2nd cacth, exception = 3
+	 end of foo3
+end of main

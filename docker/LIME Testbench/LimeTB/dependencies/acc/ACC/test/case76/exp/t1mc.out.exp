@@ -1,0 +1,4 @@
+aspect 1
+in foo
+aspect 2
+in foo2

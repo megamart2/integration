@@ -1,0 +1,59 @@
+The following description assumes a Linux environment and a
+sufficiently recent installation of gcc (version 2.9 or above).
+
+Build and Test
+==================
+
+  1. `cd' to the directory containing ACC's source code, ie. "cd ACC/".
+  
+  2. make
+     ...
+     result:                         <--- build is successful and all test cases pass
+     total=96, succeed = 96 , fail = 0
+
+  The ACC compiler resides in the bin directory with name "acc".
+
+Compilers and Options
+=====================
+
+The following special build targets are supported:
+
+  * `build' only builds the ACC compiler.
+    
+  * `test'  only runs the test cases, assuming ACC compiler is already built.
+  
+  * `clean' removes the ACC compiler and bin directory created when running the test cases.
+
+runTest Script
+====================
+
+Optionally, you could run individual or all test cases by using runTest script under ACC/test directory, like :
+
+   1. `cd' to the directory containing all test cases.
+
+   2. ./runTest case01 case02
+
+    or
+      ./runTest case*
+
+
+If the ACC compiler is not in the default directory, set ACCTEST to point
+to the ACC compiler before running the runTest script as following:
+
+   1. ACCTEST=~/myacc/acc
+
+   2. export ACCTEST
+
+   3. ./runTest case*
+
+
+Weave Adapters 
+====================
+
+For information about weave adapters, please visit www.aspectc.net.
+
+
+More Info
+=====================
+
+For more information, please visit www.aspectc.net.

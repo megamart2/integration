@@ -1,0 +1,30 @@
+TOOLS:
+
+lcf2smt2:
+	reads a constraint in LCF into stdin and writes an equivalent SMTLIB 2.0
+	instance into stdout. Hasn't been tested completely yet so some things might
+	not work as expected (especially boolean constants 'true' and 'false')
+z3backend:
+	a backend written for z3 that parses the solver output and outputs either
+	'unsat' or a set of values for the input variables in order (input_1 input_2
+	and so on)
+
+TODO:
+
+- make sure lcf2smt2 correctly handles all constraints
+- write a backend for boolector when it is usable (when it supports SMTLIB 2.0)
+- make LCT use these tools.
+
+USAGE:
+
+the tools can be used in following manner (requires the z3 binary):
+	lcf2smt2 | z3 -smt2 -in -m | z3backend
+
+LCF:
+
+S -> C | C 'D' S
+C -> OP V E
+E -> V | OP V V
+OP -> '==' | '<' | '>' | '<=' | '>=' | ...
+V -> 'i' <int> '_' <name> | 'u' <int> '_' <name> | 
+     'b' '_' <name> | 'O' '_' <name> | <const>

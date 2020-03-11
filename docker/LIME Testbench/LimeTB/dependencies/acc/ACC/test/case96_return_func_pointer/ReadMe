@@ -1,0 +1,2 @@
+bug fix: match a function which returns a function pointer.
+

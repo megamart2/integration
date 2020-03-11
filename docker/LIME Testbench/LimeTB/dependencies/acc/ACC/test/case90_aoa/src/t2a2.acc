@@ -1,0 +1,10 @@
+
+extern void foo3();
+extern void foo4();
+
+
+before(): call(void foo4()) && cflow(call(void foo3())) {
+	printf("aspect 3: call foo4 in cflow of call foo3 \n");
+}
+
+

@@ -1,0 +1,33 @@
+call foo in main by fp
+aspect1: call foo by a function pointer in function main 
+in foo
+aspect3: callp && args
+aspect4: callp && result
+aspect5: callp && infile
+call foo2 in main by fp
+in foo2
+call foo in foo2 by fp
+aspect1: call foo by a function pointer in function foo2 
+in foo
+aspect2: call foo by a function pointer in the cflow of foo2
+aspect3: callp && args
+aspect4: callp && result
+aspect5: callp && infile
+aspect6: callp && infunc
+call foo3 in main by fp
+aspect1: call foo3 by a function pointer in function main 
+in foo3
+call foo4 in main
+in foo4
+aspect1: call foo by a function pointer in function foo4 
+in foo
+aspect3: callp && args
+aspect4: callp && result
+aspect5: callp && infile
+call foo5 in main
+in foo5
+aspect1: call foo by a function pointer in function foo5 
+in foo
+aspect3: callp && args
+aspect4: callp && result
+aspect5: callp && infile

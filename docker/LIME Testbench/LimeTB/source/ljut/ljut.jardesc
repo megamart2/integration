@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="/home/viorel/megamart/LimeTB-2.2.0/lib/lime/ljut-2.2.0.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/ljut/ljut.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <folder path="/ljut/examples"/>
+        <folder path="/ljut/src"/>
+        <javaElement handleIdentifier="=ljut/src\/main\/java"/>
+        <file path="/ljut/.classpath"/>
+        <file path="/ljut/.project"/>
+        <folder path="/ljut/target"/>
+    </selectedElements>
+</jardesc>

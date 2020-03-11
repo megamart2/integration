@@ -1,0 +1,14 @@
+aspect 1: before call foo1 from main 
+here is foo1
+aspect 2: before call printfmine from foo1 
+call printfmine, call printfmine inside foo1
+ 
+call printfmine2, call printfmine2 inside foo1
+
+aspect 1: before call foo2 from main 
+here is foo2, a = 4
+aspect 2: before call printfmine from foo2 
+call printfmine, call printfmine inside foo1
+ 
+call printfmine2, call printfmine2 inside foo1
+

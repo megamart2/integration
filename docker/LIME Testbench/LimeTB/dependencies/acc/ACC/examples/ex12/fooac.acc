@@ -1,0 +1,7 @@
+#include <stdio.h>
+
+before(): callp(void foo1(char *)) {
+	printf("aspect: call foo1 through a function pointer\n");
+}
+
+

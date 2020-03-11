@@ -1,0 +1,33 @@
+pointcut myseta(): set(int a);
+
+int around(): myseta() && args($,int) {
+	printf("aspect 1: set && args \n");
+	return proceed();
+}
+
+int around(int j): myseta() && args($,j) {
+	printf("aspect 2: set && args , val = %d\n" , j);
+	return proceed();
+}
+
+int around(int * j): myseta() && args($,*j) {
+        printf("aspect 3: set && args , ori val = %d, change to 1000 \n" , *j);
+	*j = 1000;
+	return proceed();
+}
+
+before(): call($ $(...)) && cflow(myseta()) {
+	printf("aspect error: should not match \n");
+}
+
+int around() : myseta() && infunc(foo) {
+        printf("aspect 6: set && infunc(foo) \n");
+	return proceed();
+}
+
+int around(): myseta() && infunc(main) {
+	
+	printf("aspect 7: set && infunc(main) \n");
+
+	return proceed();
+}

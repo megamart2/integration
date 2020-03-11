@@ -1,0 +1,2 @@
+int foo() __asm("kk" "kkke" "kkkere");
+

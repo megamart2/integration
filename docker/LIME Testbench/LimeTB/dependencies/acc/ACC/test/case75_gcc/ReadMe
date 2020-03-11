@@ -1,0 +1,21 @@
+Charles used ACC compiler to compile gcc source, in order to expose bugs in "acc".
+
+Following files are preprocessed gcc source files:
+
+charset.mc
+symtab.mc
+insn-attrtab.mc  
+insn-emit.mc
+insn-recog.mc
+argv.mc
+floatformat.mc
+reload.mc
+timevar.mc
+fixincl.mc
+call.mc
+tree-outof-ssa.mc
+md5.mc
+tree-mudflap.mc
+jcf-io.mc
+crtstuff.mc
+libgcc2.mc

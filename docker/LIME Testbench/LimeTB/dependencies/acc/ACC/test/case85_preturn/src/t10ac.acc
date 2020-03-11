@@ -1,0 +1,26 @@
+void around() : call(void foo_c()) {
+	preturn(0);
+}
+
+void around() : call(void foo1_c()) {
+        int i = 99;
+	int j = 2;
+	preturn(i*j);
+}
+void around() : call(void foo2_c()) {
+        preturn(11.10);
+}
+void around() : call(void foo3_c()) {
+        preturn(1.11111);
+}
+void around() : call(void foo4_c()) {
+        preturn("This is a preturn value from advice");
+}
+
+void around() : call(void foo5_c()) {
+        preturn('Z');
+}
+
+void around(): call(void foo6_c()) {
+	preturn( (void*) 0);
+}

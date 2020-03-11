@@ -1,0 +1,35 @@
+"t1ac.ac", line 5: error-1: The 'callp' pointcut can not use wildcard character.
+"t1ac.ac", line 9: error-7: The identifier 'i' in the 'args' pointcut should be declared as a parameter of the advice function.
+"t1ac.ac", line 13: error-15: The 'infile' pointcut should take a string literal.
+"t1ac.ac", line 13: error-17: The 'infile' pointcut should only take 1 parameter.
+"t1ac.ac", line 15: error-16: The keyword 'infile' should be used , not 'args' . 
+"t1ac.ac", line 18: error-3: The 'call' is a keyword and it can not be the name of a user-defined pointcut.
+"t1ac.ac", line 22: error-0: The pointcut 'myfoo' is not defined . 
+"t1ac.ac", line 26: error-10: The parameter type of pointcut 'myfoo2' does not match the type specified in its definition.
+"t1ac.ac", line 30: error-10: The parameter type of pointcut 'myfoo3' does not match the type specified in its definition.
+"t1ac.ac", line 36: error-7: The identifier 'a' in the 'myfoo4' pointcut should be declared as a parameter of the advice function.
+"t1ac.ac", line 36: error-10: The parameter type of pointcut 'myfoo4' does not match the type specified in its definition.
+"t1ac.ac", line 40: error-14: Nested cflow() pointcut is not supported.
+"t1ac.ac", line 43: error-13: The 'kkkerke' is not a valid advice type. Advice type should be 'before', 'after', 'around', 'catch', or 'introduce' . 
+"t1ac.ac", line 46: error-2: The 'before' advice should not have return type .
+"t1ac.ac", line 48: error-2: The 'introduce' advice should not have return type .
+"t1ac.ac", line 48: error-9: The 'introduce' advice can only have 'intype' pointcut.
+"t1ac.ac", line 51: error-5: Advice parameter 'a' is not used in the pointcut.
+"t1ac.ac", line 55: error-11: 'proceed' can only be used in an 'around' advice.
+"t1ac.ac", line 59: error-8: The 'intype' pointcut can only be used in an 'introduce' advice.
+"t1ac.ac", line 61: error-9: The 'introduce' advice can only have 'intype' pointcut.
+"t1ac.ac", line 65: error-9: The 'introduce' advice can only have 'intype' pointcut.
+"t1ac.ac", line 68: error-12: The format of ( * identifier) can only be used in an 'args' or 'result' pointcut.
+"t1ac.ac", line 72: error-6: Advice parameter 'i' has been used multiple times in the pointcut. 
+"t1ac.ac", line 74: error-5: Advice parameter 'i' is not used in the pointcut.
+"t1ac.ac", line 76: error-5: Advice parameter 'j' is not used in the pointcut.
+"t1ac.ac", line 79: error-16: The keyword 'infile' should be used , not 'infunc' . 
+"t1ac.ac", line 82: error-17: The 'result' pointcut should only take 1 parameter.
+"t1ac.ac", line 86: error-15: The 'infile' pointcut should take a string literal.
+"t1ac.ac", line 86: error-17: The 'infile' pointcut should only take 1 parameter.
+"t1ac.ac", line 94: error-18: The 'catch' advice should be used with a single 'try()' pointcut or multiple 'try()' pointcuts connected by '||'.
+"t1ac.ac", line 96: error-18: The 'catch' advice should be used with a single 'try()' pointcut or multiple 'try()' pointcuts connected by '||'.
+"t1ac.ac", line 99: error-19: The 'catch()' advice should have only 1 integral type parameter, which should not appear inside pointcut definition.
+"t1ac.ac", line 101: error-19: The 'catch()' advice should have only 1 integral type parameter, which should not appear inside pointcut definition.
+"t1ac.ac", line 103: error-19: The 'catch()' advice should have only 1 integral type parameter, which should not appear inside pointcut definition.
+"t1ac.ac", line 106: error-18: The 'catch' advice should be used with a single 'try()' pointcut or multiple 'try()' pointcuts connected by '||'.

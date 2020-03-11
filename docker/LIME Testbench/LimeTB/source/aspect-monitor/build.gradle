@@ -1,0 +1,17 @@
+
+apply plugin: 'java'
+
+
+
+dependencies {
+    implementation project(':common')
+    implementation files("../../lib/external/aspectjrt.jar")
+    implementation files("../../lib/external/automaton.jar")
+    implementation files("../../lib/external/java-cup-11a-runtime.jar")
+    implementation files("../../lib/external/java-cup-11a.jar")
+    implementation files("../../lib/external/JFlex.jar")
+    implementation files("../../lib/external/jsap-2.1.jar")
+    implementation files("../../lib/external/junit.jar")
+    implementation files("../../lib/external/spoon-core-1.4+strcat.jar")
+}
+

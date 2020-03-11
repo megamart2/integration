@@ -1,0 +1,19 @@
+in main, call foo
+	 in foo
+		 in foo1
+aspect, throw 3
+catch 1, exception = 3
+catch 1.5, exception = 4
+catch 2, exception = 5
+catch 3, not in cflow of foo3, exception = 6
+in main, call foo3
+	 in foo3
+	 in foo
+		 in foo1
+aspect, throw 3
+catch 1, exception = 3
+catch 1.5, exception = 4
+catch 2, exception = 5
+catch 4, in cflow of foo3,  exception = 6
+catch 5, exception = 7
+end of main

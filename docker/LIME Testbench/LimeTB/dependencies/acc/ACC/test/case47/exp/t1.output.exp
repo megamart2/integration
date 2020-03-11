@@ -1,0 +1,25 @@
+foo(1) in main 
+aspect 1
+a < 3
+result = 33
+-------------
+foo(4) in main 
+aspect 1
+aspect 2
+a < 9
+result = 99
+-------------
+foo(10) in main 
+aspect 1
+aspect 2
+aspect 3
+a < 20
+result = 2020
+-------------
+foo(21) in main 
+aspect 1
+aspect 2
+aspect 3
+core program: x = 21 
+result = 21
+-------------

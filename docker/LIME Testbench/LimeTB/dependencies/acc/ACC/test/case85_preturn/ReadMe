@@ -1,0 +1,9 @@
+feature work:
+	preturn() support, allow advice code return immediately out of the parent function.
+
+July 22, 2007
+	add case for preturn() enhancement: preturn() can return any value, not only non-zero-integer.
+
+	when preturn() takes a floating value, it is converted to an integer value first. Therefore, its original value is not preserved.
+
+	This might be fixed in the future.

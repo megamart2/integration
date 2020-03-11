@@ -1,0 +1,16 @@
+test bug fix:
+	1. handle the case when a parameter is declared as an array
+	2. handle the case:
+		int * a;
+		sizeof a;
+		sizeof *a;
+	3. the introduce() advice should also insert type member into the type definition inside the aspect file, ie.
+		struct X {
+			int a;
+		};
+
+		introduce(): intype(struct X) {
+			int b;
+		}
+
+		shoud work.

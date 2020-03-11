@@ -1,0 +1,9 @@
+include ':common'
+project(':common').projectDir = new File(settingsDir, "../common")
+
+include ':LCT'
+project(':LCT').projectDir = new File(settingsDir, "../tester")
+
+include ':limec'
+project(':limec').projectDir = new File(settingsDir, "../limec")
+
