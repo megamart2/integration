@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 WORKDIR /aiphs
 ADD src /aiphs/src
-RUN apt-get update && apt-get install xterm wget make tclsh wish xz-utils libnspr4 default-jdk libgtk-3-0 libgtk2.0-0 vim man rsync -y
+RUN apt-get update && apt-get install xterm wget make tclsh wish xz-utils libnspr4 default-jdk libgtk-3-0 libgtk2.0-0 vim man rsync build-essential -y
 RUN wget https://www.gaisler.com/products/grlib/grlib-gpl-2019.4-b4246.tar.gz
 RUN tar xvzf grlib-gpl-2019.4-b4246.tar.gz
 RUN wget https://www.gaisler.com/anonftp/bcc2/bin/bcc-2.1.1-gcc-linux64.tar.xz
